@@ -1,0 +1,109 @@
+body {
+    text-align: center;
+    overflow: hidden;
+    background-color: #e4e2e5;
+    font-family: "Fredoka", sans-serif;
+    font-weight: 500;
+    color: #201e25;
+}
+
+.nama-anggota {
+    display: flex;
+    justify-content: center;
+    gap: 0px 30px;
+    margin: 0px 20px; /*atasbawah kirikanan*/
+    flex-wrap: wrap;
+}
+
+.anggota {
+    background-color: #fece11;
+    display: inline-block;
+    border: 2px solid #201e25;
+    padding: 1px 12px;
+    border-radius: 14px;
+}
+
+.anggota:nth-child(even) {
+    background: #c8edf7;
+}
+
+/*Welcome to our ...*/
+header h1 {
+    font-family: "DynaPuff", sans-serif;
+    font-weight: 600;
+    font-size: 48px;
+    color: #fece11;
+    -webkit-text-stroke: 11px #201e25; 
+    paint-order: stroke fill;
+}
+
+header p {
+    background: #201e25;
+    color: white;
+    display: inline-block;
+    font-weight: 400;
+    padding: 4px 20px; /*tinggi lebar*/
+    border-radius: 14px;
+}
+
+article {
+    background: white;
+    padding: 8px;
+    margin: 20px;
+    border-radius: 20px;
+    box-shadow: 0px 6px 0px #201e25;
+}
+
+article h3 {
+    font-family: "DynaPuff", sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+/*button masuk*/
+#masuk {
+    border-radius: 10px;
+    margin-bottom: 50px;
+    color: #201e25;
+    background-color: #36d1f7;
+    font-family: "Fredoka", sans-serif;
+    font-weight: 500;
+    padding: 6px 20px;
+    font-size: 17px;
+    border: none;
+    box-shadow: 0px 5px 0px #201e25; /*x y blur warna*/
+    cursor: pointer;
+}
+
+#masuk:hover {
+    background-color: #c8edf7;
+}
+
+
+
+/*HOME.HTML*/
+#canvas {
+    /*vw= viewport width*/
+    width: 100vw;
+    /*vh= viewport height*/
+    height: 100vh;
+
+    background-color: #fbf7f4;
+
+    background-image: radial-gradient(#c4b4a3 1px, transparent 1px);
+    background-size: 20px 20px; /*lebar tinggi*/
+}
+
+
+/*Bikin Rangkaian listrik...*/
+.content h2 {
+    font-family: "DynaPuff", sans-serif;
+    font-size: 30px;
+    font-weight: 500;
+    background: white;
+    box-shadow: 0px 5px 0px #201e25;
+    border: 2px solid #201e25;
+    border-radius: 20px;
+    display: inline-block;
+    padding: 4px 60px;
+}
