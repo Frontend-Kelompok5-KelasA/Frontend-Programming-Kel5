@@ -187,3 +187,16 @@ class ComponentInteraction {
         return circuitResult;
     }
 }
+
+const cLogic = new CircuitLogic();                  
+const cInter = new ComponentInteraction(cLogic);      
+
+export function registerComponent(id, type, value, nA, nB) {
+    cLogic.addComponent(id, type, value, nA, nB);
+    return cInter.updateBoardFeedback();
+}
+
+export function connectNodes(id, nA, nB) {
+    cLogic.addWire(id, nA, nB);
+    return cInter.updateBoardFeedback();
+}
