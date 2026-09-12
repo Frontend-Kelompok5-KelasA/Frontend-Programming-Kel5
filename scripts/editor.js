@@ -1,3 +1,5 @@
+import {connectNodes, registerComponent} from "../script.js";
+
 const content = document.getElementsByClassName("content")[0];
 
 let attached = null;
@@ -109,6 +111,31 @@ export function initComponent(component){
 
         checkAttachedCable(event);
     });
+
+    let compType = "";
+    switch(component.children[0].dataset.type){
+        case "wire":
+            compType = "Wire";
+            break;
+
+        case "battery":
+            compType = "Battery";
+            break;
+
+        case "resistor":
+            compType = "Resistor";
+            break;
+
+        case "switch":
+            compType = "Switch";
+            break;
+
+        case "bulb":
+            compType = "Bulb";
+            break;
+    }
+
+    registerComponent(component.id, compType, component, null, null);
 }
 
 window.addEventListener("pointermove", (event) => {
@@ -229,6 +256,8 @@ function checkConnector(){
 
             updateCablePos(cable, leftPointer, rightPointer);
         }
+
+        connectNodes(cable.id, attached, attached2);
 
         attached = null;
         attached2 = null;
