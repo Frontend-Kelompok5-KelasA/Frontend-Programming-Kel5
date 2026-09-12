@@ -109,3 +109,36 @@ article h3 {
     display: inline-block;
     padding: 4px 60px;
 }
+
+.panel {
+    width: 100px;            
+    background-color: white;
+    padding: 10x;
+    border-radius: 8px;
+    border: 2px solid #201e25 ;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-sizing: border-box;
+}
+
+.item {
+    display: flex;
+    flex-direction: column;  
+    align-items: center;      
+    gap: 6px;                 
+    margin-bottom: 16px;
+}
+
+.item-img {
+    width: 35px;
+    height: auto;
+    object-fit: contain;
+}
+
+.item-text {
+    color: black;       
+    font-size: 14px;
+    font-weight: 500;
+    font-family: sans-serif;
+}
