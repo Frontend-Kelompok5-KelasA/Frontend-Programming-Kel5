@@ -136,6 +136,10 @@ article h3 {
     width: 35px;
     height: auto;
     object-fit: contain;
+    background-image: linear-gradient(rgba(159, 153, 143, 0.4), rgba(117, 112, 103, 0.4));
+    background-size: 0;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .item-text {
@@ -143,4 +147,26 @@ article h3 {
     font-size: 14px;
     font-weight: 500;
     font-family: sans-serif;
+}
+
+.left-pointer {
+    position: absolute;
+    top: 13px;
+    left: 0;
+    height: 7px;
+    width: 7px;
+    background-color: red;
+    border-radius: 100%;
+    display: none;
+}
+
+.right-pointer {
+    position: absolute;
+    top: 13px;
+    left: 28px;
+    height: 7px;
+    width: 7px;
+    background-color: green;
+    border-radius: 100%;
+    display: none;
 }

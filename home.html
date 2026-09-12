@@ -12,6 +12,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
 
+        <script type="module" src="scripts/panel.js" defer></script>
     </head>
     <body>
         <div id="canvas">
@@ -21,33 +22,48 @@
             <div class="panel">
                 <div class="panel-items">
                     <div class="item">
-                        <img src="assets/wire.png" class="item-img">
+                        <img src="assets/wire.png" class="item-img" data-type="wire">
                         <Span class="item-text">Wire</Span>
                     </div>
 
                     <div class="item">
-                        <img src="assets/battery.png" class="item-img">
+                        <img src="assets/battery.png" class="item-img" data-type="battery">
+                        <div class="left-pointer"></div>
+                        <div class="right-pointer"></div>
                         <Span class="item-text">Battery</Span>
                     </div>
 
                     <div class="item">
-                        <img src="assets/light_off.png" class="item-img">
+                        <img src="assets/light_off.png" class="item-img" data-type="bulb">
+                        <div class="left-pointer"></div>
+                        <div class="right-pointer"></div>
                         <Span class="item-text">Light Bulb</Span>
                     </div>
 
                     <div class="item">
-                        <img src="assets/resistor.png" class="item-img">
+                        <img src="assets/resistor.png" class="item-img" data-type="resistor">
+                        <div class="left-pointer"></div>
+                        <div class="right-pointer"></div>
                         <Span class="item-text">Resistor</Span>
                     </div>
 
                     <div class="item">
-                        <img src="assets/switch_off.png" class="item-img">
+                        <img src="assets/switch_off.png" class="item-img" data-type="switch-off">
+                        <div class="left-pointer"></div>
+                        <div class="right-pointer"></div>
                         <Span class="item-text">Switch Off</Span>
                     </div>
 
                     <div class="item">
-                        <img src="assets/switch_on.png" class="item-img">
+                        <img src="assets/switch_on.png" class="item-img" data-type="switch-on">
+                        <div class="left-pointer"></div>
+                        <div class="right-pointer"></div>
                         <Span class="item-text">Switch On</Span>
+                    </div>
+
+                    <div class="item">
+                        <img src="assets/rotate.png" class="item-img" data-type="rotate">
+                        <Span class="item-text">Rotate</Span>
                     </div>
 
                 </div>
