@@ -1,16 +1,25 @@
-import {initComponent, toggleConnecting, toggleRotating} from "./editor.js";
+import {initComponent, setup, toggleConnecting, toggleRotating} from "./editor.js";
 
 const content = document.getElementsByClassName("content")[0];
-[...document.getElementsByClassName("item")].forEach((element) => {
-    element.getElementsByTagName("img")[0].addEventListener("click", (event) => {
-        if(element.childNodes[1].dataset.type === "wire"){
-            toggleConnecting(element.childNodes[1]);
-            return;
-        }
 
-        if(element.childNodes[1].dataset.type === "rotate"){
-            toggleRotating(element.childNodes[1]);
-            return;
+[...document.getElementsByClassName("item")].forEach((element) => {
+    const imgChild = element.children[0];
+    if(imgChild && imgChild.dataset.type){
+        setup(imgChild.dataset.type, imgChild);
+    }
+
+    element.style.userSelect = "none";
+    element.style.cursor = "grab";
+
+    element.getElementsByTagName("img")[0].addEventListener("click", () => {
+        switch(element.childNodes[1].dataset.type){
+            case "wire":
+                toggleConnecting(element.childNodes[1]);
+                return;
+
+            case "rotate":
+                toggleRotating(element.childNodes[1]);
+                return;
         }
 
         const cloned = element.cloneNode(true);

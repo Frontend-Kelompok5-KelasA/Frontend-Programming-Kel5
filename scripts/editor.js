@@ -1,3 +1,5 @@
+const content = document.getElementsByClassName("content")[0];
+
 let attached = null;
 let attached2 = null;
 
@@ -8,10 +10,22 @@ let isRotating = null;
 
 let offsets = {};
 
-const content = document.getElementsByClassName("content")[0];
+let wireElement = null;
+let rotateElement = null;
+
+export function setup(type, element){
+    switch(type){
+        case "wire":
+            wireElement = element;
+            break;
+
+        case "rotate":
+            rotateElement = element;
+            break;
+    }
+}
 
 export function initComponent(component){
-    component.style.userSelect = "none";
     component.style.position = "absolute";
 
     component.querySelectorAll("img").forEach((e) => e.draggable = false);
@@ -46,15 +60,7 @@ export function initComponent(component){
                 attached.style.top = (offsets["y"] + event.clientY) + 'px';
             }
 
-            const leftPointer = attached.getElementsByClassName("left-pointer")[0];
-            if(leftPointer.cable){
-                updateCablePos(leftPointer.cable, leftPointer, leftPointer.cable.rightPointer)
-            }
-
-            const rightPointer = attached.getElementsByClassName("right-pointer")[0];
-            if(rightPointer.cable){
-                updateCablePos(rightPointer.cable, rightPointer.cable.leftPointer, rightPointer)
-            }
+            checkCablePos(attached);
         }
     });
 
@@ -89,73 +95,39 @@ export function initComponent(component){
 
         cable.style.position = "absolute";
         cable.style.transformOrigin = "0 50%";
+
         cable.style.pointerEvents = "none";
 
-        cable.style.margin = "0px";
-        cable.style.padding = "0px";
-
         cable.style.objectFit = "fill";
+
         cable.style.height = "9px";
         cable.style.borderRadius = "10%";
 
         content.appendChild(cable);
 
         attached = component;
-    });
 
-    component.style.cursor = "grab";
+        checkAttachedCable(event);
+    });
 }
 
 window.addEventListener("pointermove", (event) => {
     if(isConnecting && attached){
-        const pointer = attached.getElementsByClassName("left-pointer")[0];
-        const anchorRect = pointer.getBoundingClientRect();
-
-        const screenX = anchorRect.left + (anchorRect.width / 2);
-        const screenY = anchorRect.top + (anchorRect.height / 2);
-
-        let offsetX = 0;
-        let offsetY = 0;
-
-        if(cable.offsetParent && getComputedStyle(cable.offsetParent).position !== "static"){
-            const parentRect = cable.offsetParent.getBoundingClientRect();
-            offsetX = parentRect.left + cable.offsetParent.clientLeft;
-            offsetY = parentRect.top + cable.offsetParent.clientTop;
-        }
-
-        cable.style.left = (screenX - offsetX) + window.scrollX + "px";
-        cable.style.top = ((screenY - offsetY) + window.scrollY - (cable.offsetHeight / 2)) + "px";
-
-        const dx = event.clientX - screenX;
-        const dy = event.clientY - screenY;
-
-        cable.style.width = Math.sqrt(dx * dx + dy * dy) + "px";
-
-        const angle = Math.atan2(dy, dx) * (180 / Math.PI);
-        cable.style.transform = `rotate(${angle}deg)`;
-
+        checkAttachedCable(event);
         return;
     }
 
     if(isRotating && attached){
         const rect = attached.getBoundingClientRect();
 
-        const dx = event.clientX - (rect.left + (rect.width / 2));
-        const dy = event.clientY - (rect.top + (rect.height / 2));
-
-        const angle = Math.atan2(dy, dx) * (180 / Math.PI);
+        const angle = Math.atan2(
+            event.clientX - (rect.left + (rect.width / 2)),
+            event.clientY - (rect.top + (rect.height / 2))
+        ) * (-180 / Math.PI);
 
         attached.style.transform = `scale(1.5) rotate(${angle}deg)`;
 
-        const leftPointer = attached.getElementsByClassName("left-pointer")[0];
-        if(leftPointer.cable){
-            updateCablePos(leftPointer.cable, leftPointer, leftPointer.cable.rightPointer)
-        }
-
-        const rightPointer = attached.getElementsByClassName("right-pointer")[0];
-        if(rightPointer.cable){
-            updateCablePos(rightPointer.cable, rightPointer.cable.leftPointer, rightPointer)
-        }
+        checkCablePos(attached);
     }
 })
 
@@ -171,38 +143,57 @@ window.addEventListener("pointerup", (event) => {
     }
 })
 
-function updateCablePos(cable, leftPointer, rightPointer){
-    const rect1 = leftPointer.getBoundingClientRect();
-    const leftX = rect1.left + (rect1.width / 2);
-    const leftY = rect1.top + (rect1.height / 2);
+function checkAttachedCable(event){
+    const pointer = attached.getElementsByClassName("left-pointer")[0];
+    if(!pointer)return;
 
-    const rect2 = rightPointer.getBoundingClientRect();
-    const rightX = rect2.left + (rect2.width / 2);
-    const rightY = rect2.top + (rect2.height / 2);
+    const pointerRect = pointer.getBoundingClientRect();
 
-    let offsetX = 0;
-    let offsetY = 0;
-    const parent = cable.offsetParent;
+    const screenX = pointerRect.left + (pointerRect.width / 2);
+    const screenY = pointerRect.top + (pointerRect.height / 2);
 
-    if (parent && getComputedStyle(parent).position !== "static") {
-        const parentRect = parent.getBoundingClientRect();
-        offsetX = parentRect.left + parent.clientLeft;
-        offsetY = parentRect.top + parent.clientTop;
+    cable.style.left = screenX + window.scrollX + "px";
+    cable.style.top = (screenY + window.scrollY - (cable.offsetHeight / 2)) + "px";
+
+    const dx = event.clientX - screenX;
+    const dy = event.clientY - screenY;
+
+    cable.style.width = Math.sqrt(dx * dx + dy * dy) + "px";
+
+    const angle = Math.atan2(dy, dx) * (180 / Math.PI);
+    cable.style.transform = `rotate(${angle}deg)`;
+}
+
+function checkCablePos(component){
+    const leftPointer = component.getElementsByClassName("left-pointer")[0];
+    if(leftPointer.cable){
+        updateCablePos(leftPointer.cable, leftPointer, leftPointer.cable.rightPointer)
     }
 
-    const cssX = (leftX - offsetX) + window.scrollX;
-    const cssY = (leftY - offsetY) + window.scrollY;
+    const rightPointer = component.getElementsByClassName("right-pointer")[0];
+    if(rightPointer.cable){
+        updateCablePos(rightPointer.cable, rightPointer.cable.leftPointer, rightPointer)
+    }
+}
 
-    cable.style.left = cssX + "px";
-    cable.style.top = (cssY - (cable.offsetHeight / 2)) + "px";
+function updateCablePos(cable, leftPointer, rightPointer){
+    const leftRect = leftPointer.getBoundingClientRect();
+    const leftX = leftRect.left + (leftRect.width / 2);
+    const leftY = leftRect.top + (leftRect.height / 2);
+
+    const rightRect = rightPointer.getBoundingClientRect();
+    const rightX = rightRect.left + (rightRect.width / 2);
+    const rightY = rightRect.top + (rightRect.height / 2);
+
+    cable.style.left = leftX + window.scrollX + "px";
+    cable.style.top = (leftY + window.scrollY - (cable.offsetHeight / 2)) + "px";
 
     const dx = rightX - leftX;
     const dy = rightY - leftY;
 
-    const length = Math.sqrt(dx * dx + dy * dy);
-    const angle = Math.atan2(dy, dx) * (180 / Math.PI);
+    cable.style.width = Math.sqrt(dx * dx + dy * dy) + "px";
 
-    cable.style.width = length + "px";
+    const angle = Math.atan2(dy, dx) * (180 / Math.PI);
     cable.style.transform = `rotate(${angle}deg)`;
 }
 
@@ -227,8 +218,8 @@ function checkConnector(){
         attached2.linked = true;
 
         if(cable){
-            const leftPointer = attached.getElementsByClassName("left-pointer")[0] || attached;
-            const rightPointer = attached2.getElementsByClassName("right-pointer")[0] || attached2;
+            const leftPointer = attached.getElementsByClassName("left-pointer")[0];
+            const rightPointer = attached2.getElementsByClassName("right-pointer")[0];
 
             leftPointer.cable = cable;
             rightPointer.cable = cable;
@@ -248,11 +239,8 @@ function checkConnector(){
     }
 }
 
-let wireElement = null;
-export function toggleConnecting(element){
-    if(isRotating)toggleRotating(null);
-
-    if(element)wireElement = element;
+export function toggleConnecting(){
+    if(isRotating)toggleRotating();
 
     isConnecting = !isConnecting;
 
@@ -263,20 +251,10 @@ export function toggleConnecting(element){
     checkConnector();
 }
 
-let rotateElement = null;
-export function toggleRotating(element, check){
-    // if(!check){
-    //     if(isConnecting)toggleConnecting(null, true);
-    //     if(!isRotating)isRotating = true;
-    // } else {
-    //     if(isRotating)isRotating = null;
-    // }
-
-    if(isConnecting)toggleConnecting(null, true);
+export function toggleRotating(){
+    if(isConnecting)toggleConnecting();
 
     isRotating = !isRotating;
-
-    if(element)rotateElement = element;
 
     if(rotateElement){
         rotateElement.style.borderRadius = "100%";
