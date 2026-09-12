@@ -138,8 +138,6 @@ window.addEventListener("pointermove", (event) => {
     }
 
     if(isRotating && attached){
-        console.log("hmmm");
-
         const rect = attached.getBoundingClientRect();
 
         const dx = event.clientX - (rect.left + (rect.width / 2));
@@ -163,7 +161,13 @@ window.addEventListener("pointermove", (event) => {
 
 window.addEventListener("pointerup", (event) => {
     if(isRotating){
-        toggleRotating();
+        try {
+            if(event.target.dataset.type !== "rotate"){
+                toggleRotating();
+            }
+        } catch (e) {
+            toggleRotating();
+        }
     }
 })
 
@@ -246,7 +250,7 @@ function checkConnector(){
 
 let wireElement = null;
 export function toggleConnecting(element){
-    if(isRotating)toggleRotating();
+    if(isRotating)toggleRotating(null);
 
     if(element)wireElement = element;
 
@@ -260,14 +264,22 @@ export function toggleConnecting(element){
 }
 
 let rotateElement = null;
-export function toggleRotating(element){
-    if(isConnecting)toggleConnecting();
+export function toggleRotating(element, check){
+    // if(!check){
+    //     if(isConnecting)toggleConnecting(null, true);
+    //     if(!isRotating)isRotating = true;
+    // } else {
+    //     if(isRotating)isRotating = null;
+    // }
 
-    if(element)rotateElement = element;
+    if(isConnecting)toggleConnecting(null, true);
 
     isRotating = !isRotating;
 
+    if(element)rotateElement = element;
+
     if(rotateElement){
-        rotateElement.style.backgroundSize = isRotating ? "100% 80%" : "0";
+        rotateElement.style.borderRadius = "100%";
+        rotateElement.style.backgroundSize = isRotating ? "100% 90%" : "0";
     }
 }
