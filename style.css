@@ -7,6 +7,22 @@ body {
     color: #201e25;
 }
 
+.elemen-lampu img{
+    width: 60px;
+    height: 60px;
+    animation: kedip 1s infinite;
+}
+
+@keyframes kedip {
+    0%, 50% {
+        content: url("assets/light_medium.png");
+    }
+    51%, 100% {
+        content: url("assets/light_high.png");
+    }
+}
+
+
 /*Welcome to our ...*/
 header h1 {
     font-family: "DynaPuff", sans-serif;
@@ -18,7 +34,7 @@ header h1 {
 }
 
 header p {
-    background: #201e25;
+    background-color: #201e25;
     color: white;
     display: inline-block;
     font-weight: 400;
@@ -40,9 +56,11 @@ header p {
     border: none;
     box-shadow: 0px 5px 0px #201e25; /*x y blur warna*/
     cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
 #masuk:hover {
+    transform: translateY(-4px);
     background-color: #c8edf7;
 }
 
@@ -62,14 +80,16 @@ header p {
     cursor: pointer;
     bottom: 0px;
     left: 20px;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
 #keluar:hover {
     background-color: #c8edf7;
+    transform: translateY(-4px);
 }
 
 article {
-    background: white;
+    background-color: white;
     padding: 1px 80px;
     border-radius: 20px;
     box-shadow: 0px 6px 0px #201e25;
@@ -99,7 +119,7 @@ article h3 {
 }
 
 .anggota:nth-child(even) {
-    background: #c8edf7;
+    background-color: #c8edf7;
 }
 
 /*HOME.HTML*/
@@ -121,7 +141,7 @@ article h3 {
     font-family: "DynaPuff", sans-serif;
     font-size: 30px;
     font-weight: 500;
-    background: white;
+    background-color: white;
     box-shadow: 0px 5px 0px #201e25;
     border: 2px solid #201e25;
     border-radius: 20px;
