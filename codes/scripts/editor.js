@@ -1,4 +1,4 @@
-import {connectNodes, registerComponent, toggleSwitch, unregisterComponent, clickBulb} from "./circuit.js";
+import {connectNodes, registerComponent, toggleSwitch, unregisterComponent} from "./circuit.js";
 
 const content = document.getElementsByClassName("content")[0];
 
@@ -88,9 +88,6 @@ export function initComponent(component){
             const componentType = component.children[0].dataset.type;
             if (componentType === "switch-off" || componentType === "switch-on") {
                 toggleSwitch(component.id, component.children[0]);
-            }
-            if (componentType === 'bulb') {
-                clickBulb(component.id);
             }
             return;
         }

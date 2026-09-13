@@ -7,7 +7,7 @@ class CircuitLogic {
   }
 
   addComponent(id, type, value, nA, nB) {
-    // menambahkan komponen ke dalam array (baterai, resistor, lampu, switch)
+    // menambahkan komponen ke dalam array (baterai, resistor, bohlam, switch)
     this.componentArray.push({
       id,
       type,
@@ -46,7 +46,7 @@ class CircuitLogic {
   }
 
   solveCircuit() {
-    // auto-repair semua lampu rusak 
+    // auto-repair semua bohlam rusak 
     this.componentArray.forEach((component) => {
       if (component.type === "Bulb") {
         component.isBroken = false;
@@ -193,7 +193,7 @@ class CircuitLogic {
       // ngitung arus pake hukum ohm
       let loopCurrentValue = circuitLoop.voltage / loopResistance;
 
-      // kalo arusnya kegedean, bikin semua lampu di loop ini jadi rusak
+      // kalo arusnya kegedean, bikin semua bohlam di loop ini jadi rusak
       if (loopCurrentValue > this.maxCurrent) {
         circuitLoop.componentsArray.forEach((circuitComponent) => {
           if (circuitComponent.type === "Bulb") {
@@ -203,14 +203,14 @@ class CircuitLogic {
         loopCurrentValue = 0;
       }
 
-      // ngitung tingkat kecerahan tiap lampu di loop ini
+      // ngitung tingkat kecerahan tiap bohlam di loop ini
       circuitLoop.componentsArray.forEach((circuitComponent) => {
         if (circuitComponent.type === "Bulb") {
           let currentBrightness = circuitComponent.isBroken
             ? 0
             : Math.min(1.0, loopCurrentValue / this.maxCurrent);
 
-          // kalo lampu ada di beberapa loop, ambil kecerahan paling tinggi dan status rusaknya
+          // kalo bohlam ada di beberapa loop, ambil kecerahan paling tinggi dan status rusaknya
           if (bulbDictionary.has(circuitComponent.id)) {
             let existingBulb = bulbDictionary.get(circuitComponent.id);
             existingBulb.isBroken =
@@ -229,7 +229,7 @@ class CircuitLogic {
       });
     });
 
-    // ngumpulin hasil perhitungan lampu jadi array
+    // ngumpulin hasil perhitungan bohlam jadi array
     let finalBulbsArray = Array.from(bulbDictionary.values());
 
     return {
@@ -270,22 +270,11 @@ class ComponentInteraction {
     this.updateBoardFeedback();
   }
 
-  // membetulkan lampu yang rusak saat diklik
-  handleBulbClick(bulbId) {
-    let bulbComponent = this.circuitLogic.componentArray.find(
-      (component) => component.id === bulbId,
-    );
-    if (bulbComponent && bulbComponent.isBroken) {
-      bulbComponent.isBroken = false;
-      this.updateBoardFeedback();
-    }
-  }
-
   updateBoardFeedback() {
     // ngupdate gambar di canvas sesuai hasil perhitungan sirkuit
     const circuitResult = this.circuitLogic.solveCircuit();
 
-    // balikin semua lampu dan kabel ke gambar default/mati dulu
+    // balikin semua bohlam dan kabel ke gambar default/mati dulu
     this.circuitLogic.componentArray.forEach((component) => {
       const element = document.querySelector(`[data-id="${component.id}"]`);
       if (!element) return;
@@ -308,7 +297,7 @@ class ComponentInteraction {
         : "Normal";
     }
 
-    // ngubah gambar lampu sesuai tingkat kecerahan atau kalo rusak
+    // ngubah gambar bohlam sesuai tingkat kecerahan atau kalo rusak
     circuitResult.bulbs.forEach((bulb) => {
       const bulbElement = document.querySelector(`[data-id="${bulb.id}"]`);
       if (!bulbElement) return;
@@ -358,9 +347,4 @@ export function toggleSwitch(id, element) {
 export function unregisterComponent(id) {
   circuitLogic.removeComponent(id);
   return componentInteraction.updateBoardFeedback();
-}
-
-// wrapper buat repair lampu 
-export function clickBulb(id) {
-  return componentInteraction.handleBulbClick(id);
 }
