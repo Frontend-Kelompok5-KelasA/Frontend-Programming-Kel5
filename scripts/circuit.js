@@ -49,10 +49,11 @@ class CircuitLogic {
     });
   }
 
-  solveCircuit() {
+solveCircuit() {
     let batteries = this.componentArray.filter(
       (component) => component.type === "Battery",
     );
+
     if (batteries.length === 0) {
       return {
         currentValue: 0,
@@ -63,72 +64,90 @@ class CircuitLogic {
       };
     }
 
-    let startBattery = batteries[0];
-    let totalResistance = 0;
-    let totalVoltage = 0;
-    let isLoop = false;
-    let actualPath = [];
+    let foundLoopsArray = [];
 
-    const dfs = (currentComponentId, currentResistance, currentVoltage, visitedWires, pathComponents) => {
-      let candidateWires = this.componentArray.filter(
-        (component) =>
-          component.type === "Wire" &&
-          !visitedWires.has(component.id) &&
-          (component.nA === currentComponentId || component.nB === currentComponentId)
-      );
-
-      for (let wire of candidateWires) {
-        let nextComponentId = wire.nA === currentComponentId ? wire.nB : wire.nA;
-
-        if (nextComponentId === startBattery.id && visitedWires.size >= 1) {
-          isLoop = true;
-          totalResistance = currentResistance;
-          totalVoltage = currentVoltage;
-          actualPath = [...pathComponents, wire];
-          return;
-        }
-
-        let nextComponent = this.componentArray.find((component) => component.id === nextComponentId);
-        if (!nextComponent || nextComponent.isBroken || (nextComponent.type === "Switch" && nextComponent.value === 0)) {
-          continue;
-        }
-
-        let resistance =
-          nextComponent.type === "Resistor" ||
-          nextComponent.type === "Bulb" ||
-          nextComponent.type === "Wire"
-            ? nextComponent.value
-            : 0;
-        let voltage = nextComponent.type === "Battery" ? nextComponent.value : 0;
-
-        visitedWires.add(wire.id);
-        pathComponents.push(wire);
-        pathComponents.push(nextComponent);
-
-        dfs(
-          nextComponentId,
-          currentResistance + resistance,
-          currentVoltage + voltage,
-          visitedWires,
-          pathComponents
+    batteries.forEach((startBattery) => {
+      const depthFirstSearch = (
+        currentComponentId,
+        currentResistance,
+        currentVoltage,
+        visitedWires,
+        pathComponents,
+      ) => {
+        let candidateWires = this.componentArray.filter(
+          (component) =>
+            component.type === "Wire" &&
+            !visitedWires.has(component.id) &&
+            (component.nA === currentComponentId ||
+              component.nB === currentComponentId),
         );
 
-        if (isLoop) return;
+        for (let wire of candidateWires) {
+          let nextComponentId =
+            wire.nA === currentComponentId ? wire.nB : wire.nA;
 
-        visitedWires.delete(wire.id);
-        pathComponents.pop();
-        pathComponents.pop();
-      }
-    };
+          if (nextComponentId === startBattery.id && visitedWires.size >= 1) {
+            foundLoopsArray.push({
+              resistance: currentResistance,
+              voltage: currentVoltage,
+              componentsArray: [...pathComponents, wire],
+            });
+            continue;
+          }
 
-    let initialResistance =
-      startBattery.type === "Resistor" || startBattery.type === "Bulb"
-        ? startBattery.value
-        : 0;
+          let nextComponent = this.componentArray.find(
+            (component) => component.id === nextComponentId,
+          );
+          if (
+            !nextComponent ||
+            nextComponent.isBroken ||
+            (nextComponent.type === "Switch" && nextComponent.value === 0)
+          ) {
+            continue;
+          }
 
-    dfs(startBattery.id, initialResistance, startBattery.value, new Set(), [startBattery]);
+          let resistance =
+            nextComponent.type === "Resistor" ||
+            nextComponent.type === "Bulb" ||
+            nextComponent.type === "Wire"
+              ? nextComponent.value
+              : 0;
+          let voltage =
+            nextComponent.type === "Battery" ? nextComponent.value : 0;
 
-    if (!isLoop) {
+          visitedWires.add(wire.id);
+          pathComponents.push(wire);
+          pathComponents.push(nextComponent);
+
+          depthFirstSearch(
+            nextComponentId,
+            currentResistance + resistance,
+            currentVoltage + voltage,
+            visitedWires,
+            pathComponents,
+          );
+
+          visitedWires.delete(wire.id);
+          pathComponents.pop();
+          pathComponents.pop();
+        }
+      };
+
+      let initialResistance =
+        startBattery.type === "Resistor" || startBattery.type === "Bulb"
+          ? startBattery.value
+          : 0;
+
+      depthFirstSearch(
+        startBattery.id,
+        initialResistance,
+        startBattery.value,
+        new Set(),
+        [startBattery],
+      );
+    });
+
+    if (foundLoopsArray.length === 0) {
       return {
         currentValue: 0,
         actualPath: [],
@@ -138,30 +157,61 @@ class CircuitLogic {
       };
     }
 
-    let isShortCircuit = false;
-    if (totalResistance === 0) {
-      isShortCircuit = true;
-      totalResistance = 0.0001;
-    }
+    let globalShortCircuit = false;
+    let bulbDictionary = new Map();
 
-    let currentValue = totalVoltage / totalResistance;
+    foundLoopsArray.forEach((circuitLoop) => {
+      let loopResistance = circuitLoop.resistance;
 
-    if (currentValue > this.maxCurrent) {
-      actualPath.forEach((component) => {
-        if (component.type === "Bulb") component.isBroken = true;
+      if (loopResistance === 0) {
+        globalShortCircuit = true;
+        loopResistance = 0.0001;
+      }
+
+      let loopCurrentValue = circuitLoop.voltage / loopResistance;
+
+      if (loopCurrentValue > this.maxCurrent) {
+        circuitLoop.componentsArray.forEach((circuitComponent) => {
+          if (circuitComponent.type === "Bulb") {
+            circuitComponent.isBroken = true;
+          }
+        });
+        loopCurrentValue = 0;
+      }
+
+      circuitLoop.componentsArray.forEach((circuitComponent) => {
+        if (circuitComponent.type === "Bulb") {
+          let currentBrightness = circuitComponent.isBroken
+            ? 0
+            : Math.min(1.0, loopCurrentValue / this.maxCurrent);
+
+          if (bulbDictionary.has(circuitComponent.id)) {
+            let existingBulb = bulbDictionary.get(circuitComponent.id);
+            existingBulb.isBroken =
+              existingBulb.isBroken || circuitComponent.isBroken;
+            existingBulb.brightness = existingBulb.isBroken
+              ? 0
+              : Math.max(existingBulb.brightness, currentBrightness);
+          } else {
+            bulbDictionary.set(circuitComponent.id, {
+              id: circuitComponent.id,
+              isBroken: circuitComponent.isBroken,
+              brightness: currentBrightness,
+            });
+          }
+        }
       });
-      currentValue = 0;
-    }
+    });
 
-    let bulbs = actualPath
-      .filter((component) => component.type === "Bulb")
-      .map((bulb) => ({
-        id: bulb.id,
-        isBroken: bulb.isBroken,
-        brightness: bulb.isBroken ? 0 : Math.min(1.0, currentValue / this.maxCurrent),
-      }));
+    let finalBulbsArray = Array.from(bulbDictionary.values());
 
-    return { currentValue, actualPath, totalVoltage, bulbs, isShortCircuit };
+    return {
+      currentValue: 0,
+      actualPath: [],
+      totalVoltage: 0,
+      bulbs: finalBulbsArray,
+      isShortCircuit: globalShortCircuit,
+    };
   }
 }
 
