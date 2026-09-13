@@ -1,4 +1,4 @@
-import {connectNodes, registerComponent, toggleSwitch} from "./circuit.js";
+import {connectNodes, registerComponent, toggleSwitch, unregisterComponent} from "./circuit.js";
 
 const content = document.getElementsByClassName("content")[0];
 
@@ -96,6 +96,7 @@ export function initComponent(component){
             const pointer = component.getElementsByClassName("right-pointer")[0];
             if(pointer.cable){
                 if(pointer.cable.leftPointer)pointer.cable.leftPointer.cable = null;
+                unregisterComponent(pointer.cable.id);
                 pointer.cable.remove();
                 pointer.cable = null;
             }
@@ -107,6 +108,7 @@ export function initComponent(component){
         const pointer = component.getElementsByClassName("left-pointer")[0];
         if(pointer.cable){
             if(pointer.cable.rightPointer)pointer.cable.rightPointer.cable = null;
+            unregisterComponent(pointer.cable.id);
             pointer.cable.remove();
             pointer.cable = null;
         }
@@ -308,10 +310,13 @@ function checkConnector(){
 }
 
 function removeComponent(component){
+    toggleDeleting();
+
     if(component.dataset.type === "wire"){
         component.leftPointer.cable = null;
         component.rightPointer.cable = null;
 
+        unregisterComponent(component.id);
         component.remove();
         return;
     }
@@ -321,6 +326,7 @@ function removeComponent(component){
         const rightSide = leftPointer.cable.rightPointer;
         if(rightSide)rightSide.cable = null;
 
+        unregisterComponent(leftPointer.cable.id);
         leftPointer.cable.remove();
     }
 
@@ -329,9 +335,11 @@ function removeComponent(component){
         const leftSide = rightPointer.cable.leftPointer;
         if(leftSide)leftSide.cable = null;
 
+        unregisterComponent(rightPointer.cable.id);
         rightPointer.cable.remove();
     }
 
+    unregisterComponent(component.id);
     component.remove();
 }
 

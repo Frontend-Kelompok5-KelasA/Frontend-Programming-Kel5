@@ -258,19 +258,24 @@ class ComponentInteraction {
   }
 }
 
-const cLogic = new CircuitLogic();
-const cInter = new ComponentInteraction(cLogic);
+const circuitLogic = new CircuitLogic();
+const componentInteraction = new ComponentInteraction(circuitLogic);
 
 export function registerComponent(id, type, value, nA, nB) {
-  cLogic.addComponent(id, type, value, nA, nB);
-  return cInter.updateBoardFeedback();
+  circuitLogic.addComponent(id, type, value, nA, nB);
+  return componentInteraction.updateBoardFeedback();
 }
 
 export function connectNodes(id, nA, nB) {
-  cLogic.addWire(id, nA, nB);
-  return cInter.updateBoardFeedback();
+  circuitLogic.addWire(id, nA, nB);
+  return componentInteraction.updateBoardFeedback();
 }
 
 export function toggleSwitch(id, element) {
-  return cInter.handleSwitchToggle(id, element);
+  return componentInteraction.handleSwitchToggle(id, element);
+}
+
+export function unregisterComponent(id) {
+  circuitLogic.removeComponent(id);
+  return componentInteraction.updateBoardFeedback();
 }
