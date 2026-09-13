@@ -64,6 +64,27 @@ header p {
     background-color: #c8edf7;
 }
 
+#keluar {
+    position: fixed;
+    border-radius: 10px;
+    margin-top: 30px;
+    margin-bottom: 50px;
+    color: #201e25;
+    background-color: #36d1f7;
+    font-family: "Fredoka", sans-serif;
+    font-weight: 500;
+    padding: 6px 20px;
+    font-size: 17px;
+    border: none;
+    box-shadow: 0px 5px 0px #201e25; /*x y blur warna*/
+    cursor: pointer;
+    bottom: 0px;
+    left: 20px;
+}
+
+#keluar:hover {
+    background-color: #c8edf7;
+}
 
 article {
     background: white;
@@ -99,8 +120,6 @@ article h3 {
     background: #c8edf7;
 }
 
-
-
 /*HOME.HTML*/
 #canvas {
     /*vw= viewport width*/
@@ -129,6 +148,7 @@ article h3 {
 }
 
 .panel {
+    position: fixed;
     width: 100px;            
     background-color: white;
     padding: 10x;
@@ -138,7 +158,24 @@ article h3 {
     flex-direction: column;
     gap: 12px;
     box-sizing: border-box;
-    margin-left: 20px;
+    top: 100px;
+    left: 20px;
+    box-shadow: 0px 5px 0px #201e25;
+}
+
+.tools {
+    position: fixed;
+    width: 100px;            
+    background-color: white;
+    padding: 10x;
+    border-radius: 15px;
+    border: 2px solid #201e25;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-sizing: border-box;
+    right: 20px;
+    top: 100px;
     box-shadow: 0px 5px 0px #201e25;
 }
 
@@ -154,6 +191,10 @@ article h3 {
     width: 35px;
     height: auto;
     object-fit: contain;
+    background-image: linear-gradient(rgba(159, 153, 143, 0.4), rgba(117, 112, 103, 0.4));
+    background-size: 0;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .item-text {
@@ -161,4 +202,26 @@ article h3 {
     font-size: 14px;
     font-weight: 500;
     font-family: sans-serif;
+}
+
+.left-pointer {
+    position: absolute;
+    top: 13px;
+    left: 0;
+    height: 7px;
+    width: 7px;
+    background-color: red;
+    border-radius: 100%;
+    display: none;
+}
+
+.right-pointer {
+    position: absolute;
+    top: 13px;
+    left: 28px;
+    height: 7px;
+    width: 7px;
+    background-color: green;
+    border-radius: 100%;
+    display: none;
 }
