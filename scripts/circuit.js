@@ -50,6 +50,12 @@ class CircuitLogic {
   }
 
 solveCircuit() {
+    this.componentArray.forEach((component) => {
+    if (component.type === "Bulb") {
+      component.isBroken = false;
+    }
+  });
+  
     let batteries = this.componentArray.filter(
       (component) => component.type === "Battery",
     );
