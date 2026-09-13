@@ -253,19 +253,7 @@ class ComponentInteraction {
         }
       }
     });
-
-    circuitResult.actualPath.forEach((component) => {
-      if (component.type === "Wire") {
-        const wireElement = document.querySelector(`[data-id="${component.id}"]`);
-        if (!wireElement) return;
-
-        const image = wireElement.tagName === "IMG" ? wireElement : wireElement.querySelector("img");
-        if (image) {
-          image.src = "assets/wire_on.png";
-        }
-      }
-    });
-
+    
     return circuitResult;
   }
 }
