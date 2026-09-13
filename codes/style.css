@@ -199,6 +199,10 @@ article h3 {
     background-position: center;
 }
 
+.item-img:hover {
+    opacity: 0.7;
+}
+
 .item-text {
     color: black;       
     font-size: 14px;
