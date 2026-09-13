@@ -53,7 +53,7 @@ class CircuitLogic {
     let batteries = this.componentArray.filter(
       (component) => component.type === "Battery",
     );
-    if (batteries.length === 0)
+    if (batteries.length === 0) {
       return {
         currentValue: 0,
         actualPath: [],
@@ -61,66 +61,74 @@ class CircuitLogic {
         bulbs: [],
         isShortCircuit: false,
       };
+    }
 
     let startBattery = batteries[0];
-    let start = startBattery.nA;
-    let end = startBattery.nB;
-
-    let visitedNodes = new Set();
     let totalResistance = 0;
-    let totalVoltage = startBattery.value;
+    let totalVoltage = 0;
     let isLoop = false;
     let actualPath = [];
 
-    const dfs = (currentNode, currentResistance, currentVoltage, path) => {
-      if (currentNode === end) {
-        isLoop = true;
-        totalResistance = currentResistance;
-        totalVoltage = currentVoltage;
-        actualPath = [startBattery, ...path];
-        return;
-      }
+    const dfs = (currentComponentId, currentResistance, currentVoltage, visitedWires, pathComponents) => {
+      let candidateWires = this.componentArray.filter(
+        (component) =>
+          component.type === "Wire" &&
+          !visitedWires.has(component.id) &&
+          (component.nA === currentComponentId || component.nB === currentComponentId)
+      );
 
-      visitedNodes.add(currentNode);
+      for (let wire of candidateWires) {
+        let nextComponentId = wire.nA === currentComponentId ? wire.nB : wire.nA;
 
-      for (let component of this.componentArray) {
-        if (component.nA === currentNode || component.nB === currentNode) {
-          if (component.id === startBattery.id) continue;
-          if (
-            component.isBroken ||
-            (component.type === "Switch" && component.value === 0)
-          )
-            continue;
-
-          let nextNode =
-            currentNode === component.nA ? component.nB : component.nA;
-
-          if (!visitedNodes.has(nextNode)) {
-            let resistance =
-              component.type === "Resistor" ||
-              component.type === "Bulb" ||
-              component.type === "Wire"
-                ? component.value
-                : 0;
-            let voltage = component.type === "Battery" ? component.value : 0;
-
-            path.push(component);
-            dfs(
-              nextNode,
-              currentResistance + resistance,
-              currentVoltage + voltage,
-              path,
-            );
-            path.pop();
-          }
+        if (nextComponentId === startBattery.id && visitedWires.size >= 2) {
+          isLoop = true;
+          totalResistance = currentResistance;
+          totalVoltage = currentVoltage;
+          actualPath = [...pathComponents, wire];
+          return;
         }
+
+        let nextComponent = this.componentArray.find((component) => component.id === nextComponentId);
+        if (!nextComponent || nextComponent.isBroken || (nextComponent.type === "Switch" && nextComponent.value === 0)) {
+          continue;
+        }
+
+        let resistance =
+          nextComponent.type === "Resistor" ||
+          nextComponent.type === "Bulb" ||
+          nextComponent.type === "Wire"
+            ? nextComponent.value
+            : 0;
+        let voltage = nextComponent.type === "Battery" ? nextComponent.value : 0;
+
+        visitedWires.add(wire.id);
+        pathComponents.push(wire);
+        pathComponents.push(nextComponent);
+
+        dfs(
+          nextComponentId,
+          currentResistance + resistance,
+          currentVoltage + voltage,
+          visitedWires,
+          pathComponents
+        );
+
         if (isLoop) return;
+
+        visitedWires.delete(wire.id);
+        pathComponents.pop();
+        pathComponents.pop();
       }
     };
 
-    dfs(start, 0, startBattery.value, []);
+    let initialResistance =
+      startBattery.type === "Resistor" || startBattery.type === "Bulb"
+        ? startBattery.value
+        : 0;
 
-    if (!isLoop)
+    dfs(startBattery.id, initialResistance, startBattery.value, new Set(), [startBattery]);
+
+    if (!isLoop) {
       return {
         currentValue: 0,
         actualPath: [],
@@ -128,6 +136,8 @@ class CircuitLogic {
         bulbs: [],
         isShortCircuit: false,
       };
+    }
+
     let isShortCircuit = false;
     if (totalResistance === 0) {
       isShortCircuit = true;
@@ -148,9 +158,7 @@ class CircuitLogic {
       .map((bulb) => ({
         id: bulb.id,
         isBroken: bulb.isBroken,
-        brightness: bulb.isBroken
-          ? 0
-          : Math.min(1.0, currentValue / this.maxCurrent),
+        brightness: bulb.isBroken ? 0 : Math.min(1.0, currentValue / this.maxCurrent),
       }));
 
     return { currentValue, actualPath, totalVoltage, bulbs, isShortCircuit };
@@ -162,7 +170,7 @@ class ComponentInteraction {
     this.circuitLogic = circuitLogic;
   }
 
-  handleSwitchToggle(switchId, element) {
+    handleSwitchToggle(switchId, element) {
     let switchComponent = this.circuitLogic.componentArray.find(
       (component) => component.id === switchId,
     );
@@ -170,7 +178,15 @@ class ComponentInteraction {
 
     let newState = switchComponent.value === 1 ? 0 : 1;
     this.circuitLogic.upDownSwitch(switchId, newState);
-    element.classList.toggle("switch-off", newState === 0);
+
+    if (newState === 1) {
+      element.src = "assets/switch_on.png";
+      element.dataset.type = "switch-on";
+    } else {
+      element.src = "assets/switch_off.png";
+      element.dataset.type = "switch-off";
+    }
+
     this.updateBoardFeedback();
   }
 
@@ -194,7 +210,7 @@ class ComponentInteraction {
     }
   }
 
-updateBoardFeedback() {
+  updateBoardFeedback() {
     const circuitResult = this.circuitLogic.solveCircuit();
 
     this.circuitLogic.componentArray.forEach((component) => {
@@ -265,4 +281,8 @@ export function registerComponent(id, type, value, nA, nB) {
 export function connectNodes(id, nA, nB) {
   cLogic.addWire(id, nA, nB);
   return cInter.updateBoardFeedback();
+}
+
+export function toggleSwitch(id, element) {
+  return cInter.handleSwitchToggle(id, element);
 }

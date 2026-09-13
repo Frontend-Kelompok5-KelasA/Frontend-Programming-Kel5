@@ -1,4 +1,4 @@
-import {connectNodes, registerComponent} from "./circuit.js";
+import {connectNodes, registerComponent, toggleSwitch} from "./circuit.js";
 
 const content = document.getElementsByClassName("content")[0];
 
@@ -80,7 +80,13 @@ export function initComponent(component){
             return;
         }
 
-        if(!isConnecting)return;
+        if(!isConnecting){
+            const componentType = component.children[0].dataset.type;
+            if (componentType === "switch-off" || componentType === "switch-on") {
+                toggleSwitch(component.id, component.children[0]);
+            }
+            return;
+        }
 
         if(attached){
             if(attached === component)return;
@@ -108,6 +114,9 @@ export function initComponent(component){
         cable = wireElement.cloneNode();
         cable.className = "";
 
+        cable.id = crypto.randomUUID();
+        cable.dataset.id = cable.id;
+
         cable.style.position = "absolute";
         cable.style.transformOrigin = "0 50%";
 
@@ -128,29 +137,37 @@ export function initComponent(component){
     });
 
     let compType = "";
+    let compVal = 0;
     switch(component.children[0].dataset.type){
         case "wire":
             compType = "Wire";
+            compVal = 0;
             break;
 
         case "battery":
             compType = "Battery";
+            compVal = 12;
             break;
 
         case "resistor":
             compType = "Resistor";
+            compVal = 10;
             break;
 
-        case "switch":
+        case "switch-off":
+        case "switch-on":
             compType = "Switch";
+            compVal = 0;
             break;
 
         case "bulb":
             compType = "Bulb";
+            compVal = 10;
             break;
     }
 
-    registerComponent(component.id, compType, component, null, null);
+    component.dataset.id = component.id;
+    registerComponent(component.id, compType, compVal, null, null);
 }
 
 window.addEventListener("pointermove", (event) => {
@@ -281,7 +298,7 @@ function checkConnector(){
             })
         }
 
-        connectNodes(cable.id, attached, attached2);
+        connectNodes(cable.id, attached.id, attached2.id);
 
         attached = null;
         attached2 = null;
