@@ -176,7 +176,8 @@ class CircuitLogic {
         isShortCircuit: false,
       };
     }
-
+    
+    // nyiapin penanda buat ngecek korslet dan kamus buat nyimpen status tiap bohlam
     let globalShortCircuit = false;
     let bulbDictionary = new Map();
 
