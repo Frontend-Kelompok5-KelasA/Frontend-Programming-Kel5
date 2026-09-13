@@ -1,7 +1,7 @@
 class CircuitLogic {
   constructor() {
     this.componentArray = [];
-    this.maxCurrent = 2;
+    this.maxCurrent = 3;
   }
 
   addComponent(id, type, value, nA, nB) {
