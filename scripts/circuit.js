@@ -55,7 +55,7 @@ solveCircuit() {
       component.isBroken = false;
     }
   });
-  
+
     let batteries = this.componentArray.filter(
       (component) => component.type === "Battery",
     );
@@ -297,18 +297,18 @@ class ComponentInteraction {
       const image = bulbElement.tagName === "IMG" ? bulbElement : bulbElement.querySelector("img");
       if (!image) return;
 
-      if (bulb.isBroken) {
-        image.src = "assets/overload.png";
-      } else if (bulb.brightness > 0) {
-        if (bulb.brightness >= 0.7) {
-          image.src = "assets/light_high.png";
-        } else if (bulb.brightness >= 0.35) {
-          image.src = "assets/light_medium.png";
-        } else {
-          image.src = "assets/light_low.png";
-        }
-      }
-    });
+if (bulb.isBroken) {
+    image.src = "assets/overload.png";
+  } else if (bulb.brightness >= 0.7) {
+    image.src = "assets/light_high.png";
+  } else if (bulb.brightness >= 0.35) {
+    image.src = "assets/light_medium.png";
+  } else if (bulb.brightness >= 0.1) {
+    image.src = "assets/light_low.png";
+  } else {
+    image.src = "assets/light_off.png";
+  }
+});
 
     return circuitResult;
   }
