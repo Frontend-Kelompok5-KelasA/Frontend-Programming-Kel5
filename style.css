@@ -46,6 +46,27 @@ header p {
     background-color: #c8edf7;
 }
 
+#keluar {
+    position: fixed;
+    border-radius: 10px;
+    margin-top: 30px;
+    margin-bottom: 50px;
+    color: #201e25;
+    background-color: #36d1f7;
+    font-family: "Fredoka", sans-serif;
+    font-weight: 500;
+    padding: 6px 20px;
+    font-size: 17px;
+    border: none;
+    box-shadow: 0px 5px 0px #201e25; /*x y blur warna*/
+    cursor: pointer;
+    bottom: 0px;
+    left: 20px;
+}
+
+#keluar:hover {
+    background-color: #c8edf7;
+}
 
 article {
     background: white;
@@ -81,8 +102,6 @@ article h3 {
     background: #c8edf7;
 }
 
-
-
 /*HOME.HTML*/
 #canvas {
     /*vw= viewport width*/
@@ -111,6 +130,7 @@ article h3 {
 }
 
 .panel {
+    position: fixed;
     width: 100px;            
     background-color: white;
     padding: 10x;
@@ -120,7 +140,24 @@ article h3 {
     flex-direction: column;
     gap: 12px;
     box-sizing: border-box;
-    margin-left: 20px;
+    top: 100px;
+    left: 20px;
+    box-shadow: 0px 5px 0px #201e25;
+}
+
+.tools {
+    position: fixed;
+    width: 100px;            
+    background-color: white;
+    padding: 10x;
+    border-radius: 15px;
+    border: 2px solid #201e25;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-sizing: border-box;
+    right: 20px;
+    top: 100px;
     box-shadow: 0px 5px 0px #201e25;
 }
 

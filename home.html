@@ -15,59 +15,65 @@
         <script type="module" src="scripts/panel.js" defer></script>
     </head>
     <body>
+        <!--Tempat untuk melakukan penyambungan rangkaian-->
         <div id="canvas">
             <div class="content">
-            <h2>Buat Rangkaian Listrik Seri Yaa</h2>
-            
-            <div class="panel">
-                <div class="panel-items">
-                    <div class="item">
-                        <img src="assets/wire.png" class="item-img" data-type="wire">
-                        <Span class="item-text">Wire</Span>
-                    </div>
+                <h2>Simulasi Rangkaian Listrik</h2>
+                
+                <!--Panel untuk komponen-->
+                <div class="panel">
+                    <div class="panel-items">
+                        <div class="item">
+                            <img src="assets/battery.png" class="item-img" data-type="battery">
+                            <div class="left-pointer"></div>
+                            <div class="right-pointer"></div>
+                            <span class="item-text">Battery</span>
+                        </div>
 
-                    <div class="item">
-                        <img src="assets/battery.png" class="item-img" data-type="battery">
-                        <div class="left-pointer"></div>
-                        <div class="right-pointer"></div>
-                        <Span class="item-text">Battery</Span>
-                    </div>
+                        <div class="item">
+                            <img src="assets/light_off.png" class="item-img" data-type="bulb">
+                            <div class="left-pointer"></div>
+                            <div class="right-pointer"></div>
+                            <span class="item-text">Light Bulb</span>
+                        </div>
 
-                    <div class="item">
-                        <img src="assets/light_off.png" class="item-img" data-type="bulb">
-                        <div class="left-pointer"></div>
-                        <div class="right-pointer"></div>
-                        <Span class="item-text">Light Bulb</Span>
-                    </div>
+                        <div class="item">
+                            <img src="assets/resistor.png" class="item-img" data-type="resistor">
+                            <div class="left-pointer"></div>
+                            <div class="right-pointer"></div>
+                            <span class="item-text">Resistor</span>
+                        </div>
 
-                    <div class="item">
-                        <img src="assets/resistor.png" class="item-img" data-type="resistor">
-                        <div class="left-pointer"></div>
-                        <div class="right-pointer"></div>
-                        <Span class="item-text">Resistor</Span>
+                        <div class="item">
+                            <img src="assets/switch_off.png" class="item-img" data-type="switch-off">
+                            <div class="left-pointer"></div>
+                            <div class="right-pointer"></div>
+                            <span class="item-text">Switch</span>
+                        </div>
                     </div>
-
-                    <div class="item">
-                        <img src="assets/switch_off.png" class="item-img" data-type="switch-off">
-                        <div class="left-pointer"></div>
-                        <div class="right-pointer"></div>
-                        <Span class="item-text">Switch Off</Span>
-                    </div>
-
-                    <div class="item">
-                        <img src="assets/switch_on.png" class="item-img" data-type="switch-on">
-                        <div class="left-pointer"></div>
-                        <div class="right-pointer"></div>
-                        <Span class="item-text">Switch On</Span>
-                    </div>
-
-                    <div class="item">
-                        <img src="assets/rotate.png" class="item-img" data-type="rotate">
-                        <Span class="item-text">Rotate</Span>
-                    </div>
-
                 </div>
-            </div>
+
+                <!--Tool untuk wire dan rotation-->
+                <div class="tool">
+                    <div class="tools">
+                        <div class="item">
+                            <img src="assets/wire.png" class="item-img" data-type="wire">
+                            <span class="item-text">Wire</span>
+                        </div>
+
+                        <div class="item">
+                            <img src="assets/rotate.png" class="item-img" data-type="rotate">
+                            <span class="item-text">Rotate</span>
+                        </div>
+
+                        <div class="item">
+                            <img src="assets/trash.png" class="item-img" data-type="Delete">
+                            <span class="item-text">Delete</span>
+                        </div>
+                    </div>
+                </div>
+                <button id="keluar">Keluar</button>
+                <script type="module" src="script.js"></script>
             </div>
         </div>
     </body>

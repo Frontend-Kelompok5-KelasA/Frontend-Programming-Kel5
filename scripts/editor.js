@@ -9,11 +9,14 @@ let cable = null;
 
 let isConnecting = null;
 let isRotating = null;
+let isDeleting = null;
 
 let offsets = {};
 
 let wireElement = null;
 let rotateElement = null;
+let deleteElement = null;
+
 
 export function setup(type, element){
     switch(type){
@@ -23,6 +26,9 @@ export function setup(type, element){
 
         case "rotate":
             rotateElement = element;
+            break;
+        case "delete":
+            deleteElement = element;
             break;
     }
 }
@@ -289,4 +295,8 @@ export function toggleRotating(){
         rotateElement.style.borderRadius = "100%";
         rotateElement.style.backgroundSize = isRotating ? "100% 90%" : "0";
     }
+}
+
+export function toggleDeleting(){
+    
 }
