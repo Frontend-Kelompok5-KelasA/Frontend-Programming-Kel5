@@ -1,10 +1,11 @@
-import {initComponent, setup, toggleConnecting, toggleRotating, toggleDeleting} from "./editor.js";
+import {initComponent, setup, toggleConnecting, toggleRotating, toggleDeleting, onClear} from "./editor.js";
 
 const content = document.getElementsByClassName("content")[0];
 
 [...document.getElementsByClassName("item")].forEach((element) => {
     const imgChild = element.children[0];
     if(imgChild && imgChild.dataset.type){
+        imgChild.draggable = false;
         setup(imgChild.dataset.type, imgChild);
     }
 
@@ -22,7 +23,11 @@ const content = document.getElementsByClassName("content")[0];
                 return;
             
             case "delete":
-                toggleDeleting(element.childNoted[1]);
+                toggleDeleting(element.childNodes[1]);
+                return;
+
+            case "clear":
+                onClear();
                 return;
         }
 
