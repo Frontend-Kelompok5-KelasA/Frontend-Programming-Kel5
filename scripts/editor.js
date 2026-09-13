@@ -40,7 +40,7 @@ export function initComponent(component){
     component.querySelectorAll("img").forEach((e) => e.draggable = false);
 
     component.addEventListener("pointerdown", (event) => {
-        if(isConnecting || isRotating || isDeleting)return;
+        if(isConnecting || isDeleting)return;
 
         attached = component
 
@@ -194,10 +194,10 @@ window.addEventListener("pointerup", (event) => {
     if(isRotating){
         try {
             if(event.target.dataset.type !== "rotate"){
-                toggleRotating();
+                attached = null;
             }
         } catch (e) {
-            toggleRotating();
+            attached = null;
         }
     }
 })
@@ -304,14 +304,10 @@ function checkConnector(){
         attached2 = null;
 
         cable = null;
-
-        toggleConnecting();
     }
 }
 
 function removeComponent(component){
-    toggleDeleting();
-
     if(component.dataset.type === "wire"){
         component.leftPointer.cable = null;
         component.rightPointer.cable = null;
