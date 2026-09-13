@@ -1,4 +1,4 @@
-import {connectNodes, registerComponent} from "./circuit.js";
+import {connectNodes, registerComponent, toggleSwitch, unregisterComponent, clickBulb} from "./circuit.js";
 
 const content = document.getElementsByClassName("content")[0];
 
@@ -40,7 +40,7 @@ export function initComponent(component){
     component.querySelectorAll("img").forEach((e) => e.draggable = false);
 
     component.addEventListener("pointerdown", (event) => {
-        if(isConnecting)return;
+        if(isConnecting || isDeleting)return;
 
         attached = component
 
@@ -52,8 +52,7 @@ export function initComponent(component){
     })
 
     component.addEventListener("pointerup", (event) => {
-        if(isConnecting)return;
-        if(isDeleting)return;
+        if(isConnecting || isRotating || isDeleting || !attached)return;
 
         attached.style.cursor = "grab";
         attached.releasePointerCapture(event.pointerId);
@@ -76,7 +75,21 @@ export function initComponent(component){
     });
 
     component.addEventListener("click", (event) => {
-        if(!isConnecting)return;
+        if(isDeleting){
+            removeComponent(component)
+            return;
+        }
+
+        if(!isConnecting){
+            const componentType = component.children[0].dataset.type;
+            if (componentType === "switch-off" || componentType === "switch-on") {
+                toggleSwitch(component.id, component.children[0]);
+            }
+            if (componentType === 'bulb') {
+                clickBulb(component.id);
+            }
+            return;
+        }
 
         if(attached){
             if(attached === component)return;
@@ -86,6 +99,7 @@ export function initComponent(component){
             const pointer = component.getElementsByClassName("right-pointer")[0];
             if(pointer.cable){
                 if(pointer.cable.leftPointer)pointer.cable.leftPointer.cable = null;
+                unregisterComponent(pointer.cable.id);
                 pointer.cable.remove();
                 pointer.cable = null;
             }
@@ -97,6 +111,7 @@ export function initComponent(component){
         const pointer = component.getElementsByClassName("left-pointer")[0];
         if(pointer.cable){
             if(pointer.cable.rightPointer)pointer.cable.rightPointer.cable = null;
+            unregisterComponent(pointer.cable.id);
             pointer.cable.remove();
             pointer.cable = null;
         }
@@ -104,14 +119,19 @@ export function initComponent(component){
         cable = wireElement.cloneNode();
         cable.className = "";
 
+        cable.id = crypto.randomUUID();
+        cable.dataset.id = cable.id;
+
         cable.style.position = "absolute";
         cable.style.transformOrigin = "0 50%";
 
-        cable.style.pointerEvents = "none";
-
         cable.style.objectFit = "fill";
 
-        cable.style.height = "9px";
+        cable.draggable = false;
+
+        cable.style.pointerEvents = "none";
+
+        cable.style.height = "12px";
         cable.style.borderRadius = "10%";
 
         content.appendChild(cable);
@@ -122,29 +142,37 @@ export function initComponent(component){
     });
 
     let compType = "";
+    let compVal = 0;
     switch(component.children[0].dataset.type){
         case "wire":
             compType = "Wire";
+            compVal = 0;
             break;
 
         case "battery":
             compType = "Battery";
+            compVal = 12;
             break;
 
         case "resistor":
             compType = "Resistor";
+            compVal = 10;
             break;
 
-        case "switch":
+        case "switch-off":
+        case "switch-on":
             compType = "Switch";
+            compVal = 0;
             break;
 
         case "bulb":
             compType = "Bulb";
+            compVal = 10;
             break;
     }
 
-    registerComponent(component.id, compType, component, null, null);
+    component.dataset.id = component.id;
+    registerComponent(component.id, compType, compVal, null, null);
 }
 
 window.addEventListener("pointermove", (event) => {
@@ -171,10 +199,10 @@ window.addEventListener("pointerup", (event) => {
     if(isRotating){
         try {
             if(event.target.dataset.type !== "rotate"){
-                toggleRotating();
+                attached = null;
             }
         } catch (e) {
-            toggleRotating();
+            attached = null;
         }
     }
 })
@@ -250,9 +278,6 @@ function checkConnector(){
     }
 
     if(attached && attached2){
-        attached.linked = true;
-        attached2.linked = true;
-
         if(cable){
             const leftPointer = attached.getElementsByClassName("left-pointer")[0];
             const rightPointer = attached2.getElementsByClassName("right-pointer")[0];
@@ -264,17 +289,61 @@ function checkConnector(){
             cable.rightPointer = rightPointer;
 
             updateCablePos(cable, leftPointer, rightPointer);
+
+            cable.style.pointerEvents = "auto";
+
+            cable.style.userSelect = "none";
+            cable.draggable = false;
+
+            const cableRef = cable;
+            cableRef.addEventListener("click", () => {
+                if(isDeleting){
+                    removeComponent(cableRef);
+                }
+            })
         }
 
-        connectNodes(cable.id, attached, attached2);
+        connectNodes(cable.id, attached.id, attached2.id);
 
         attached = null;
         attached2 = null;
 
         cable = null;
-
-        toggleConnecting();
     }
+}
+
+function removeComponent(component){
+    toggleDeleting();
+
+    if(component.dataset.type === "wire"){
+        component.leftPointer.cable = null;
+        component.rightPointer.cable = null;
+
+        unregisterComponent(component.id);
+        component.remove();
+        return;
+    }
+
+    const leftPointer = component.getElementsByClassName("left-pointer")[0];
+    if(leftPointer && leftPointer.cable){
+        const rightSide = leftPointer.cable.rightPointer;
+        if(rightSide)rightSide.cable = null;
+
+        unregisterComponent(leftPointer.cable.id);
+        leftPointer.cable.remove();
+    }
+
+    const rightPointer = component.getElementsByClassName("right-pointer")[0];
+    if(rightPointer && rightPointer.cable){
+        const leftSide = rightPointer.cable.leftPointer;
+        if(leftSide)leftSide.cable = null;
+
+        unregisterComponent(rightPointer.cable.id);
+        rightPointer.cable.remove();
+    }
+
+    unregisterComponent(component.id);
+    component.remove();
 }
 
 export function toggleConnecting(){
@@ -309,7 +378,20 @@ export function toggleDeleting(){
     isDeleting = !isDeleting;
 
     if(deleteElement){
-        deleteElement.style.backgroundSize = isDeleting ? "100% 90%" : "0";
+        deleteElement.style.backgroundSize = isDeleting ? "100% 100%" : "0";
     }
 }
 
+export function onClear(){
+    if(isConnecting)toggleConnecting();
+    if(isRotating)toggleRotating();
+    if(isDeleting)toggleDeleting();
+
+    [...content.children].forEach((element) => {
+        try {
+            if(element.dataset.type || element.children[0].dataset.type){
+                removeComponent(element);
+            }
+        }catch(err){}
+    });
+}
