@@ -1,4 +1,4 @@
-import {initComponent, setup, toggleConnecting, toggleRotating} from "./editor.js";
+import {initComponent, setup, toggleConnecting, toggleRotating, toggleDeleting} from "./editor.js";
 
 const content = document.getElementsByClassName("content")[0];
 
@@ -19,6 +19,10 @@ const content = document.getElementsByClassName("content")[0];
 
             case "rotate":
                 toggleRotating(element.childNodes[1]);
+                return;
+            
+            case "delete":
+                toggleDeleting(element.childNoted[1]);
                 return;
         }
 
