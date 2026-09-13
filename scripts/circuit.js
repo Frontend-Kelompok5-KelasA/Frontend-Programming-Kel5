@@ -279,3 +279,7 @@ export function unregisterComponent(id) {
   circuitLogic.removeComponent(id);
   return componentInteraction.updateBoardFeedback();
 }
+
+export function clickBulb(id) {
+  return componentInteraction.handleBulbClick(id);
+}
