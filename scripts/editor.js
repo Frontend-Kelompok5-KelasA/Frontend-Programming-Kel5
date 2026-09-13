@@ -1,4 +1,4 @@
-import {connectNodes, registerComponent} from "../circuit.js";
+import {connectNodes, registerComponent} from "./circuit.js";
 
 const content = document.getElementsByClassName("content")[0];
 
