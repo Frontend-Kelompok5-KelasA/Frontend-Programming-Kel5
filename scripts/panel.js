@@ -2,6 +2,7 @@ import {initComponent, setup, toggleConnecting, toggleRotating, toggleDeleting, 
 
 const content = document.getElementsByClassName("content")[0];
 
+// init panel biar bisa interaksi nambah komponen
 [...document.getElementsByClassName("item")].forEach((element) => {
     const imgChild = element.children[0];
     if(imgChild && imgChild.dataset.type){
@@ -13,6 +14,7 @@ const content = document.getElementsByClassName("content")[0];
     element.style.cursor = "grab";
 
     element.getElementsByTagName("img")[0].addEventListener("click", () => {
+        // buat handle opsi yang non item
         switch(element.childNodes[1].dataset.type){
             case "wire":
                 toggleConnecting(element.childNodes[1]);
