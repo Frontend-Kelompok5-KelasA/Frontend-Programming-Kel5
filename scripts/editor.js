@@ -312,3 +312,4 @@ export function toggleDeleting(){
         deleteElement.style.backgroundSize = isDeleting ? "100% 90%" : "0";
     }
 }
+
