@@ -27,6 +27,7 @@ export function setup(type, element){
         case "rotate":
             rotateElement = element;
             break;
+
         case "delete":
             deleteElement = element;
             break;
@@ -52,6 +53,7 @@ export function initComponent(component){
 
     component.addEventListener("pointerup", (event) => {
         if(isConnecting)return;
+        if(isDeleting)return;
 
         attached.style.cursor = "grab";
         attached.releasePointerCapture(event.pointerId);
@@ -61,6 +63,7 @@ export function initComponent(component){
 
     component.addEventListener("pointermove", (event) => {
         if(isConnecting)return;
+        if(isDeleting)return;
 
         if(attached === component){
             if(!isRotating){
@@ -276,6 +279,7 @@ function checkConnector(){
 
 export function toggleConnecting(){
     if(isRotating)toggleRotating();
+    if(isDeleting)toggleDeleting();
 
     isConnecting = !isConnecting;
 
@@ -288,6 +292,7 @@ export function toggleConnecting(){
 
 export function toggleRotating(){
     if(isConnecting)toggleConnecting();
+    if(isDeleting)toggleDeleting();
 
     isRotating = !isRotating;
 
@@ -298,5 +303,12 @@ export function toggleRotating(){
 }
 
 export function toggleDeleting(){
-    
+    if(isConnecting)toggleConnecting();
+    if(isRotating)toggleRotating();
+
+    isDeleting = !isDeleting;
+
+    if(deleteElement){
+        deleteElement.style.backgroundSize = isDeleting ? "100% 90%" : "0";
+    }
 }
