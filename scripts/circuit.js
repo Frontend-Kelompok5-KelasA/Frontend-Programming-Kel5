@@ -80,7 +80,7 @@ class CircuitLogic {
       for (let wire of candidateWires) {
         let nextComponentId = wire.nA === currentComponentId ? wire.nB : wire.nA;
 
-        if (nextComponentId === startBattery.id && visitedWires.size >= 2) {
+        if (nextComponentId === startBattery.id && visitedWires.size >= 1) {
           isLoop = true;
           totalResistance = currentResistance;
           totalVoltage = currentVoltage;
@@ -253,7 +253,7 @@ class ComponentInteraction {
         }
       }
     });
-    
+
     return circuitResult;
   }
 }
