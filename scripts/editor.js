@@ -40,7 +40,7 @@ export function initComponent(component){
     component.querySelectorAll("img").forEach((e) => e.draggable = false);
 
     component.addEventListener("pointerdown", (event) => {
-        if(isConnecting)return;
+        if(isConnecting || isRotating || isDeleting)return;
 
         attached = component
 
@@ -52,8 +52,7 @@ export function initComponent(component){
     })
 
     component.addEventListener("pointerup", (event) => {
-        if(isConnecting)return;
-        if(isDeleting)return;
+        if(isConnecting || isRotating || isDeleting || !attached)return;
 
         attached.style.cursor = "grab";
         attached.releasePointerCapture(event.pointerId);
@@ -76,6 +75,11 @@ export function initComponent(component){
     });
 
     component.addEventListener("click", (event) => {
+        if(isDeleting){
+            removeComponent(component)
+            return;
+        }
+
         if(!isConnecting)return;
 
         if(attached){
@@ -107,11 +111,13 @@ export function initComponent(component){
         cable.style.position = "absolute";
         cable.style.transformOrigin = "0 50%";
 
-        cable.style.pointerEvents = "none";
-
         cable.style.objectFit = "fill";
 
-        cable.style.height = "9px";
+        cable.draggable = false;
+
+        cable.style.pointerEvents = "none";
+
+        cable.style.height = "12px";
         cable.style.borderRadius = "10%";
 
         content.appendChild(cable);
@@ -250,9 +256,6 @@ function checkConnector(){
     }
 
     if(attached && attached2){
-        attached.linked = true;
-        attached2.linked = true;
-
         if(cable){
             const leftPointer = attached.getElementsByClassName("left-pointer")[0];
             const rightPointer = attached2.getElementsByClassName("right-pointer")[0];
@@ -264,6 +267,18 @@ function checkConnector(){
             cable.rightPointer = rightPointer;
 
             updateCablePos(cable, leftPointer, rightPointer);
+
+            cable.style.pointerEvents = "auto";
+
+            cable.style.userSelect = "none";
+            cable.draggable = false;
+
+            const cableRef = cable;
+            cableRef.addEventListener("click", () => {
+                if(isDeleting){
+                    removeComponent(cableRef);
+                }
+            })
         }
 
         connectNodes(cable.id, attached, attached2);
@@ -275,6 +290,36 @@ function checkConnector(){
 
         toggleConnecting();
     }
+}
+
+function removeComponent(component){
+    toggleDeleting();
+
+    if(component.dataset.type === "wire"){
+        component.leftPointer.cable = null;
+        component.rightPointer.cable = null;
+
+        component.remove();
+        return;
+    }
+
+    const leftPointer = component.getElementsByClassName("left-pointer")[0];
+    if(leftPointer && leftPointer.cable){
+        const rightSide = leftPointer.cable.rightPointer;
+        if(rightSide)rightSide.cable = null;
+
+        leftPointer.cable.remove();
+    }
+
+    const rightPointer = component.getElementsByClassName("right-pointer")[0];
+    if(rightPointer && rightPointer.cable){
+        const leftSide = rightPointer.cable.leftPointer;
+        if(leftSide)leftSide.cable = null;
+
+        rightPointer.cable.remove();
+    }
+
+    component.remove();
 }
 
 export function toggleConnecting(){
@@ -309,7 +354,20 @@ export function toggleDeleting(){
     isDeleting = !isDeleting;
 
     if(deleteElement){
-        deleteElement.style.backgroundSize = isDeleting ? "100% 90%" : "0";
+        deleteElement.style.backgroundSize = isDeleting ? "100% 100%" : "0";
     }
 }
 
+export function onClear(){
+    if(isConnecting)toggleConnecting();
+    if(isRotating)toggleRotating();
+    if(isDeleting)toggleDeleting();
+
+    [...content.children].forEach((element) => {
+        try {
+            if(element.dataset.type || element.children[0].dataset.type){
+                removeComponent(element);
+            }
+        }catch(err){}
+    });
+}
