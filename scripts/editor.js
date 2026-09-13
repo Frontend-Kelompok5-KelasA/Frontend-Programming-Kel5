@@ -17,7 +17,7 @@ let wireElement = null;
 let rotateElement = null;
 let deleteElement = null;
 
-
+// buat setup referensi panel, biar bisa buat highlight dan toggle
 export function setup(type, element){
     switch(type){
         case "wire":
@@ -39,6 +39,7 @@ export function initComponent(component){
 
     component.querySelectorAll("img").forEach((e) => e.draggable = false);
 
+    // pas teken mouse (mindahin komponen)
     component.addEventListener("pointerdown", (event) => {
         if(isConnecting || isDeleting)return;
 
@@ -51,6 +52,7 @@ export function initComponent(component){
         attached.setPointerCapture(event.pointerId);
     })
 
+    // pas lepas mouse (mindahin komponen)
     component.addEventListener("pointerup", (event) => {
         if(isConnecting || isRotating || isDeleting || !attached)return;
 
@@ -60,6 +62,7 @@ export function initComponent(component){
         attached = null
     })
 
+    // pas gerakin mouse (mindahin komponen)
     component.addEventListener("pointermove", (event) => {
         if(isConnecting)return;
         if(isDeleting)return;
@@ -80,6 +83,7 @@ export function initComponent(component){
             return;
         }
 
+        // interaksi dengan switch dan bohlam
         if(!isConnecting){
             const componentType = component.children[0].dataset.type;
             if (componentType === "switch-off" || componentType === "switch-on") {
@@ -91,6 +95,7 @@ export function initComponent(component){
             return;
         }
 
+        // pas mau hubungin ke komponen 2
         if(attached){
             if(attached === component)return;
 
@@ -108,6 +113,7 @@ export function initComponent(component){
             return;
         }
 
+        // pas baru narik kabel dari komponen 1
         const pointer = component.getElementsByClassName("left-pointer")[0];
         if(pointer.cable){
             if(pointer.cable.rightPointer)pointer.cable.rightPointer.cable = null;
@@ -116,6 +122,7 @@ export function initComponent(component){
             pointer.cable = null;
         }
 
+        // clone kabel dan beberapa penyesuaian
         cable = wireElement.cloneNode();
         cable.className = "";
 
@@ -143,6 +150,7 @@ export function initComponent(component){
 
     let compType = "";
     let compVal = 0;
+    // mengubah id pada editor menjadi id pada circuit
     switch(component.children[0].dataset.type){
         case "wire":
             compType = "Wire";
@@ -176,11 +184,13 @@ export function initComponent(component){
 }
 
 window.addEventListener("pointermove", (event) => {
+    // deteksi pergerakan mouse (narik kabel)
     if(isConnecting && attached){
         checkAttachedCable(event);
         return;
     }
 
+    // deteksi pergerakan mouse (rotate komponen)
     if(isRotating && attached){
         const rect = attached.getBoundingClientRect();
 
@@ -207,6 +217,7 @@ window.addEventListener("pointerup", (event) => {
     }
 })
 
+// menyesuaikan posisi dan panjang kabel dengan mouse (saat narik kabel)
 function checkAttachedCable(event){
     const pointer = attached.getElementsByClassName("left-pointer")[0];
     if(!pointer)return;
@@ -240,6 +251,7 @@ function checkCablePos(component){
     }
 }
 
+// menyesuaikan posisi dan panjang kabel dengan pointer komponen
 function updateCablePos(cable, leftPointer, rightPointer){
     const leftRect = leftPointer.getBoundingClientRect();
     const leftX = leftRect.left + (leftRect.width / 2);
@@ -262,6 +274,7 @@ function updateCablePos(cable, leftPointer, rightPointer){
 }
 
 function checkConnector(){
+    // kalo batalin toggle wire, bakal hapus attachment saat ini
     if(!isConnecting){
         attached = null;
         attached2 = null;
@@ -277,6 +290,7 @@ function checkConnector(){
         return;
     }
 
+    // saat berhasil sambungan kabel antar 2 komponen
     if(attached && attached2){
         if(cable){
             const leftPointer = attached.getElementsByClassName("left-pointer")[0];
@@ -315,6 +329,7 @@ function checkConnector(){
 function removeComponent(component){
     toggleDeleting();
 
+    // kalo hapus kabel, bakal langsung hilangkan attachment pointer
     if(component.dataset.type === "wire"){
         component.leftPointer.cable = null;
         component.rightPointer.cable = null;
@@ -324,6 +339,7 @@ function removeComponent(component){
         return;
     }
 
+    // pengecekan pointer kiri, jika ada attachment kabel maka akan dihapus
     const leftPointer = component.getElementsByClassName("left-pointer")[0];
     if(leftPointer && leftPointer.cable){
         const rightSide = leftPointer.cable.rightPointer;
@@ -333,6 +349,7 @@ function removeComponent(component){
         leftPointer.cable.remove();
     }
 
+    // pengecekan pointer kanan, jika ada attachment kabel maka akan dihapus
     const rightPointer = component.getElementsByClassName("right-pointer")[0];
     if(rightPointer && rightPointer.cable){
         const leftSide = rightPointer.cable.leftPointer;
@@ -347,6 +364,7 @@ function removeComponent(component){
 }
 
 export function toggleConnecting(){
+    // mencegah toggle agar tidak tabrakan
     if(isRotating)toggleRotating();
     if(isDeleting)toggleDeleting();
 
@@ -360,6 +378,7 @@ export function toggleConnecting(){
 }
 
 export function toggleRotating(){
+    // mencegah toggle agar tidak tabrakan
     if(isConnecting)toggleConnecting();
     if(isDeleting)toggleDeleting();
 
@@ -372,6 +391,7 @@ export function toggleRotating(){
 }
 
 export function toggleDeleting(){
+    // mencegah toggle agar tidak tabrakan
     if(isConnecting)toggleConnecting();
     if(isRotating)toggleRotating();
 
@@ -383,6 +403,7 @@ export function toggleDeleting(){
 }
 
 export function onClear(){
+    // nonaktifkan tiap toggle sebelum clear
     if(isConnecting)toggleConnecting();
     if(isRotating)toggleRotating();
     if(isDeleting)toggleDeleting();
@@ -392,6 +413,6 @@ export function onClear(){
             if(element.dataset.type || element.children[0].dataset.type){
                 removeComponent(element);
             }
-        }catch(err){}
+        } catch(err){}
     });
 }
