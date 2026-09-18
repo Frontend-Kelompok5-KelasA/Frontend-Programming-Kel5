@@ -1,0 +1,72 @@
+/* tag html biar berlaku ke semua halaman*/
+html {
+    /*y mandatory biar slide sifatnya vertikal dan melakukan snap ke posisi section berikutnya*/
+    scroll-snap-type: y mandatory;
+    /*biar scroll nya halus*/
+    scroll-behavior: smooth;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: #faf7f0;
+    font-family: "Lato", sans-serif;
+}
+
+h1 {
+    font-size: 400%;
+    font-family: "Playfair Display", sans-serif;
+}
+
+section {
+    height: 100vh;
+    scroll-snap-align: start;
+}
+
+/*SECTION AWAL(HEADER)*/
+.header {
+    color: #7b5e4a;
+}
+
+/*SECTION PENGENALAN KOPI*/
+.getToKnow {
+    color: #7b5e4a;
+}
+
+/*SECTION BEST SELLERS*/
+.bestSeller {
+    color: #7b5e4a;
+}
+
+/*SECTION ORDER*/
+.order {
+    color: #7b5e4a;
+}
+
+#noWa {
+    border: none;
+    background-color: #d1b89a;
+    font-weight: 700;
+    font-size: 100%;
+    color: #7b5e4a;
+    border-radius: 15px;
+    padding: 6px 30px;
+    transition: 0.3s ease;
+}
+
+#noWa:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    background-color: #f2e7d5;
+    border: 2px solid #d1b89a;
+}
+
+/*SECTION PENUTUP*/
+.penutup {
+    background-color: #7b5e4a;
+    width: 100%;
+    color: #faf7f0;
+}
+
