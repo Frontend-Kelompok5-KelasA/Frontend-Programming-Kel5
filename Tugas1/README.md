@@ -1,7 +1,6 @@
-# Frontend-Programming
-## Kumpulan tugas kelompok yang dibuat oleh Kelompok 5
+## Frontend-Programming
 
-## Kelompok 5
+## Kelompok 5 (Electrical Circuits)
 - 535250023 Gabriella Geraldine
 - 535250034 Reyhan Janstephen
 - 535250041 Monica Irene

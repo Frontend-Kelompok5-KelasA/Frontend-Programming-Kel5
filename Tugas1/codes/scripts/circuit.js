@@ -61,9 +61,6 @@ class CircuitLogic {
     // jika tidak ada baterai, mengembalikan nilai kosong
     if (batteries.length === 0) {
       return {
-        currentValue: 0,
-        actualPath: [],
-        totalVoltage: 0,
         bulbs: [],
         isShortCircuit: false,
       };
@@ -169,9 +166,6 @@ class CircuitLogic {
     // kalo tidak menemukan jalur tertutup sama sekali
     if (foundLoopsArray.length === 0) {
       return {
-        currentValue: 0,
-        actualPath: [],
-        totalVoltage: 0,
         bulbs: [],
         isShortCircuit: false,
       };
@@ -234,9 +228,6 @@ class CircuitLogic {
     let finalBulbsArray = Array.from(bulbDictionary.values());
 
     return {
-      currentValue: 0,
-      actualPath: [],
-      totalVoltage: 0,
       bulbs: finalBulbsArray,
       isShortCircuit: globalShortCircuit,
     };
