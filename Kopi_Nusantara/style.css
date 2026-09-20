@@ -618,6 +618,12 @@ footer {
         font-size: 20px;
     }
 
+    .gif img {
+        height: 50vw;
+        width: auto;
+        transform: translateX(-5px);
+    }
+
     .question { 
         font-size: 16px;
     }
