@@ -2,6 +2,7 @@ const textHeader = document.getElementsByClassName('text-header')[0];
 const hamburger = document.getElementById("hamburger");
 const navLinks = document.getElementById("navLinks");
 
+// looping untuk animasi fade in
 setTimeout(() => {
     let current = 0;
     const textTask = setInterval(() => {
@@ -16,10 +17,12 @@ setTimeout(() => {
     }, 10);
 }, 500);
 
+// toggle hamburger
 hamburger.addEventListener("click", () => {
     navLinks.classList.toggle("active");
 });
 
+// untuk handle bagian faq
 [...document.getElementsByClassName('question')]
     .forEach((e, id) => {
         const answer = document.getElementsByClassName('answer')[id];
