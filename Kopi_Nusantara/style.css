@@ -343,6 +343,7 @@ article p {
     text-align: center;
     color: #6f4e37;
     margin-bottom: 20px;
+    margin-top: 0;
 }
 
 .faqs {
@@ -387,6 +388,25 @@ article p {
     background-color: #3b2a20;
     top: 13%;
     padding: 2px 0px;
+    padding-bottom: 18px;
+}
+
+.descAbUs {
+    font-weight: 900;
+    font-size: 25px;
+}
+
+.anggota {
+    background-color: #d1b89a;
+    color: #3b2a20;
+    border: 3px solid #7b5e4a;
+    padding: 3px 20px;
+    font-weight: 700;
+    border-radius: 30px;
+    width: fit-content;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 12px;
 }
 
 footer {
