@@ -104,13 +104,11 @@ section {
 
 .text-header h1 {
     position: relative;
-    z-index: 2;
     margin: 0;
 }
 
 .text-header p {
     position: relative;
-    z-index: 2;
     margin: 0;
 }
 
@@ -153,7 +151,7 @@ h1 {
     flex-wrap: wrap;
     justify-content: center;
     gap: 15px;
-    margin: auto 10px;
+    margin-bottom: 40px;
 }
 
 .info-beans article {
@@ -306,7 +304,6 @@ article p {
 
 .gif {
     width: 470px;
-    text-align: center;
 }
 
 .gif img {
@@ -405,6 +402,7 @@ article p {
     border-radius: 30px;
     width: fit-content;
     text-align: center;
+    /*atas bawah 0, kiri kanan auto*/
     margin: 0 auto;
     margin-bottom: 12px;
 }
