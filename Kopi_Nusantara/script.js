@@ -1,6 +1,4 @@
 const textHeader = document.getElementsByClassName('text-header')[0];
-const hamburger = document.getElementById("hamburger");
-const navLinks = document.getElementById("navLinks");
 
 setTimeout(() => {
     let current = 0;
@@ -16,10 +14,6 @@ setTimeout(() => {
     }, 10);
 }, 500);
 
-hamburger.addEventListener("click", () => {
-    navLinks.classList.toggle("active");
-});
-
 [...document.getElementsByClassName('question')]
     .forEach((e, id) => {
         const answer = document.getElementsByClassName('answer')[id];
@@ -29,4 +23,3 @@ hamburger.addEventListener("click", () => {
             answer.hidden = !answer.hidden
         })
     });
-    
