@@ -4,8 +4,6 @@
     --nav-h: 60px;
     --paddingtop: 60px;
     --paddingbot: 60px;
-    --max768: 18px;
-    --max576: 20px;
 }
 
 /* tag html biar berlaku ke semua halaman*/
@@ -44,6 +42,8 @@ section {
     position: fixed;
     display: flex;
     justify-content: center;
+    align-items: center;
+    gap: 50px;
     background-color: black;
     /*biar selalu paling depan jadi angkanya tinggi*/
     z-index: 10;
@@ -59,16 +59,6 @@ section {
 
 .navbar a:hover {
     color: #d1b89a;
-}
-
-.hamburger {
-    display: none;
-}
-
-.navlinks {
-    display: flex;
-    align-items: center;
-    gap: 50px;
 }
 
 /*========================*/
@@ -446,7 +436,7 @@ footer {
 }
 
 @media (max-width: 992px) {
-    .navlinks {
+    .navbar {
         gap: 25px;
     }
 
@@ -508,7 +498,7 @@ footer {
 }
 
 @media (max-width: 768px) {
-    .navlinks {
+    .navbar {
         gap: 5px;
     }
 
@@ -548,7 +538,7 @@ footer {
     .menuBest {
         flex-direction: column;
         align-items: center;
-        font-size: var(--max768);
+        font-size: 18px;
     }
 
     .menuBest article {
@@ -562,7 +552,7 @@ footer {
     }
 
     .text-order {
-        font-size: var(--max768);
+        font-size: 18px;
     }
 
     .freqAsk { 
@@ -574,7 +564,7 @@ footer {
     }
 
     .answer {
-        font-size: var(--max768);
+        font-size: 18px;
     }
 }
 
@@ -664,40 +654,6 @@ footer {
 }
 
 @media (max-width: 576px) {
-    .navbar {
-        justify-content: flex-start;
-    }
-    
-    .hamburger {
-        display: block;
-        width: 60px;
-        font-size: 30px;
-        background-color: black;
-        color: white;
-        border: none;
-    }
-
-    .navlinks {
-        display: none;
-        position: absolute;
-        top: var(--nav-h);
-        width: 100%;
-        flex-direction: column;
-        gap: 0;
-        background-color: black;
-    }
-
-    .navlinks.active {
-        display: flex;
-    }
-
-    .navlinks a {
-        width: 100%;
-        text-align: center;
-        padding: 18px 0;
-        font-size: 20px;
-    }
-
     h1 {
         font-size: 250%;
     }
@@ -711,7 +667,7 @@ footer {
     }
 
     .info-beans {
-        font-size: var(--max576);
+        font-size: 20px;
     }
 
     .info-beans h2 {
@@ -727,7 +683,7 @@ footer {
     }
 
     .menuBest {
-        font-size: var(--max576);
+        font-size: 20px;
     }
 
     .menuBest h2 {
@@ -744,7 +700,7 @@ footer {
 
     .text-order {
         width: 90%;
-        font-size: var(--max576);
+        font-size: 20px;
     }
 
     .gif img {
@@ -754,11 +710,11 @@ footer {
     }
 
     .question { 
-        font-size: var(--max576);
+        font-size: 16px;
     }
 
     .answer {
-        font-size: var(--max576);
+        font-size: 16px;
         padding: 0 16px;
     }
 }
