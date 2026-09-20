@@ -677,10 +677,14 @@ footer {
     .hamburger {
         display: block;
         width: 60px;
-        font-size: 30px;
         background-color: black;
         color: white;
         border: none;
+    }
+
+    .hamburger-icon {
+        width: 30px;
+        height: 30px;
     }
 
     .navlinks {
