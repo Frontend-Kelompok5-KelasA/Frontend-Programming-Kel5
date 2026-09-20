@@ -770,18 +770,16 @@ footer {
 }
 
 @media (max-height: 700px) {
+    .header {
+        min-height: calc(82.5vh - var(--nav-h));
+    }
+}
+
+@media (max-height: 650px) {
     .text-header h1 {
         font-size: 40px;
     }
     .text-header {
         font-size: 20px;
-    }
-}
-
-@media (max-height: 575px) {
-    .logo {
-        width: auto;
-        height: 75px;
-        margin-top: 15px;
     }
 }
