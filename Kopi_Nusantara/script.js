@@ -14,3 +14,12 @@ setTimeout(() => {
     }, 10);
 }, 500);
 
+[...document.getElementsByClassName('question')]
+    .forEach((e, id) => {
+        const answer = document.getElementsByClassName('answer')[id];
+        answer.hidden = true
+
+        e.addEventListener('click', () => {
+            answer.hidden = !answer.hidden
+        })
+    });
