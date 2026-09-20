@@ -377,6 +377,12 @@ article p {
     font-size: 24px;
     text-align: center;
 }
+
+.question:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
 .answer { 
     background-color: #f2e7d5; 
     text-align: left;
