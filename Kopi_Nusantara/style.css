@@ -2,6 +2,8 @@
 :root {
     /*variabel tinggi navbar, biar gampang diubah dari 1 tempat*/
     --nav-h: 60px;
+    --paddingtop: 60px;
+    --paddingbot: 60px;
 }
 
 /* tag html biar berlaku ke semua halaman*/
@@ -29,7 +31,7 @@ body {
 
 section {
     /*tinggi layar dikurangi navbar, jadi 1 section = 1 layar penuh yang keliatan*/
-    min-height: calc(100vh - var(--nav-h));
+    min-height: calc(100vh - var(--nav-h) - var(--paddingtop) - var(--paddingbot));
     scroll-snap-align: start;
 }
 
@@ -63,6 +65,8 @@ section {
 /*SECTION AWAL(HEADER)*/
 /*========================*/
 .header {
+    padding-top: var(--paddingtop);
+    padding-bottom: var(--paddingbot);
     color: #f2e7d5;
     position: relative;
     width: 100%;
@@ -123,6 +127,8 @@ h1 {
 /*SECTION PENGENALAN KOPI*/
 /*========================*/
 .getToKnow {
+    padding-top: var(--paddingtop);
+    padding-bottom: var(--paddingbot);
     background-color: #d1b89a;
     color: #7b5e4a;
     width: 100%;
@@ -187,6 +193,8 @@ article p {
 /*SECTION BEST SELLERS*/
 /*========================*/
 .bestSeller {
+    padding-top: var(--paddingtop);
+    padding-bottom: var(--paddingbot);
     color: #7b5e4a;
     width: 100%;
 }
@@ -240,6 +248,8 @@ article p {
 /*SECTION ORDER*/
 /*========================*/
 .order {
+    padding-top: var(--paddingtop);
+    padding-bottom: var(--paddingbot);
     color: #7b5e4a;
 }
 
@@ -334,7 +344,9 @@ article p {
 /*SECTION FAQ*/
 /*========================*/
 .freqAsk { 
-    width: 95%;
+    padding-top: var(--paddingtop);
+    padding-bottom: var(--paddingbot);
+    width: 75%;
     margin: 0 auto;
 }
 
@@ -357,22 +369,27 @@ article p {
     border-radius: 24px;
     padding: 20px 16px;
     line-height: 1.7;
-    text-align: left;
 }
 
 .question { 
     background-color: #6f4e37; 
     color: #ffffff; 
-    font-weight: bold; 
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
 }
 .answer { 
     background-color: #f2e7d5; 
+    text-align: left;
+    padding: 0px 50px;
 }
 
 /*========================*/
 /*SECTION PENUTUP*/
 /*========================*/
 .penutup {
+    min-height: calc(100vh - var(--nav-h) - var(--paddingtop));
+    padding-top: var(--paddingtop);
     background-color: #7b5e4a;
     width: 100%;
     color: #faf7f0;
@@ -414,6 +431,14 @@ footer {
     /*gunain margin atasnya semua sampai dia paling bawah*/
     margin-top: auto;
     color: #d1b89a;
-    padding: 5px 0px;
+    padding: 5px;
     font-size: 15px;
+}
+
+@media (max-width: 1024px) {
+    
+}
+
+@media (max-width: 768px) {
+
 }
