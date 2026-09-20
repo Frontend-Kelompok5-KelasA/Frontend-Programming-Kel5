@@ -7,10 +7,10 @@ $(document).ready(function() {
         width: '100%'
     }, 1000);
 
+    // Faq toggle
     let question = $('.question');
     let answer = $('.answer');
 
-    // Faq toggle
     answer.hide();
     question.css('cursor', 'pointer');
 
