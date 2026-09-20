@@ -37,6 +37,9 @@ section {
     scroll-snap-align: start;
 }
 
+/*========================*/
+/*NAVIGATION BAR*/
+/*========================*/
 .navbar {
     top: 0;
     width: 100%;
@@ -334,7 +337,7 @@ article p {
     animation: kopi 4s infinite;
 }
 
-
+/* Animasi gif */
 @keyframes kopi {
     0%, 25% {
         content: url("images/2.png");
@@ -451,6 +454,9 @@ footer {
     font-size: 15px;
 }
 
+/*========================*/
+/*UKURAN TABLET*/
+/*========================*/
 @media (max-width: 992px) {
     .navlinks {
         gap: 25px;
@@ -513,6 +519,9 @@ footer {
     }
 }
 
+/*========================*/
+/*UKURAN TABLET LEBIH KECIL*/
+/*========================*/
 @media (max-width: 768px) {
     .navlinks {
         gap: 5px;
@@ -584,7 +593,9 @@ footer {
     }
 }
 
-/*layar hp*/
+/*========================*/
+/*UKURAN SMARTPHONE*/
+/*========================*/
 @media (max-width: 600px) {
     .navlinks {
         gap: 5px;
@@ -669,6 +680,9 @@ footer {
     }
 }
 
+/*========================*/
+/*UKURAN SMARTPHONE LEBIH KECIL*/
+/*========================*/
 @media (max-width: 576px) {
     .navbar {
         justify-content: flex-start;
@@ -769,12 +783,18 @@ footer {
     }
 }
 
+/*========================*/
+/*UKURAN HEIGHT KECIL*/
+/*========================*/
 @media (max-height: 700px) {
     .header {
         min-height: calc(82.5vh - var(--nav-h));
     }
 }
 
+/*========================*/
+/*UKURAN HEIGHT LEBIH KECIL*/
+/*========================*/
 @media (max-height: 650px) {
     .text-header h1 {
         font-size: 40px;
