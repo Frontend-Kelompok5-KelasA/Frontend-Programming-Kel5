@@ -4,7 +4,6 @@
     --nav-h: 60px;
 }
 
-
 /* tag html biar berlaku ke semua halaman*/
 html {
     /*y mandatory biar slide sifatnya vertikal dan melakukan snap ke posisi section berikutnya*/
@@ -71,7 +70,6 @@ section {
 }
 
 .logo {
-    position: relative;
     width: auto;
     height: 100px;
     margin-top: 30px;
@@ -345,6 +343,7 @@ article p {
     text-align: center;
     color: #6f4e37;
     margin-bottom: 20px;
+    margin-top: 0;
 }
 
 .faqs {
@@ -377,6 +376,8 @@ article p {
     background-color: #7b5e4a;
     width: 100%;
     color: #faf7f0;
+    display: flex;
+    flex-direction: column;
 }
 
 .penutup h1 {
@@ -385,7 +386,34 @@ article p {
 
 .nama-anggota {
     background-color: #3b2a20;
-    position: relative;
     top: 13%;
     padding: 2px 0px;
+    padding-bottom: 18px;
+}
+
+.descAbUs {
+    font-weight: 900;
+    font-size: 25px;
+}
+
+.anggota {
+    background-color: #d1b89a;
+    color: #3b2a20;
+    border: 3px solid #7b5e4a;
+    padding: 3px 20px;
+    font-weight: 700;
+    border-radius: 30px;
+    width: fit-content;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 12px;
+}
+
+footer {
+    background-color: #3b2a20;
+    /*gunain margin atasnya semua sampai dia paling bawah*/
+    margin-top: auto;
+    color: #d1b89a;
+    padding: 5px 0px;
+    font-size: 15px;
 }
