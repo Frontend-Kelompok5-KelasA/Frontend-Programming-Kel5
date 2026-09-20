@@ -14,14 +14,12 @@ setTimeout(() => {
     }, 10);
 }, 500);
 
-$(document).ready(function() {
-    let tanya = $('.question');
-    let jawab = $('.answer');
+[...document.getElementsByClassName('question')]
+    .forEach((e, id) => {
+        const answer = document.getElementsByClassName('answer')[id];
+        answer.hidden = true
 
-    jawab.hide();
-    tanya.css('cursor', 'pointer');
-
-    tanya.click(function() {
-        $(this).next('.answer').slideToggle(300);
+        e.addEventListener('click', () => {
+            answer.hidden = !answer.hidden
+        })
     });
-});
