@@ -629,11 +629,19 @@ footer {
     }
 }
 
-@media (max-height:768px) {
-
-    
+@media (max-height: 700px) {
+    .text-header h1 {
+        font-size: 40px;
+    }
+    .text-header {
+        font-size: 20px;
+    }
 }
 
-@media (max-height: 480px) {
-
+@media (max-height: 575px) {
+    .logo {
+        width: auto;
+        height: 75px;
+        margin-top: 15px;
+    }
 }
