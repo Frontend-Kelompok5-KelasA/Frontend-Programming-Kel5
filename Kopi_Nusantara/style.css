@@ -502,6 +502,19 @@ footer {
         gap: 5px;
     }
 
+    .text-header h1 {
+        font-size: 210%;
+        margin-top: -6px;
+    }
+
+    .text-header p {
+        font-size: 15px;
+    }
+
+    .text-header {
+        transform: translate(-50%, -75%);
+    }
+
     h1 {
         font-size: 350%;
     }
