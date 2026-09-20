@@ -4,6 +4,8 @@
     --nav-h: 60px;
     --paddingtop: 60px;
     --paddingbot: 60px;
+    --max768: 18px;
+    --max576: 20px;
 }
 
 /* tag html biar berlaku ke semua halaman*/
@@ -42,8 +44,6 @@ section {
     position: fixed;
     display: flex;
     justify-content: center;
-    align-items: center;
-    gap: 50px;
     background-color: black;
     /*biar selalu paling depan jadi angkanya tinggi*/
     z-index: 10;
@@ -59,6 +59,16 @@ section {
 
 .navbar a:hover {
     color: #d1b89a;
+}
+
+.hamburger {
+    display: none;
+}
+
+.navlinks {
+    display: flex;
+    align-items: center;
+    gap: 50px;
 }
 
 /*========================*/
@@ -377,6 +387,12 @@ article p {
     font-size: 24px;
     text-align: center;
 }
+
+.question:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
 .answer { 
     background-color: #f2e7d5; 
     text-align: left;
@@ -436,7 +452,7 @@ footer {
 }
 
 @media (max-width: 992px) {
-    .navbar {
+    .navlinks {
         gap: 25px;
     }
 
@@ -498,7 +514,7 @@ footer {
 }
 
 @media (max-width: 768px) {
-    .navbar {
+    .navlinks {
         gap: 5px;
     }
 
@@ -570,7 +586,7 @@ footer {
 
 /*layar hp*/
 @media (max-width: 600px) {
-    .navbar {
+    .navlinks {
         gap: 5px;
     }
 
@@ -654,6 +670,40 @@ footer {
 }
 
 @media (max-width: 576px) {
+    .navbar {
+        justify-content: flex-start;
+    }
+    
+    .hamburger {
+        display: block;
+        width: 60px;
+        font-size: 30px;
+        background-color: black;
+        color: white;
+        border: none;
+    }
+
+    .navlinks {
+        display: none;
+        position: absolute;
+        top: var(--nav-h);
+        width: 100%;
+        flex-direction: column;
+        gap: 0;
+        background-color: black;
+    }
+
+    .navlinks.active {
+        display: flex;
+    }
+
+    .navlinks a {
+        width: 100%;
+        text-align: center;
+        padding: 18px 0;
+        font-size: 20px;
+    }
+    
     h1 {
         font-size: 250%;
     }
