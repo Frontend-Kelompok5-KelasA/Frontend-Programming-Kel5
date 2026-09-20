@@ -2,8 +2,6 @@
 :root {
     /*variabel tinggi navbar, biar gampang diubah dari 1 tempat*/
     --nav-h: 60px;
-    --paddingtop: 60px;
-    --paddingbot: 60px;
 }
 
 /* tag html biar berlaku ke semua halaman*/
@@ -31,7 +29,7 @@ body {
 
 section {
     /*tinggi layar dikurangi navbar, jadi 1 section = 1 layar penuh yang keliatan*/
-    min-height: calc(100vh - var(--nav-h) - var(--paddingtop) - var(--paddingbot));
+    min-height: calc(100vh - var(--nav-h));
     scroll-snap-align: start;
 }
 
@@ -65,8 +63,6 @@ section {
 /*SECTION AWAL(HEADER)*/
 /*========================*/
 .header {
-    padding-top: 0;
-    padding-bottom: calc(var(--paddingbot) + var(--paddingbot));
     color: #f2e7d5;
     position: relative;
     width: 100%;
@@ -125,8 +121,6 @@ h1 {
 /*SECTION PENGENALAN KOPI*/
 /*========================*/
 .getToKnow {
-    padding-top: var(--paddingtop);
-    padding-bottom: var(--paddingbot);
     background-color: #d1b89a;
     color: #7b5e4a;
     width: 100%;
@@ -147,7 +141,6 @@ h1 {
 }
 
 .beans {
-    transform: translateX(0px);
     width: 27%;
     height: auto;
     margin-left: 25px;
@@ -192,8 +185,6 @@ article p {
 /*SECTION BEST SELLERS*/
 /*========================*/
 .bestSeller {
-    padding-top: var(--paddingtop);
-    padding-bottom: var(--paddingbot);
     color: #7b5e4a;
     width: 100%;
 }
@@ -229,7 +220,6 @@ article p {
 }
 
 .menu {
-    transform: translateX(0px);
     width: 25%;
     height: auto;
     margin-left: 25px;
@@ -248,8 +238,6 @@ article p {
 /*SECTION ORDER*/
 /*========================*/
 .order {
-    padding-top: var(--paddingtop);
-    padding-bottom: var(--paddingbot);
     color: #7b5e4a;
 }
 
@@ -260,6 +248,7 @@ article p {
 
 .konten-order {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     column-gap: 100px;
@@ -268,7 +257,6 @@ article p {
 
 .text-order {
     font-family: "Playfair Display", sans-serif;
-    width: 40vw;
     text-align: left;
     background-color: #f2e7d5;
     border-radius: 20px;
@@ -287,6 +275,7 @@ article p {
 }
 
 .desc-order {
+    width: 500px;
     text-align: justify;
     font-family: "Lato", sans-serif;
     padding: 5px 25px;
@@ -314,12 +303,11 @@ article p {
 }
 
 .gif {
-    width: 30vw;
-    text-align: center;
+    width: 470px;
 }
 
 .gif img {
-    height: 25vw;
+    height: 400px;
     width: auto;
     animation: kopi 4s infinite;
 }
@@ -343,13 +331,12 @@ article p {
 /*SECTION FAQ*/
 /*========================*/
 .freqAsk { 
-    padding-top: var(--paddingtop);
-    padding-bottom: var(--paddingbot);
-    width: 75%;
+    width: 95%;
     margin: 0 auto;
 }
 
 .freqAsk h1 {
+    font-size: 50px;
     text-align: center;
     color: #6f4e37;
     margin-bottom: 20px;
@@ -367,28 +354,22 @@ article p {
     border-radius: 24px;
     padding: 20px 16px;
     line-height: 1.7;
+    text-align: left;
 }
 
 .question { 
-    padding: 0px 22px;
     background-color: #6f4e37; 
     color: #ffffff; 
-    font-weight: bold;
-    font-size: 24px;
-    text-align: center;
+    font-weight: bold; 
 }
 .answer { 
     background-color: #f2e7d5; 
-    text-align: left;
-    padding: 0px 50px;
 }
 
 /*========================*/
 /*SECTION PENUTUP*/
 /*========================*/
 .penutup {
-    min-height: calc(100vh - var(--nav-h) - var(--paddingtop));
-    padding-top: var(--paddingtop);
     background-color: #7b5e4a;
     width: 100%;
     color: #faf7f0;
@@ -431,216 +412,6 @@ footer {
     /*gunain margin atasnya semua sampai dia paling bawah*/
     margin-top: auto;
     color: #d1b89a;
-    padding: 5px;
+    padding: 5px 0px;
     font-size: 15px;
-}
-
-@media (max-width: 992px) {
-    .navbar {
-        gap: 25px;
-    }
-
-    .beans {
-        transform: translateX(-5px);
-    }
-
-    .info-beans article {
-        padding-top: 25px;
-        flex-direction: column;
-        gap: 0px;
-    }
-
-    .text-beans {
-        padding: 0px;
-        width: 90%;
-    }
-
-    .menu {
-        transform: translateX(-10px);
-    }
-
-    .menuBest article {
-        padding-top: 25px;
-        flex-direction: column;
-        gap: 0px;
-    }
-
-    .info-best {
-        padding: 0px;
-        width: 90%;
-    }
-
-    .konten-order {
-        flex-direction: column;
-    }
-
-    .text-order {
-        text-align: center;
-        width: 80vw;
-    }
-
-    .desc-order {
-        text-align: center;
-    }
-
-    .gif {
-        width: 50vw;
-    }
-
-    .gif img {
-        height: 30vw;
-    }
-
-    
-    .freqAsk { 
-        width: 80%;
-    }
-}
-
-@media (max-width: 768px) {
-    .navbar {
-        gap: 5px;
-    }
-
-    h1 {
-        font-size: 350%;
-    }
-
-    .desc-judul {
-        font-size: 18px;
-        width: 75%;
-    }
-
-    .beans {
-        padding-right: 25px;
-        transform: translateX(0px);
-    }
-
-    .info-beans {
-        flex-direction: column;
-        align-items: center;
-        font-size: 18px;
-    }
-
-    .info-beans article {
-        flex-direction: row;
-        width: 95%;
-        padding: 10px;
-    }
-
-    .menu {
-        transform: translateX(0px);
-        height: 20vh;
-        object-fit: contain;
-        padding-right: 25px;
-    }
-
-    .menuBest {
-        flex-direction: column;
-        align-items: center;
-        font-size: 18px;
-    }
-
-    .menuBest article {
-        flex-direction: row;
-        width: 95%;
-        padding: 10px;
-    }
-
-    .text-order h2 {
-        font-size: 30px;
-    }
-
-    .text-order {
-        font-size: 18px;
-    }
-
-    .freqAsk { 
-        width: 90%;
-    }
-
-    .question { 
-        font-size: 20px;
-    }
-
-    .answer {
-        font-size: 18px;
-    }
-}
-
-@media (max-width: 576px) {
-    h1 {
-        font-size: 250%;
-    }
-
-    .desc-judul {
-        width: 60%;
-    }
-
-    .beans {
-        width: 30vw;
-    }
-
-    .info-beans {
-        font-size: 20px;
-    }
-
-    .info-beans h2 {
-        font-size: 26px;
-    }
-
-    .info-beans article {
-        flex-direction: column;
-    }
-
-    .menu {
-        width: 30vw;
-    }
-
-    .menuBest {
-        font-size: 20px;
-    }
-
-    .menuBest h2 {
-        font-size: 26px;
-    }
-
-    .menuBest article {
-        flex-direction: column;
-    }
-
-    .text-order h2 {
-        font-size: 26px;
-    }
-
-    .text-order {
-        width: 90%;
-        font-size: 20px;
-    }
-
-    .question { 
-        font-size: 16px;
-    }
-
-    .answer {
-        font-size: 16px;
-        padding: 0 16px;
-    }
-}
-
-@media (max-height: 700px) {
-    .text-header h1 {
-        font-size: 40px;
-    }
-    .text-header {
-        font-size: 20px;
-    }
-}
-
-@media (max-height: 575px) {
-    .logo {
-        width: auto;
-        height: 75px;
-        margin-top: 15px;
-    }
 }
