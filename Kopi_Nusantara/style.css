@@ -151,7 +151,7 @@ h1 {
     flex-wrap: wrap;
     justify-content: center;
     gap: 15px;
-    margin: auto 10px;
+    margin-bottom: 40px;
 }
 
 .info-beans article {
@@ -304,7 +304,6 @@ article p {
 
 .gif {
     width: 470px;
-    text-align: center;
 }
 
 .gif img {
