@@ -5,11 +5,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <title>Kuliner Nusantara di Jakarta</title>
+
+        <!--BOOTSTRAP CDN-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
         
         <link rel="stylesheet" href="style.css">
+
+        <!--EMBED FONT-->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Gabarito:wght@400..900&display=swap" rel="stylesheet">
         
         <script src="script.js" defer></script>
     </head>
@@ -27,41 +32,53 @@
                 <a href="#blog" id="">Blog</a>
                 <a href="#contact" id="">Contact</a>
             </div>
-
-            <button class="nav-buttons" id="home-logo">
-                <img class="nav-logo" src="images/logo.png" alt="main">
-            </button>
-
-            <button class="nav-buttons" id="cart">
-                <img class="nav-icon" src="images/cart.png" alt="cart">
-            </button>
-
-            <button class="nav-buttons" id="profile-button">
-                <img class="nav-icon" src="images/profile.png" alt="profile">
-            </button>
         </nav>
+        <img class="gambar-logo" src="images/logo.png">
 
-        <section class="header">
+        <div class="isi-konten-hal-utama">
+            <h1>Serving you the flavors of Nusantara. Explore Indonesia, one delicious dish at a time.</h1>
+            <p>Discover Indonesia's beloved flavors, from traditional favorites to hidden culinary gems scattered across Jakarta.</p>
+            <button id="tombol-explore-food">Explore Food</button>
+        </div>
 
-        </section>
+        <div class="popular-food">
+            <h2>Popular Dishes</h2>
+            <p>Our most loved dishes by customers</p>
 
-        <footer>
-            <section id="footer-links">
+            <div class="food-list d-flex flex-wrap justify-content-center gap-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="images/naspad.png" class="card-img-top" alt="naspad">
+                    <div class="card-body">
+                        <h5 class="card-title">Pagi Sore Restaurant</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+                        <a href="#tes" class="but-card">Go somewhere</a>
+                    </div>
+                </div>
 
-            </section>
+                <div class="card" style="width: 18rem;">
+                    <img src="images/nasgor.png" class="card-img-top" alt="nasgor">
+                    <div class="card-body">
+                        <h5 class="card-title">Nasi Goreng</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+                        <a href="#tes" class="but-card">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
 
-            <section id="about">
-                <p id="desc-about-us">(Title) -- Kelompok 5</p>
-                <p class="member">Gabriella Geraldine (535250023)</p>
-                <p class="member">Reyhan Janstephen (535250034)</p>
-                <p class="member">Monica Irene (535250041)</p>
-                <p class="member">Natanael Gunawan (535250046)</p>
-                <p class="member">Moses Marvian Arsata (535250050)</p>
-            </section>
-            <br>
-            <section id="copyright">
+        </div>
+
+        <!--ABOUT-->
+        <section id="about">
+            <p id="desc-about-us">(Title) -- Kelompok 5</p>
+            <p class="member">Gabriella Geraldine (535250023)</p>
+            <p class="member">Reyhan Janstephen (535250034)</p>
+            <p class="member">Monica Irene (535250041)</p>
+            <p class="member">Natanael Gunawan (535250046)</p>
+            <p class="member">Moses Marvian Arsata (535250050)</p>  
+
+            <footer id="copyright">
                 <p>&copy; 2026 (Title). Seluruh hak cipta dilindungi.</p>
-            </section>
-        </footer>
+            </footer>
+        </section>
     </body>
 </html>

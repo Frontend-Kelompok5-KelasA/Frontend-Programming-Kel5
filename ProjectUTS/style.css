@@ -1,25 +1,85 @@
 :root {
-    --background: #e9ddcc;
-    --nav: #c1280f;
-    --nav-element: #e9ddcc;
+    --background: white;
+    --nav: #201c17;
+    --nav-element: #fff5e8;
     --nav-hover: #ff9b19;
     --nav-height: 60px;
     --text: #000000;
     --footer-background: #561d03;
-    --footer-text: #e9ddcc;
-    --copyright-background: #000000;
+    --footer-text: #ffe5c1;
+    --desc-header: #afaeae;
+    /*FONT*/
+    --font-heading: 'Gabarito', sans-serif;
+    --font-body: 'Lora', serif;
 }
 
 html {
     scroll-behavior: smooth;
+    margin: 0;
+}
+
+/*INDEX*/
+.gambar-logo {
+    height: auto;
+    width: 120px;
+    object-fit: cover;
+}
+
+button {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 15px;
+}
+
+#tombol-explore-food {
+    border: none;
+    background: var(--nav-hover);
+    border-radius: 20px;
+    padding: 5px 15px;
+}
+
+#tombol-explore-food:hover {
+    background: white;
+    border: 2px solid var(--nav-hover);
+}
+
+h1, h2 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+}
+
+p {
+    color: var(--desc-header);
+}
+
+.popular-food {
+    margin-top: 50px;
+}
+
+.but-card {
+    background-color: var(--nav-hover);
+    border: none;
+    color: var(--text);
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 10px;
+    padding: 5px 15px;
+}
+
+.but-card:hover {
+    background: white;
+    border: 2px solid var(--nav-hover);
 }
 
 body {
     padding-top: var(--nav-height);
-    margin: 0;
+    margin: 0px 20px;
     background-color: var(--background);
-    font-family: "Gabarito", sans-serif;
-    font-weight: 1000;
+    font-family: "DM Sans", sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
 nav {
@@ -86,30 +146,18 @@ nav {
     margin-left: auto;
 }
 
-
-
-footer {
-    text-align: center;
-    background-color: var(--footer-background);
-    margin-top: auto;
-    color: var(--footer-text);
-    padding: 5px;
-    font-size: 16px;
+#about {
+    background-color: var(--nav);
+    width: 100vw;
+    margin-bottom: 0;
+    margin-top: 25px;
 }
 
-#desc-about-us {
-    font-size: 24px;
+#about p {
+    color: var(--nav-element);
+    margin-top: 15px;
 }
 
-.member {
-    font-weight: 750;
-    margin: 3px;
-}
-
-#copyright {
-    font-weight: 500;
-    font-size: 12px;
-}
 
 
 @media (min-width: 480px) {
