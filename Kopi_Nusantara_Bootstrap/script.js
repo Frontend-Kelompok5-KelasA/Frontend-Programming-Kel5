@@ -1,6 +1,4 @@
 const textHeader = document.getElementsByClassName('text-header')[0];
-const hamburger = document.getElementById("hamburger");
-const navLinks = document.getElementById("navLinks");
 
 // looping untuk animasi fade in
 setTimeout(() => {
@@ -16,11 +14,6 @@ setTimeout(() => {
         }
     }, 10);
 }, 500);
-
-// toggle hamburger
-hamburger.addEventListener("click", () => {
-    navLinks.classList.toggle("active");
-});
 
 // untuk handle bagian faq
 [...document.getElementsByClassName('question')]
