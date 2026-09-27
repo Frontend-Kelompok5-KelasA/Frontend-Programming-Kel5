@@ -17,19 +17,48 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
         <script src="script.js" defer></script>
+
     </head>
     <body>
-        <nav class="navbar">
-            <button class="hamburger" id="hamburger">
-                <img class="hamburger-icon" src="images/hamburger.png" alt="menu">
-            </button>
-            <div class="navlinks" id="navLinks">
-                <a href="#home" id="homee">Home</a>
-                <a href="#bean" id="beanss">Beans</a>
-                <a href="#bestSeller" id="best-sellerr">Best Seller</a>
-                <a href="#order" id="orderr">Order</a>
-                <a href="#faq" id="faqq">FAQ</a>
-                <a href="#about" id="aboutt">About</a>
+        <nav class="navbar navbar-expand-lg bg-dark sticky-top" data-bs-theme="dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Kopi Nusantara</a>
+                <button class="navbar-toggler" type="button" 
+                        data-bs-toggle="offcanvas" 
+                        data-bs-target="#navLinks"
+                        aria-controls="navLinks"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="navLinks">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title">Menu</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Tutup"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                            <a href="#home" id="homee">Home</a>
+                            </li>
+                            <li class="nav-item">
+                            <a href="#bean" id="beanss">Beans</a>
+                            </li>
+                            <li class="nav-item">
+                            <a href="#bestSeller" id="best-sellerr">Best Seller</a>
+                            </li>
+                            <li class="nav-item">
+                            <a href="#order" id="orderr">Order</a>
+                            </li>
+                            <li class="nav-item">
+                            <a href="#faq" id="faqq">FAQ</a>
+                            </li>
+                            <li class="nav-item">
+                            <a href="#about" id="aboutt">About</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </nav>
 
