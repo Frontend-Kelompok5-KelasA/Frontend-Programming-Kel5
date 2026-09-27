@@ -194,12 +194,17 @@ main {
     object-fit: cover;
 }
 
-
 .halaman-regist-login {
     display: flex;
     flex-direction: column;
     gap: 10px;
     width: 100%;
+}
+
+hr {
+    width: 100%;
+    border: 1px solid var(--nav);
+    margin-bottom: -10px;
 }
 
 .halaman-regist-login input, .halaman-regist-login button {
@@ -215,6 +220,19 @@ main {
 .sign-up {
     margin-top: 20px;
     margin-bottom: 0;
+}
+
+/*EXPLORE.HTML*/
+
+#search-rest {
+    margin: 10px 0px;
+    width: 90%;
+    border-radius: 10px;
+    border: 2px solid var(--nav-hover);
+}
+
+.list-resto {
+    margin-top: 25px;
 }
 
 @media (min-width: 480px) {
