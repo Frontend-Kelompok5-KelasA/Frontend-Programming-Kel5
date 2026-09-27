@@ -22,7 +22,6 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
     background-color: #faf7f0;
     font-family: "Lato", sans-serif;
     /*margin bawaan browser dihapus biar navbar & section sama-sama full lebar layar*/
@@ -33,7 +32,7 @@ body {
 
 section {
     /*tinggi layar dikurangi navbar, jadi 1 section = 1 layar penuh yang keliatan*/
-    min-height: calc(100vh - var(--nav-h) - var(--paddingtop) - var(--paddingbot));
+    min-height: calc(100vh - var(--paddingtop));
     scroll-snap-align: start;
 }
 
@@ -826,7 +825,7 @@ footer {
 /*========================*/
 @media (max-height: 700px) {
     .header {
-        min-height: calc(82.5vh - var(--nav-h));
+        min-height: 100vh;
     }
 }
 
