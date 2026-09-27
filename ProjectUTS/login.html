@@ -1,11 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <title>Kuliner Nusantara di Jakarta</title>
+
+        <!--BOOTSTRAP CDN-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        
+        <link rel="stylesheet" href="style.css">
+
+        <!--EMBED FONT-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Gabarito:wght@400..900&display=swap" rel="stylesheet">
+        
+        <script src="script.js" defer></script>
+    </head>
+
+    <body>
+        <nav>
+            <button class="nav-buttons" id="nav-back">
+                <img class="nav-icon" src="images/X.png" alt="back">
+            </button>
+        </nav>
+
+        <main>
+            <div class="kotak-register-login">
+                <img class="gambar-logo-login" src="images/logo.png">
+                <h2>Welcome Back</h2>
+                <p>Login to explore the Nusantara</p>
+                
+                <form class="halaman-regist-login">
+                    <input type="email" placeholder="Email">
+                    <input type="password" placeholder="Password">
+                    <button type="submit" id="submit">Login</button>
+                </form>
+
+                <p class="sign-up">Don't have an account? <a href="sign-up.html" id="register">Sign Up</a><p>
+            </div>
+        </main>
+
+    </body>
 </html>
