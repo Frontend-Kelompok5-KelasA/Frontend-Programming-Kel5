@@ -1,0 +1,37 @@
+[
+  {
+    "id": "sks-01",
+    "name": "Sate Khas Senayan",
+    "City Administration": "Jakarta Timur",
+    "place": "Cipinang Indah Mall GF No. 52 Jl. Raya Kalimalang No. 88",
+    "open_hour": "Mon - Sun: 10.00 - 22.00",
+    "official_website":"https://sks.sarirasa.co.id/",
+    "image": "sate_khas_senayan.jpg"
+  },
+  {
+    "id": "sks-02",
+    "name": "Sate Khas Senayan",
+    "City Administration": "Jakarta Pusat",
+    "place": "Citywalk Sudirman GF unit 19-20",
+    "open_hour": "Mon - Sun: 10.00 - 22.00",
+    "official_website":"https://sks.sarirasa.co.id/",
+    "image": "sate_khas_senayan.jpg"
+  },
+  {
+    "id": "rumanusan-01",
+    "name": "Rumarasa Nusantara",
+    "City Administration": "Jakarta Selatan",
+    "place": "Jl. Taman Mpu Sendok No.45 Selong",
+    "open_hour": "Mon - Sun: 10.00 - 22.00",
+    "official_website":"https://www.rumarasanusantara.com/"
+  },
+  {
+    "id": "ar-01",
+    "name": "ARUMA",
+    "City Administration": "Jakarta Selatan",
+    "place": "Jl. Ampera Raya No.129b, RT.5/RW.10, Ragunan, Ps. Minggu, jakarta, Daerah Khusus Ibukota Jakarta 12560",
+    "open_hour": "Mon - Sun: 10.00 - 22.00",
+    "official_website": null,
+    "instagram": "https://www.instagram.com/arumajkt/?hl=en"
+  }
+]
