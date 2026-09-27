@@ -235,7 +235,17 @@ article p {
     margin-bottom: 0;
 }
 
-.menuBest {
+.card-img-top {
+    height: 220px;
+    width: 100%;
+    object-fit: contain;
+    background-color: #faf7f0;   
+    padding: 10px;
+}
+
+
+
+/* .menuBest {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -269,7 +279,7 @@ article p {
 
 .menuBest article:nth-child(odd) .menu {
     width: 30%;
-}
+} */
 
 .info-best {
     width: 60%;
