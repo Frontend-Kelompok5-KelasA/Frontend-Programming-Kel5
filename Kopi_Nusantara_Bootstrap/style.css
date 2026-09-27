@@ -538,6 +538,19 @@ footer {
     .freqAsk { 
         width: 80%;
     }
+
+    .getToKnow-carousel {
+        flex-direction: column;
+        align-items: center;
+        font-size: 18px;
+    }
+
+    .getToKnow-carousel article {
+        flex-direction: column;
+        width: 100% !important;
+        padding: 20px;
+        min-height: auto;
+    }
 }
 
 /*========================*/
