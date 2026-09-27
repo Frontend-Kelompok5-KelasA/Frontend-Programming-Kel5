@@ -170,6 +170,13 @@ h1 {
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: #7b5e4a;
+    border-radius: 50%;
+    padding: 20px;
+}
+
 .desc-judul {
     background-color: #7b5e4a;
     color: #f2e7d5;
@@ -216,6 +223,10 @@ h1 {
     padding-left: 30px;
 }
 
+.width-90 {
+    width: 90%;
+}
+
 article p {
     text-align: justify;
 }
@@ -227,12 +238,19 @@ article p {
     padding-top: var(--paddingtop);
     padding-bottom: var(--paddingbot);
     color: #7b5e4a;
-    width: 100%;
+    width: 95%;
 }
 
 .bestSeller h1 {
     margin-top: 0;
     margin-bottom: 0;
+}
+
+.card {
+    border: 3px solid #d1b89a;
+    background-color: white;
+    box-shadow: 5px 5px 0px #d1b89a;
+    border-radius: 20px;
 }
 
 .card-img-top {
@@ -243,7 +261,11 @@ article p {
     padding: 10px;
 }
 
-
+.menuBest {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 /* .menuBest {
     display: flex;
@@ -320,7 +342,7 @@ article p {
 
 .text-order h2 {
     color: #7b5e4a;
-    padding: 5px 25px;
+    padding: 25px 25px;
     border-radius: 10px;
     font-weight: 900;
     font-family: "Lato", sans-serif;
@@ -331,7 +353,7 @@ article p {
 .desc-order {
     text-align: justify;
     font-family: "Lato", sans-serif;
-    padding: 5px 25px;
+    padding: 25px 25px;
 }
 
 #noWa {
@@ -419,6 +441,9 @@ article p {
     font-weight: bold;
     font-size: 24px;
     text-align: center;
+    border: 3px solid #61412b;
+    box-shadow: 5px 5px 0px #61412b;
+    border-radius: 20px;
 }
 
 .question:hover {
@@ -430,13 +455,16 @@ article p {
     background-color: #f2e7d5; 
     text-align: left;
     padding: 0px 50px;
+    border: 3px solid #d1b89a;
+    box-shadow: 5px 5px 0px #d1b89a;
+    border-radius: 20px;
 }
 
 /*========================*/
 /*SECTION PENUTUP*/
 /*========================*/
 .penutup {
-    min-height: calc(100vh - var(--nav-h) - var(--paddingtop));
+    min-height: calc(100vh - var(--paddingtop));
     padding-top: var(--paddingtop);
     background-color: #7b5e4a;
     width: 100%;
@@ -452,7 +480,7 @@ article p {
 .nama-anggota {
     background-color: #3b2a20;
     top: 13%;
-    padding: 2px 0px;
+    padding-top: 18px;
     padding-bottom: 18px;
 }
 
@@ -543,6 +571,9 @@ footer {
         height: 30vw;
     }
 
+    .menuBest {
+        width: 100%;
+    }
     
     .freqAsk { 
         width: 80%;
@@ -559,167 +590,6 @@ footer {
         width: 100% !important;
         padding: 20px;
         min-height: auto;
-    }
-}
-
-/*========================*/
-/*UKURAN TABLET LEBIH KECIL*/
-/*========================*/
-@media (max-width: 768px) {
-    .navlinks {
-        gap: 5px;
-    }
-
-    h1 {
-        font-size: 350%;
-    }
-
-    .desc-judul {
-        font-size: 18px;
-        width: 75%;
-    }
-
-    .beans {
-        padding-right: 25px;
-        transform: translateX(0px);
-    }
-
-    .info-beans {
-        flex-direction: column;
-        align-items: center;
-        font-size: 18px;
-    }
-
-    .info-beans article {
-        flex-direction: row;
-        width: 95%;
-        padding: 10px;
-    }
-
-    .menu {
-        transform: translateX(0px);
-        height: 20vh;
-        object-fit: contain;
-        padding-right: 25px;
-    }
-
-    .menuBest {
-        flex-direction: column;
-        align-items: center;
-        font-size: 18px;
-    }
-
-    .menuBest article {
-        flex-direction: row;
-        width: 95%;
-        padding: 10px;
-    }
-
-    .text-order h2 {
-        font-size: 30px;
-    }
-
-    .text-order {
-        font-size: 18px;
-    }
-
-    .freqAsk { 
-        width: 90%;
-    }
-
-    .question { 
-        font-size: 20px;
-    }
-
-    .answer {
-        font-size: 18px;
-    }
-}
-
-/*========================*/
-/*UKURAN SMARTPHONE*/
-/*========================*/
-@media (max-width: 600px) {
-    .navlinks {
-        gap: 5px;
-    }
-
-    .text-header h1 {
-        font-size: 210%;
-        margin-top: -6px;
-    }
-
-    .text-header p {
-        font-size: 15px;
-    }
-
-    .text-header {
-        transform: translate(-50%, -75%);
-    }
-
-    h1 {
-        font-size: 350%;
-    }
-
-    .desc-judul {
-        font-size: 18px;
-        width: 75%;
-    }
-
-    .beans {
-        padding-right: 25px;
-        transform: translateX(0px);
-    }
-
-    .info-beans {
-        flex-direction: column;
-        align-items: center;
-        font-size: 18px;
-    }
-
-    .info-beans article {
-        flex-direction: row;
-        width: 95%;
-        padding: 10px;
-    }
-
-    .menu {
-        transform: translateX(0px);
-        height: 20vh;
-        object-fit: contain;
-        padding-right: 25px;
-    }
-
-    .menuBest {
-        flex-direction: column;
-        align-items: center;
-        font-size: 18px;
-    }
-
-    .menuBest article {
-        flex-direction: row;
-        width: 95%;
-        padding: 10px;
-    }
-
-    .text-order h2 {
-        font-size: 30px;
-    }
-
-    .text-order {
-        font-size: 18px;
-    }
-
-    .freqAsk { 
-        width: 90%;
-    }
-
-    .question { 
-        font-size: 20px;
-    }
-
-    .answer {
-        font-size: 18px;
     }
 }
 
