@@ -1,3 +1,6 @@
+const hamburger = document.getElementById("hamburger");
+const navLinks = document.getElementById("navLinks");
+
 // animasi header
 $(document).ready(function() {
     let txtHeader = $('.text-header'); 
@@ -44,4 +47,8 @@ $(document).ready(function() {
     });
 
     $(window).trigger('scroll');
+});
+
+hamburger.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
 });
