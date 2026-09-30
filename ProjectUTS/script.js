@@ -32,7 +32,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // explore.html: generate card resto dari data.json
     const foodList = document.getElementById("food-list");
-    const gambar_def = "nasgor.png";
+    const popularList = document.getElementById("popular-list");
+    const gambar_def = "migor.png";
 
     if (foodList) {
         fetch("data.json")
@@ -57,12 +58,14 @@ document.addEventListener("DOMContentLoaded", function () {
                     <h5 class="card-title">${resto.name}</h5>
                     <p class="card-text">${resto.place}</p>
                     <p class="card-text">${resto.description}</p>
-                    <a href="#tes" class="but-card">Go somewhere</a>
+                    <a href="#tes" class="but-card">Liat Detail</a>
                 </div>
             `;
 
             foodList.appendChild(card);
         });
     }
+
+
 
 });
