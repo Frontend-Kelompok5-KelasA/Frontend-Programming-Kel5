@@ -24,7 +24,8 @@
     "City Administration": "Jakarta Selatan",
     "place": "Jl. Taman Mpu Sendok No.45 Selong",
     "open_hour": "Mon - Sun: 10.00 - 22.00",
-    "official_website":"https://www.rumarasanusantara.com/"
+    "official_website":"https://www.rumarasanusantara.com/",
+    "image": "rumarasa_nusan.png"
   },
   {
     "id": "ar-01",
@@ -33,6 +34,37 @@
     "place": "Jl. Ampera Raya No.129b, RT.5/RW.10, Ragunan, Ps. Minggu, jakarta, Daerah Khusus Ibukota Jakarta 12560",
     "open_hour": "Mon - Sun: 10.00 - 22.00",
     "official_website": null,
-    "instagram": "https://www.instagram.com/arumajkt/?hl=en"
+    "instagram": "https://www.instagram.com/arumajkt/?hl=en",
+    "image": "aruma.jpg"
+  },
+  {
+    "id": "rem-01",
+    "name": "Remboelan",
+    "City Administration": "Jakarta Selatan",
+    "place": "Mall Plaza Senayan Jl. Asia Afrika No. 8",
+    "open_hour": "Mon - Sun: 10.00 - 22.00",
+    "official_website": "https://www.remboelan.com/",
+    "instagram": null,
+    "image": "remboelan.webp"
+  },
+  {
+    "id": "rem-02",
+    "name": "Remboelan",
+    "City Administration": "Jakarta Selatan",
+    "place": "Jalan Metro Pondok Indah Kav. IV, RT.1/RW.16, Pd. Pinang, Kec. Kby. Lama",
+    "open_hour": "Mon - Sun: 10.00 - 22.00",
+    "official_website": "https://www.remboelan.com/",
+    "instagram": null,
+    "image": "remboelan.webp"
+  },
+  {
+    "id": "tal-01",
+    "name": "Taliwang Bali",
+    "City Administration": "Jakarta Utara",
+    "place": "Emporium Pluit Mall, Penjaringan, Jl. Pluit Selatan I Lt. 4, RT.23/RW.8",
+    "open_hour": "Mon - Sun: 10.00 - 22.00",
+    "official_website": "https://taliwangbali.com/index.php",
+    "instagram": null,
+    "image": "taliwang.jpg"
   }
 ]
