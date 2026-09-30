@@ -315,7 +315,7 @@
     "price": "",
     "official_website": "https://www.remboelan.com",
     "instagram": "https://www.instagram.com/remboelansoulfood/?hl=en",
-    "image": ""
+    "image": "remboelan.webp"
   },
   {
     "id": "remboelan-02",
@@ -329,7 +329,7 @@
     "price": "",
     "official_website": "https://www.remboelan.com",
     "instagram": "https://www.instagram.com/remboelansoulfood/?hl=en",
-    "image": ""
+    "image": "remboelan.webp"
   },  
   {
     "id": "remboelan-03",
@@ -343,7 +343,7 @@
     "price": "",
     "official_website": "https://www.remboelan.com",
     "instagram": "https://www.instagram.com/remboelansoulfood/?hl=en",
-    "image": ""
+    "image": "remboelan.webp"
   }, 
   {
     "id": "remboelan-04",
@@ -357,7 +357,7 @@
     "price": "",
     "official_website": "https://www.remboelan.com",
     "instagram": "https://www.instagram.com/remboelansoulfood/?hl=en",
-    "image": ""
+    "image": "remboelan.webp"
   },
   {
     "id": "remboelan-05",
@@ -371,7 +371,7 @@
     "price": "",
     "official_website": "https://www.remboelan.com",
     "instagram": "https://www.instagram.com/remboelansoulfood/?hl=en",
-    "image": ""
+    "image": "remboelan.webp"
   },
   {
     "id": "remboelan-06",
@@ -385,7 +385,7 @@
     "price": "",
     "official_website": "https://www.remboelan.com",
     "instagram": "https://www.instagram.com/remboelansoulfood/?hl=en",
-    "image": ""
+    "image": "remboelan.webp"
   },   
   {
     "id": "sr-01",
@@ -457,24 +457,5 @@
     "instagram": "https://www.instagram.com/seriburasa_id/?hl=en",
     "image": ""
   },             
-  {
-    "id": "rem-01",
-    "name": "Remboelan",
-    "City Administration": "Jakarta Selatan",
-    "place": "Mall Plaza Senayan Jl. Asia Afrika No. 8",
-    "open_hour": "Mon - Sun: 10.00 - 22.00",
-    "official_website": "https://www.remboelan.com/",
-    "instagram": null,
-    "image": "remboelan.webp"
-  },
-  {
-    "id": "rem-02",
-    "name": "Remboelan",
-    "City Administration": "Jakarta Selatan",
-    "place": "Jalan Metro Pondok Indah Kav. IV, RT.1/RW.16, Pd. Pinang, Kec. Kby. Lama",
-    "open_hour": "Mon - Sun: 10.00 - 22.00",
-    "official_website": "https://www.remboelan.com/",
-    "instagram": null,
-    "image": "remboelan.webp"
-  }
+
 ]
