@@ -39,8 +39,6 @@
     "price": "",
     "official_website":"https://www.rumarasanusantara.com/",
     "instagram": "https://www.instagram.com/rumarasa.nusantara/?hl=en",
-    "image": ""
-    "official_website":"https://www.rumarasanusantara.com/",
     "image": "rumarasa_nusan.png"
   },
   {
@@ -55,7 +53,17 @@
     "price": "", 
     "official_website": null,
     "instagram": "https://www.instagram.com/arumajkt/?hl=en",
-    "image": ""
+    "image": "aruma.jpg"
+  },
+  {
+    "id": "tal-01",
+    "name": "Taliwang Bali",
+    "City Administration": "Jakarta Utara",
+    "place": "Emporium Pluit Mall, Penjaringan, Jl. Pluit Selatan I Lt. 4, RT.23/RW.8",
+    "open_hour": "Mon - Sun: 10.00 - 22.00",
+    "official_website": "https://taliwangbali.com/index.php",
+    "instagram": null,
+    "image": "taliwang.jpg"
   },
   {
     "id": "pg-01",
@@ -307,7 +315,7 @@
     "price": "",
     "official_website": "https://www.remboelan.com",
     "instagram": "https://www.instagram.com/remboelansoulfood/?hl=en",
-    "image": ""
+    "image": "remboelan.webp"
   },
   {
     "id": "remboelan-02",
@@ -321,7 +329,7 @@
     "price": "",
     "official_website": "https://www.remboelan.com",
     "instagram": "https://www.instagram.com/remboelansoulfood/?hl=en",
-    "image": ""
+    "image": "remboelan.webp"
   },  
   {
     "id": "remboelan-03",
@@ -335,7 +343,7 @@
     "price": "",
     "official_website": "https://www.remboelan.com",
     "instagram": "https://www.instagram.com/remboelansoulfood/?hl=en",
-    "image": ""
+    "image": "remboelan.webp"
   }, 
   {
     "id": "remboelan-04",
@@ -349,7 +357,7 @@
     "price": "",
     "official_website": "https://www.remboelan.com",
     "instagram": "https://www.instagram.com/remboelansoulfood/?hl=en",
-    "image": ""
+    "image": "remboelan.webp"
   },
   {
     "id": "remboelan-05",
@@ -363,7 +371,7 @@
     "price": "",
     "official_website": "https://www.remboelan.com",
     "instagram": "https://www.instagram.com/remboelansoulfood/?hl=en",
-    "image": ""
+    "image": "remboelan.webp"
   },
   {
     "id": "remboelan-06",
@@ -377,7 +385,7 @@
     "price": "",
     "official_website": "https://www.remboelan.com",
     "instagram": "https://www.instagram.com/remboelansoulfood/?hl=en",
-    "image": ""
+    "image": "remboelan.webp"
   },   
   {
     "id": "sr-01",
@@ -448,37 +456,6 @@
     "official_website": "https://arenagourmet.com/restaurant/seribu-rasa.html",
     "instagram": "https://www.instagram.com/seriburasa_id/?hl=en",
     "image": ""
-  }             
-    "image": "aruma.jpg"
-  },
-  {
-    "id": "rem-01",
-    "name": "Remboelan",
-    "City Administration": "Jakarta Selatan",
-    "place": "Mall Plaza Senayan Jl. Asia Afrika No. 8",
-    "open_hour": "Mon - Sun: 10.00 - 22.00",
-    "official_website": "https://www.remboelan.com/",
-    "instagram": null,
-    "image": "remboelan.webp"
-  },
-  {
-    "id": "rem-02",
-    "name": "Remboelan",
-    "City Administration": "Jakarta Selatan",
-    "place": "Jalan Metro Pondok Indah Kav. IV, RT.1/RW.16, Pd. Pinang, Kec. Kby. Lama",
-    "open_hour": "Mon - Sun: 10.00 - 22.00",
-    "official_website": "https://www.remboelan.com/",
-    "instagram": null,
-    "image": "remboelan.webp"
-  },
-  {
-    "id": "tal-01",
-    "name": "Taliwang Bali",
-    "City Administration": "Jakarta Utara",
-    "place": "Emporium Pluit Mall, Penjaringan, Jl. Pluit Selatan I Lt. 4, RT.23/RW.8",
-    "open_hour": "Mon - Sun: 10.00 - 22.00",
-    "official_website": "https://taliwangbali.com/index.php",
-    "instagram": null,
-    "image": "taliwang.jpg"
-  }
+  },             
+
 ]
