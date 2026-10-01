@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <div class="card-body">
                     <h5 class="card-title">${resto.name}</h5>
                     <p class="card-text">${resto.place}</p>
-                    <p class="card-text">${resto.description}</p>
+                    <p class="card-text">${resto.desc}</p>
                     <a href="#tes" class="but-card">Liat Detail</a>
                 </div>
             `;
