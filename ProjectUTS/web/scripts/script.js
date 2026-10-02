@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (foodList || popularList) {
         // ambil data dari data.json
-        fetch("../data/data.json")
+        fetch("../api/resto")
             .then((response) => response.json())
             .then((restos) => {
                 gabunganResto = gabungCabangResto(restos);
