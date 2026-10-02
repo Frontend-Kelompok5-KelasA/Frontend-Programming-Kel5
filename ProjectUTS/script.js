@@ -114,6 +114,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     button.textContent = jenisMakanan;
                     button.dataset.value = jenisMakanan;
 
+                    button.addEventListener("click", () => {
+                        button.classList.toggle("selected");
+                    });
+
                     catFilter.appendChild(button);
                 });
             })
@@ -144,7 +148,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <h5 class="card-title">${resto.name}</h5>
                     <p class="card-text">${resto.desc}</p>
                     <p class="card-loc">📍 ${firstLoc.city || "-"}${extra > 0 ? ` <small>(+${extra} lokasi lain)</small>` : ""}</p>
-                    <button class="but-card" data-key="${resto.key}">Liat Detail</button>
+                    <button class="but-card" data-key="${resto.key}">Lihat Detail</button>
                 </div>
             `;
 
@@ -207,7 +211,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (foodList && detailModal) {
-        // event delegation: 1 listener untuk semua tombol "Liat Detail"
+        // event delegation: 1 listener untuk semua tombol "Lihat Detail"
         foodList.addEventListener("click", (e) => {
             const btn = e.target.closest(".but-card");
             if (btn) openDetail(btn.dataset.key);
@@ -227,6 +231,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const openMdl = document.getElementById("open-m-filter");
     const closeMdl = document.getElementById("close-filter");
+    const cancelFilter = document.getElementById("cancel-filter");
     const modal = document.getElementById("modal");
 
     if (openMdl && closeMdl && modal) {
@@ -237,6 +242,12 @@ document.addEventListener("DOMContentLoaded", function () {
         closeMdl.addEventListener("click", () => {
             modal.classList.remove("open");
         });
+
+        if (cancelFilter) {
+        cancelFilter.addEventListener("click", () => {
+            modal.classList.remove("open");
+        });
+        }
     }
 
     

@@ -234,6 +234,26 @@ hr {
     align-items: center;
 }
 
+.card {
+    border: 9px solid white;
+    box-shadow: 3px 3px 10px var(--nav-hover);
+    transition: transform 0.2s;
+    border-radius: 20px;
+    margin-bottom: 15px;
+}
+
+.card img {
+    border-radius: 20px;
+}
+
+.card:hover {
+    transform: translateY(-9px);
+}
+
+h5 {
+    font-weight: 700;
+}
+
 #search-rest {
     margin: 10px 0px;
     width: 90%;
@@ -287,6 +307,17 @@ hr {
     padding: 30px;
     border-radius: 20px;
     width: 80%;
+    position: relative;
+    padding-top: 40px;
+}
+
+#cancel-filter {
+    position: absolute;
+    top: 4px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 35px;
 }
 
 .modal-inner hr {
@@ -295,17 +326,18 @@ hr {
 }
 
 .filter-option {
-    background-color: var(--nav);
-    color: var(--nav-element);
-    border: none;
+    background-color: white;
+    color: var(--nav);
+    border: 2px solid var(--nav);
     margin-bottom: 20px;
     padding: 2px 15px;
+    transition: 0.3s ease;
 }
 
 
 .filter-option.selected {
-    background-color: white;
-    color: var(--nav);
+    background-color: var(--nav);
+    color: var(--nav-element);
     border: 2px solid var(--nav);
 }
 
@@ -327,6 +359,10 @@ hr {
     margin-top: 25px;
 }
 
+.list-resto h2{
+    margin-bottom: 25px;
+}
+
 /* MODAL DETAIL RESTORAN */
 .detail-inner {
     position: relative;
@@ -342,7 +378,6 @@ hr {
     background: none;
     border: none;
     font-size: 30px;
-    
 }
 
 .detail-img {
