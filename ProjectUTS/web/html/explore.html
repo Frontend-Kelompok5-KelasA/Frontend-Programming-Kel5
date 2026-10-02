@@ -54,14 +54,50 @@
         </nav>
         
         <div class="main-container">
-            <input type="search" id="search-rest" placeholder="Search...">
+            <div class="search-filter-section">
+                <input type="search" id="search-rest" placeholder="Search...">
+                <button id="open-m-filter">Filter
+                    <img src="images/filter.png">
+                </button>
+
+
+                <div id="modal">
+                    <div class="modal-inner">
+                        <button id="cancel-filter" aria-label="Tutup">&times;</button>
+                        <h1>Filter Your Restaurant!</h1>
+                        <h2>Asal Daerah Nusantara</h2>
+                        <div id="asal-daerah-filter"></div>
+                        <hr>
+                        <h2>Jenis Makanan</h2>
+                        <div id="jenis-filter"></div>
+                        <hr>
+                        <h2>Price Range</h2>
+                        <div id="price-filter"></div>
+                        <hr>
+                        <button id="close-filter">Done</button>
+                    </div>
+                </div>
+            </div>
+
+            <button id="matiin-filter">Cancel Filter</button>
+
             <hr>
+
             <div class="list-resto">
                 <h2>Explore Some Restaurant</h2>
                 <div class="food-list d-flex flex-wrap justify-content-center gap-4" id="food-list">
                     <!-- Card di-generate otomatis dari data.json lewat script.js -->
                 </div>
             </div>
+        </div>
+
+        <div id="detail-modal">
+            <div class="modal-inner detail-inner">
+                <button id="close-detail" aria-label="Tutup">&times;</button>
+                <div id="detail-content">
+                    <!-- Modal detail restoran diisi di script.js)-->
+                </div>
+                </div>
         </div>
     </body>
 </html>
