@@ -9,7 +9,10 @@
     --nav-dropdown: #333333;
     --text: #000000;
     --footer-background: #561d03;
+    --footer-link-background : #260d02;
     --footer-text: #ffe5c1;
+    --footer-link: #b5a081;
+    --footer-hover: #ff9b19;
     --desc-header: #afaeae;
 
     /* FONT */
@@ -36,6 +39,30 @@ body {
     text-align: center;
 }
 
+/* ALL ELEMENTS */
+
+h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+}
+
+p {
+    color: var(--desc-header);
+}
+
+button {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 15px;
+    border-radius: 20px;
+}
+
+hr {
+    width: 100%;
+    border: 1px solid var(--nav);
+    margin-bottom: -10px;
+}
+
 /* NAVIGATION */
 .navbar {
     background-color: var(--nav);
@@ -44,13 +71,17 @@ body {
     border-color: var(--nav-hover);
 }
 
-.nav-link, .nav-link:focus, .nav-link:active, .nav-link.show, .nav-link.active  {
+.nav-link, .nav-link:focus, .nav-link:active, .nav-link.show, .nav-link.active {
     color: var(--nav-element);
     font-weight: 1000;
 }
 
 .nav-link:hover {
     color: var(--nav-hover);
+    text-decoration: underline;
+    text-underline-offset: 6px;
+    text-decoration-thickness: 2px;
+
 }
 
 .navbar-toggler {
@@ -102,7 +133,9 @@ body {
 .dropdown-menu {
     background-color: var(--nav-dropdown);
     border: solid;
-    border-color: var(--nav-hover)
+    border-radius: 24px;
+    border-color: var(--nav-hover);
+    transform: translateY(30px);
 }
 
 .dropdown-item {
@@ -111,13 +144,102 @@ body {
     font-weight: 1000;
 }
 
+.username {
+    color: var(--nav-element);
+    padding: 5px 15px;
+    font-weight: 500;
+}
+
 .dropdown-item:hover {
-    background-color: var(--nav-dropdown);
+    background: none;
+    text-decoration: underline;
+    text-underline-offset: 6px;
+    text-decoration-thickness: 2px;
     color: var(--nav-hover);
 }
 
-/* FOOTER */
+.dropdown-hr {
+    height: 3px;
+    background-color: var(--nav-hover);
+    border: none;
+    opacity: 100%;
+}
 
+/* FOOTER */
+footer {
+    align-items: center;
+    text-align: center;
+}
+
+.footer-fill {
+    padding: 30px 20px;
+    background-color: var(--footer-link-background);
+    color: var(--footer-text);
+}
+
+.links, .contacts {
+    margin: auto;
+}
+
+.row {
+    gap: 60px 0;
+}
+
+.about #footer-title #footer-logo {
+    width: 30%;
+}
+
+.about #footer-title p {
+    color: var(--footer-text);
+}
+
+.about #footer-team {
+    width: 280px;
+    margin: 0 auto;
+    font-size: 14px;
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.footer-socials {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.footer-a, .contacts p {
+    font-weight: 0;
+    font-size: 18px;
+}
+
+.footer-a {
+    color: var(--footer-link);
+    text-decoration: underline;
+    text-underline-offset: 6px;
+    text-decoration-thickness: 1px;
+}
+
+.footer-a:hover {
+    color: var(--footer-hover);
+}
+
+.contacts p {
+    color: var(--footer-text);
+}
+
+.contacts i {
+    margin-right: 8px;
+}
+
+#copyright {
+    padding: 10px 24px;
+    background-color: var(--nav);
+    font-weight: 500;
+}
 
 /* MAIN PAGE */
 
@@ -132,13 +254,6 @@ body {
     margin: 0px 20px;
 }
 
-button {
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 15px;
-    border-radius: 20px;
-}
-
 #tombol-explore-food {
     border: none;
     background: var(--nav-hover);
@@ -148,15 +263,6 @@ button {
 #tombol-explore-food:hover {
     background: white;
     border: 2px solid var(--nav-hover);
-}
-
-h1, h2 {
-    font-family: var(--font-heading);
-    font-weight: 700;
-}
-
-p {
-    color: var(--desc-header);
 }
 
 .popular-food {
@@ -220,11 +326,6 @@ main {
     width: 100%;
 }
 
-hr {
-    width: 100%;
-    border: 1px solid var(--nav);
-    margin-bottom: -10px;
-}
 
 .halaman-regist-login input, .halaman-regist-login button {
     border-radius: 7px;
@@ -474,18 +575,10 @@ h5 {
     margin-right: 6px;
 }
 
-@media (min-width: 480px) {
+@media (min-width: 540px) {
 
 }
 
-@media (min-width: 768px) {
-
-}
-
-@media (min-width: 1024px) {
-
-}
-
-@media (min-width: 1280px) {
+@media (min-width: 720px) {
 
 }
