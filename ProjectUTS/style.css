@@ -30,6 +30,12 @@ body {
     flex-direction: column;
 }
 
+.main-container {
+    padding: 10px 40px;
+    align-items: center;
+    text-align: center;
+}
+
 /* NAVIGATION */
 .navbar {
     background-color: var(--nav);
@@ -38,6 +44,7 @@ body {
 
 .nav-link, .nav-link:focus, .nav-link:active, .nav-link.show, .nav-link.active  {
     color: var(--nav-element);
+    font-weight: 1000;
 }
 
 .nav-link:hover {
@@ -107,17 +114,7 @@ body {
 }
 
 /* FOOTER */
-#about {
-    background-color: var(--nav);
-    width: 100vw;
-    margin-bottom: 0;
-    margin-top: 25px;
-}
 
-#about p {
-    color: var(--nav-element);
-    margin-top: 15px;
-}
 
 /* MAIN PAGE */
 
