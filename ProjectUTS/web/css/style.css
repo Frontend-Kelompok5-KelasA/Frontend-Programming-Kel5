@@ -144,12 +144,25 @@ hr {
     font-weight: 1000;
 }
 
+.username {
+    color: var(--nav-element);
+    padding: 5px 15px;
+    font-weight: 500;
+}
+
 .dropdown-item:hover {
     background: none;
     text-decoration: underline;
     text-underline-offset: 6px;
     text-decoration-thickness: 2px;
     color: var(--nav-hover);
+}
+
+.dropdown-hr {
+    height: 3px;
+    background-color: var(--nav-hover);
+    border: none;
+    opacity: 100%;
 }
 
 /* FOOTER */
