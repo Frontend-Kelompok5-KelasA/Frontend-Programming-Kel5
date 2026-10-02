@@ -433,6 +433,20 @@ h5 {
     margin-top: 20px;
 }
 
+.web {
+    height: 27px;
+    width: auto;
+    object-fit: cover;
+    margin-right: 4px;
+}
+
+.ig {
+    height: 20px;
+    width: auto;
+    object-fit: cover;
+    margin-right: 6px;
+}
+
 @media (min-width: 480px) {
 
 }

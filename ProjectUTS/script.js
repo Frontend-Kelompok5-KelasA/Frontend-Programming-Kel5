@@ -189,8 +189,10 @@ document.addEventListener("DOMContentLoaded", function () {
         `).join("");
 
         const links = [
-            resto.official_website ? `<a href="${resto.official_website}" target="_blank" rel="noopener">Website</a>` : "",
-            resto.instagram ? `<a href="${resto.instagram}" target="_blank" rel="noopener">Instagram</a>` : ""
+            resto.official_website ? `<a href="${resto.official_website}" target="_blank" rel="noopener">
+            <img class="web" src="images/web.avif" alt="website">Website</a>` : "",
+            resto.instagram ? `<a href="${resto.instagram}" target="_blank" rel="noopener">
+            <img class="ig" src="images/instagram.webp" alt="instagram">Instagram</a>` : ""
         ].join(" ");
 
         detailContent.innerHTML = `
@@ -251,5 +253,4 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     
-
 });
