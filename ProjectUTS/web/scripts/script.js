@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (foodList) {
         // ambil data dari data.json
-        fetch("data.json")
+        fetch("../data/data.json")
             .then((response) => response.json())
             .then((restos) => {
                 gabunganResto = gabungCabangResto(restos);
