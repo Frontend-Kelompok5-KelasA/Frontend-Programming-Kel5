@@ -20,10 +20,30 @@
     </head>
 
     <body>
-        <nav>
-            <button class="nav-buttons" id="nav-back">
-                <img class="nav-icon" src="images/X.png" alt="back">
-            </button>
+        <nav class="navbar navbar-expand-md">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav-hamburger" aria-controls="nav-hamburger" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a class="navbar-brand" href="index.html"><img class="nav-logo" src="images/logo.png"></a>
+                <div class="navbar-profile dropdown ms-auto order-md-last ms-md-0">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img class="profile-picture" src="images/profile.png">
+                        Profile
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <a class="dropdown-item" href="#">Settings</a>
+                        <a class="dropdown-item" href="#">Logout</a>
+                    </div>
+                </div>
+                <div class="collapse navbar-collapse justify-content-center" id="nav-hamburger">
+                    <div class="navbar-nav">
+                        <a class="nav-link" href="index.html">Home</a>
+                        <a class="nav-link" href="explore.html">Explore</a>
+                        <a class="nav-link" href="#">Your Favorites</a>
+                    </div>
+                </div>
+            </div>
         </nav>
 
         <main>
