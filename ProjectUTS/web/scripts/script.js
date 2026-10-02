@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const gambar_def = "migor.png";
 
     if (foodList) {
-        fetch("data.json")
+        fetch("../data/data.json")
             .then((response) => response.json())
             .then((restos) => renderFoodCards(restos))
             .catch((error) => console.error("Failed fetching data.json:", error));
