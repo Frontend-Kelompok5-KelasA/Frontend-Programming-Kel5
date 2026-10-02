@@ -39,6 +39,30 @@ document.addEventListener("DOMContentLoaded", function () {
     // 1 item itu 1 restoran (semua lokasi/cabangnya ada di item.location)
     let gabunganResto = [];
 
+    const filterTerpilih = { tag: new Set(), cat: new Set(), price: new Set() };
+
+    // pilihan range harga
+    const PRICE_RANGES = [
+        { label: "< Rp50.000", min: 0, max: 50000 },
+        { label: "Rp50.000 - Rp100.000", min: 50000, max: 100000 },
+        { label: "> Rp100.000", min: 100000, max: Infinity }
+    ];
+
+    // "50.000-75.000" -> { min: 50000, max: 75000 }, kalau kosong -> null
+    function parseHarga(str) {
+        if (!str) return null;
+        const angka = str.split("-").map((s) => parseInt(s.replace(/\./g, ""), 10));
+        if (angka.some(isNaN)) return null;
+        return { min: angka[0], max: angka[angka.length - 1] };
+    }
+
+    // rata-rata rating dari semua cabang
+    function rataRating(resto) {
+        const r = resto.locations.map((l) => l.rating).filter((x) => typeof x === "number");
+        if (r.length === 0) return 0;
+        return Math.round((r.reduce((a, b) => a + b, 0) / r.length) * 100) / 100;
+    }
+
     // menggabungkan data yang namanya sama jadi 1 card dengan banyak lokasi
     function gabungCabangResto(restos) {
         const map = new Map();
@@ -73,63 +97,129 @@ document.addEventListener("DOMContentLoaded", function () {
                 place: r.place,
                 open_hour: r.open_hour,
                 rating: r.rating,
-                price: r.price
+                price: r.price,
+                harga: parseHarga(r.price)
             });
         });
 
         return [...map.values()];
     }
 
-    if (foodList) {
+    function buatTombolFilter(wadah, teks, nilai) {
+        const button = document.createElement("button");
+
+        button.className = "filter-option";
+        button.textContent = teks;
+        button.dataset.value = nilai;
+
+        button.addEventListener("click", () => {
+            button.classList.toggle("selected");
+        });
+
+        wadah.appendChild(button);
+    }
+
+    // baca tombol yang sedang "selected" -> simpan ke filterTerpilih
+    function simpanFilter() {
+        const baca = (id, himpunan, ubah) => {
+            himpunan.clear();
+            document.querySelectorAll(`#${id} .filter-option.selected`)
+                .forEach((b) => himpunan.add(ubah(b.dataset.value)));
+        };
+
+        baca("asal-daerah-filter", filterTerpilih.tag, String);
+        baca("jenis-filter", filterTerpilih.cat, String);
+        baca("price-filter", filterTerpilih.price, Number);
+    }
+
+    // kembalikan tampilan tombol sesuai filter yang terakhir diterapkan (dipakai saat batal)
+    function pulihkanTombol() {
+        const grup = [
+            ["asal-daerah-filter", filterTerpilih.tag, String],
+            ["jenis-filter", filterTerpilih.cat, String],
+            ["price-filter", filterTerpilih.price, Number]
+        ];
+
+        grup.forEach(([id, himpunan, ubah]) => {
+            document.querySelectorAll(`#${id} .filter-option`).forEach((b) => {
+                b.classList.toggle("selected", himpunan.has(ubah(b.dataset.value)));
+            });
+        });
+    }
+
+
+
+    if (foodList || popularList) {
         // ambil data dari data.json
         fetch("../data/data.json")
             .then((response) => response.json())
             .then((restos) => {
                 gabunganResto = gabungCabangResto(restos);
-                renderFoodCards(gabunganResto);
 
-                const tagFilter = document.getElementById("asal-daerah-filter");
-                const catFilter = document.getElementById("jenis-filter");
+                // index.html nampilin popular dishes
+                if (popularList) renderPopular();
+ 
+                // explore.html nampilin semua resto & tombol filter
+                if (foodList) {
+                    renderFoodCards(gabunganResto);
 
-                const tag = [...new Set(restos.map((resto) => resto.tag))];
-                const cat = [...new Set(restos.map((resto) => resto.cat))];
+                    const tagFilter = document.getElementById("asal-daerah-filter");
+                    const catFilter = document.getElementById("jenis-filter");
+                    const priceFilter = document.getElementById("price-filter");
 
-                tag.forEach((daerah) => {
-                    const button = document.createElement("button");
+                    const tag = [...new Set(restos.map((resto) => resto.tag))];
+                    const cat = [...new Set(restos.map((resto) => resto.cat))];
 
-                    button.className = "filter-option";
-                    button.textContent = daerah;
-                    button.dataset.value = daerah;
-
-                    button.addEventListener("click", () => {
-                        button.classList.toggle("selected");
-                    });
-
-                    tagFilter.appendChild(button);
-                });
-                cat.forEach((jenisMakanan) => {
-                    const button = document.createElement("button");
-
-                    button.className = "filter-option";
-                    button.textContent = jenisMakanan;
-                    button.dataset.value = jenisMakanan;
-
-                    button.addEventListener("click", () => {
-                        button.classList.toggle("selected");
-                    });
-
-                    catFilter.appendChild(button);
-                });
+                    tag.forEach((daerah) => buatTombolFilter(tagFilter, daerah, daerah));
+                    cat.forEach((jenis) => buatTombolFilter(catFilter, jenis, jenis));
+                    PRICE_RANGES.forEach((range, i) => buatTombolFilter(priceFilter, range.label, i));
+                }
             })
             .catch((error) => console.error("Failed fetching data.json:", error));
     }
 
-    function renderFoodCards(restos) {
-        foodList.innerHTML = "";
+    // gabungan search dan semua filter
+    // dalam 1 kelompok = OR (boleh pilih beberapa), antar kelompok = AND
+    function terapkanFilter() {
+        const keyword = searchInput ? searchInput.value.trim().toLowerCase() : "";
+ 
+        const hasil = gabunganResto.filter((resto) => {
+            const cocokNama = resto.name.toLowerCase().includes(keyword);
+            const cocokTag = filterTerpilih.tag.size === 0 || filterTerpilih.tag.has(resto.tag);
+            const cocokCat = filterTerpilih.cat.size === 0 || filterTerpilih.cat.has(resto.cat);
+ 
+            // cocok kalau ADA cabang yang harganya beririsan dengan range yang dipilih
+            const cocokHarga = filterTerpilih.price.size === 0 || resto.locations.some((loc) => {
+                if (!loc.harga) return false;
+                return [...filterTerpilih.price].some((i) => {
+                    const range = PRICE_RANGES[i];
+                    return loc.harga.min < range.max && loc.harga.max > range.min;
+                });
+            });
+ 
+            return cocokNama && cocokTag && cocokCat && cocokHarga;
+        });
+ 
+        renderFoodCards(hasil);
+    }
+
+    // index.html nampilin 5 resto dengan rata-rata rating >= 4.4, urut dari tertinggi
+    function renderPopular() {
+        const populer = gabunganResto
+            .map((resto) => ({ ...resto, rataRating: rataRating(resto) }))
+            .filter((resto) => resto.rataRating >= 4.4)
+            .sort((a, b) => b.rataRating - a.rataRating)
+            .slice(0, 5);
+ 
+        renderFoodCards(populer, popularList, true);
+    }
+
+    function renderFoodCards(restos, target = foodList, tampilRating = false) {
+        target.innerHTML = "";
 
         // kalau alfabet restoran tidak ada yang sama dengan nama resto, resto tidak ditemukan
         if (restos.length === 0) {
-            foodList.innerHTML = '<p class="no-result">Restoran tidak ditemukan.</p>';
+            target.innerHTML = '<p class="no-result">Restoran tidak ditemukan.</p>';
             return;
         }
 
@@ -152,21 +242,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 </div>
             `;
 
-            foodList.appendChild(card);
+            target.appendChild(card);
         });
     }
 
     // search case insensitive, langsung diload pas mengetik
     if (searchInput) {
-        searchInput.addEventListener("input", () => {
-            const keyword = searchInput.value.trim().toLowerCase();
-
-            const hasil = gabunganResto.filter((resto) =>
-                resto.name.toLowerCase().includes(keyword)
-            );
-
-            renderFoodCards(hasil);
-        });
+        searchInput.addEventListener("input", terapkanFilter);
     }
 
     // bikin modal buat detail resto, isinya ada semua lokasi
@@ -231,10 +313,38 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    // index.html: tombol "Lihat Detail" di Popular Dishes mengarah ke halaman explore
+    if (popularList) {
+        popularList.addEventListener("click", (e) => {
+            if (e.target.closest(".but-card")) window.location.href = "explore.html";
+        });
+    }
+
     const openMdl = document.getElementById("open-m-filter");
     const closeMdl = document.getElementById("close-filter");
     const cancelFilter = document.getElementById("cancel-filter");
     const modal = document.getElementById("modal");
+    const resetFilter = document.getElementById("matiin-filter");
+
+    // tombol matiin filter bakal muncul kalau ada filter yang aktif
+    function updateTombolReset() {
+        if (!resetFilter) return;
+
+        const aktif = filterTerpilih.tag.size + filterTerpilih.cat.size + filterTerpilih.price.size > 0;
+        resetFilter.classList.toggle("show", aktif);
+    }
+
+    if (resetFilter) {
+        resetFilter.addEventListener("click", () => {
+            // hapus semua pilihan filter (search tetap)
+            document.querySelectorAll(".filter-option.selected")
+                .forEach((b) => b.classList.remove("selected"));
+
+            simpanFilter();
+            terapkanFilter();
+            updateTombolReset();
+        });
+    }
 
     if (openMdl && closeMdl && modal) {
         openMdl.addEventListener("click", () => {
@@ -242,11 +352,15 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         closeMdl.addEventListener("click", () => {
+            simpanFilter();
+            terapkanFilter();
+            updateTombolReset();
             modal.classList.remove("open");
         });
 
         if (cancelFilter) {
         cancelFilter.addEventListener("click", () => {
+            pulihkanTombol();
             modal.classList.remove("open");
         });
         }
