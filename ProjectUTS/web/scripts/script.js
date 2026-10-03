@@ -34,7 +34,16 @@ document.addEventListener("DOMContentLoaded", function () {
     const foodList = document.getElementById("food-list");
     const popularList = document.getElementById("popular-list");
     const searchInput = document.getElementById("search-rest");
+    let resizeTimer;
+    window.addEventListener("resize", () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(bangunCarousel, 150);
+    });
     const gambar_def = "migor.png";
+
+    const CARD_WIDTH = 288;
+    const CARD_GAP = 24;
+    const ROW_PADDING = 32;
 
     // 1 item itu 1 restoran (semua lokasi/cabangnya ada di item.location)
     let gabunganResto = [];
@@ -203,15 +212,56 @@ document.addEventListener("DOMContentLoaded", function () {
         renderFoodCards(hasil);
     }
 
-    // index.html nampilin 5 resto dengan rata-rata rating >= 4.4, urut dari tertinggi
+    // index.html nampilin 12 resto dengan rata-rata rating >= 4.4, urut dari tertinggi
     function renderPopular() {
         const populer = gabunganResto
             .map((resto) => ({ ...resto, rataRating: rataRating(resto) }))
             .filter((resto) => resto.rataRating >= 4.4)
             .sort((a, b) => b.rataRating - a.rataRating)
-            .slice(0, 5);
- 
-        renderFoodCards(populer, popularList, true);
+            .slice(0, 12);
+
+        const temp = document.createElement("div");
+        renderFoodCards(populer, temp, true);
+        popularCards = [...temp.querySelectorAll(".card")];
+
+        if (popularCards.length === 0) {
+            popularList.innerHTML = temp.innerHTML;
+            return;
+        }
+
+        perSlide = 0;
+        bangunCarousel();
+    }
+
+    function bangunCarousel() {
+        const carousel = document.getElementById("popular-carousel");
+        const prev = document.getElementById("popular-prev");
+        const next = document.getElementById("popular-next");
+        if (!carousel || popularCards.length === 0) return;
+
+        const tersedia = carousel.clientWidth - ROW_PADDING;
+        const n = Math.max(1, Math.floor((tersedia + CARD_GAP) / (CARD_WIDTH + CARD_GAP)));
+
+        if (n === perSlide) return;
+        perSlide = n;
+
+        popularList.innerHTML = "";
+
+        for (let i = 0; i < popularCards.length; i += n) {
+            const item = document.createElement("div");
+            item.className = "carousel-item" + (i === 0 ? " active" : "");
+
+            const row = document.createElement("div");
+            row.className = "popular-row";
+            row.append(...popularCards.slice(i, i + n));
+
+            item.appendChild(row);
+            popularList.appendChild(item);
+        }
+
+        const adaBanyakSlide = popularCards.length > n;
+        prev.classList.toggle("d-none", !adaBanyakSlide);
+        next.classList.toggle("d-none", !adaBanyakSlide);
     }
 
     function renderFoodCards(restos, target = foodList, tampilRating = false) {
@@ -230,7 +280,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const card = document.createElement("div");
             card.className = "card";
-            card.style.width = "18rem";
+            card.style.width = CARD_WIDTH + "px";
 
             card.innerHTML = `
                 <img src="images/${imageFile}" class="card-img-top" alt="${resto.name}">
@@ -366,5 +416,13 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    
+    fetch('api/session').then(async res => {
+        const session = await res.json();
+        if(session){
+            document.getElementById('profile-dd').removeAttribute('data-bs-toggle');
+            document.getElementById('profile-toggle').onclick = () => {
+                window.location.href = '/profile'
+            }
+        }
+    });
 });

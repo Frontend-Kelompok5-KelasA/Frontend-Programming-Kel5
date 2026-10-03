@@ -1,4 +1,4 @@
-/* MAIN CSS */
+/* ---- MAIN CSS ---- */
 :root {
     /* COLORS */
     --background: white;
@@ -8,8 +8,17 @@
     --nav-height: 60px;
     --nav-dropdown: #333333;
     --text: #000000;
+    --white-text: #ffe5c1;
+    --highlight-text: #ff9b19;
+    --header-background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("../images/header_background.jpg") center / cover no-repeat;
+    --facts-background: #260d02;
+    --explore-background: #333333;
+    --special-background: #f5d8a6;
     --footer-background: #561d03;
+    --footer-link-background: #260d02;
     --footer-text: #ffe5c1;
+    --footer-link: #b5a081;
+    --footer-hover: #ff9b19;
     --desc-header: #afaeae;
 
     /* FONT */
@@ -31,9 +40,32 @@ body {
 }
 
 .main-container {
-    padding: 10px 40px;
     align-items: center;
     text-align: center;
+}
+
+/* ---- ALL ELEMENTS ----- */
+
+h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+}
+
+p {
+    color: var(--desc-header);
+}
+
+button {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 15px;
+    border-radius: 20px;
+}
+
+hr {
+    width: 100%;
+    border: 1px solid var(--nav);
+    margin-bottom: -10px;
 }
 
 /* NAVIGATION */
@@ -44,13 +76,17 @@ body {
     border-color: var(--nav-hover);
 }
 
-.nav-link, .nav-link:focus, .nav-link:active, .nav-link.show, .nav-link.active  {
+.nav-link, .nav-link:focus, .nav-link:active, .nav-link.show, .nav-link.active {
     color: var(--nav-element);
     font-weight: 1000;
 }
 
 .nav-link:hover {
     color: var(--nav-hover);
+    text-decoration: underline;
+    text-underline-offset: 6px;
+    text-decoration-thickness: 2px;
+
 }
 
 .navbar-toggler {
@@ -102,7 +138,9 @@ body {
 .dropdown-menu {
     background-color: var(--nav-dropdown);
     border: solid;
-    border-color: var(--nav-hover)
+    border-radius: 24px;
+    border-color: var(--nav-hover);
+    transform: translateY(30px);
 }
 
 .dropdown-item {
@@ -111,55 +149,142 @@ body {
     font-weight: 1000;
 }
 
+.username {
+    color: var(--nav-element);
+    padding: 5px 15px;
+    font-weight: 500;
+}
+
 .dropdown-item:hover {
-    background-color: var(--nav-dropdown);
+    background: none;
+    text-decoration: underline;
+    text-underline-offset: 6px;
+    text-decoration-thickness: 2px;
     color: var(--nav-hover);
 }
 
-/* FOOTER */
+.dropdown-hr {
+    height: 3px;
+    background-color: var(--nav-hover);
+    border: none;
+    opacity: 100%;
+}
 
+/* ---- MAIN PAGE ---- */
 
-/* MAIN PAGE */
+/* ==== index.html ==== */
 
-/* index */
+/* hero */
+.hero {
+    background: var(--header-background);
+    padding: 60px 20px;
+}
+
 .gambar-logo {
     height: auto;
     width: 120px;
     object-fit: cover;
 }
 
-.isi-konten-hal-utama {
+.hero-text {
     margin: 0px 20px;
+    padding: 0;
 }
 
-button {
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 15px;
-    border-radius: 20px;
+.hero-text h1 {
+    color: var(--highlight-text);
+    text-shadow: 0px 1px 4px var(--highlight-text);
 }
 
-#tombol-explore-food {
+.hero-text p {
+    color: var(--white-text);
+}
+
+/* facts */
+.facts {
+    padding: 0 0;
+}
+
+.facts-title {
+    padding: 30px 40px;
+    color: var(--white-text);
+    background-color: var(--facts-background);
+}
+
+.the-facts h2 {
+    color: var(--highlight-text);
+}
+
+.the-facts p {
+    color: var(--white-text);
+}
+
+.the-facts {
+    padding: 30px;
+}
+
+.facts-image {
+    width: 200px;
+    padding-bottom: 20px;
+}
+
+.areas-in-jakarta {
+    background: var(--header-background);
+}
+
+.culinary-choices {
+    background: var(--header-background);
+}
+
+.nusantara-in-one-city {
+    background: var(--header-background);
+}
+
+.a-city-of-culinary-diversity {
+    background: var(--header-background);
+}
+
+/* popular foods */
+.popular-wrapper {
+    position: relative;
+    padding: 0 56px;
+}
+
+.popular-row {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    padding: 20px 16px;
+}
+
+.popular-btn {
+    position: absolute;
+    top: 300px;
+    transform: none;
+    z-index: 5;
+    width: 40px;
+    height: 40px;
+    padding: 0;
     border: none;
-    background: var(--nav-hover);
-    padding: 5px 15px;
+    border-radius: 50%;
+    background-color: var(--nav-hover);
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s ease;
 }
 
-#tombol-explore-food:hover {
-    background: white;
-    border: 2px solid var(--nav-hover);
+.popular-btn:hover {
+    background-color: var(--nav);
+    color: var(--nav-element);
 }
 
-h1, h2 {
-    font-family: var(--font-heading);
-    font-weight: 700;
-}
-
-p {
-    color: var(--desc-header);
-}
+.popular-btn-prev { left: 24px; }
+.popular-btn-next { right: 24px; }
 
 .popular-food {
+    height: 900px;
     margin-top: 50px;
 }
 
@@ -174,6 +299,92 @@ p {
 }
 
 .but-card:hover {
+    background: white;
+    border: 2px solid var(--nav-hover);
+}
+
+/* special in jakarta */
+.special {
+    position: relative;
+}
+
+.special-title {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    right: 0;
+    z-index: 5;
+    padding: 0 20px;
+    pointer-events: none;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.special-title h1 {
+    color: var(--highlight-text);
+}
+
+.special-content img {
+    width: 100%;
+    height: 600px;
+    object-fit: cover;
+}
+
+.special-title p {
+    color: var(--white-text);
+}
+
+.special-content::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.65), rgba(0,0,0,0.25) 50%, rgba(0,0,0,0.7));
+    pointer-events: none;
+}
+
+.special .carousel-caption {
+    z-index: 3;
+    bottom: 30px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.carousel-caption h2 {
+    color: var(--white-text);
+}
+
+.special .carousel-control-prev, .special .carousel-control-next {
+    z-index: 10;
+}
+
+/* explore restaurants */
+.start-explore {
+    background-color: var(--explore-background);
+}
+
+.explore-images img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.explore-text {
+    padding: 24px 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.explore-text h1 {
+    color: var(--highlight-text);
+}
+
+#explore-food-button {
+    border: none;
+    background: var(--nav-hover);
+    padding: 5px 15px;
+}
+
+#explore-food-button:hover {
     background: white;
     border: 2px solid var(--nav-hover);
 }
@@ -220,11 +431,6 @@ main {
     width: 100%;
 }
 
-hr {
-    width: 100%;
-    border: 1px solid var(--nav);
-    margin-bottom: -10px;
-}
 
 .halaman-regist-login input, .halaman-regist-login button {
     border-radius: 7px;
@@ -474,18 +680,93 @@ h5 {
     margin-right: 6px;
 }
 
-@media (min-width: 480px) {
-
+/* ---- FOOTER ---- */
+footer {
+    align-items: center;
+    text-align: center;
 }
 
-@media (min-width: 768px) {
-
+.footer-fill {
+    padding: 30px 20px;
+    background-color: var(--footer-link-background);
+    color: var(--footer-text);
 }
 
-@media (min-width: 1024px) {
-
+.links, .contacts {
+    margin: auto;
 }
 
-@media (min-width: 1280px) {
+footer .footer-fill .row {
+    gap: 60px 0;
+}
 
+.about #footer-title #footer-logo {
+    width: 30%;
+}
+
+.about #footer-title p {
+    color: var(--footer-text);
+}
+
+.about #footer-team {
+    width: 280px;
+    margin: 0 auto;
+    font-size: 14px;
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.footer-socials {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.footer-a, .contacts p {
+    font-weight: 0;
+    font-size: 18px;
+}
+
+.footer-a {
+    color: var(--footer-link);
+    text-decoration: underline;
+    text-underline-offset: 6px;
+    text-decoration-thickness: 1px;
+}
+
+.footer-a:hover {
+    color: var(--footer-hover);
+}
+
+.contacts p {
+    color: var(--footer-text);
+}
+
+.contacts i {
+    margin-right: 8px;
+}
+
+#copyright {
+    padding: 10px 24px;
+    background-color: var(--nav);
+    font-weight: 500;
+}
+
+/* ---- RESPONSIVE ---- */
+
+@media (min-width: 540px) {
+    .hero-text {
+        margin: 0px 20px;
+        padding: 0 40px;
+    }
+}
+
+@media (min-width: 720px) {
+    .explore-images img {
+        height: 500px;
+    }
 }
