@@ -67,7 +67,7 @@
 
             <div class="facts">
                 <div class="facts-title">
-                    <h1>Taste of Indonesia, Right in Jakarta</h1>
+                    <h2>Taste of Indonesia, Right in Jakarta</h2>
                     <p>Jakarta brings together flavors from across the Indonesian archipelago.</p>
                 </div>
                 <div class="container-fluid facts-fill">
@@ -111,25 +111,94 @@
                 <h2>Popular Dishes</h2>
                 <p>Our most loved dishes by customers</p>
 
-                <div class="food-list d-flex flex-wrap justify-content-center gap-4" id="popular-list">
-                    <!-- Card di-generate dari data.json lewat script.js -->
+                <div class="popular-wrapper">
+                    <div id="popular-carousel" class="carousel slide" data-bs-ride="false" data-bs-interval="false">
+                        <div class="carousel-inner" id="popular-list">
+                            <!-- Slide & card di-generate dari data.json lewat script.js -->
+                        </div>
+                    </div>
+
+                    <button id="popular-prev" class="popular-btn popular-btn-prev d-none"
+                            type="button" data-bs-target="#popular-carousel" data-bs-slide="prev" aria-label="Sebelumnya">
+                        <i class="bi bi-chevron-left"></i>
+                    </button>
+                    <button id="popular-next" class="popular-btn popular-btn-next d-none"
+                            type="button" data-bs-target="#popular-carousel" data-bs-slide="next" aria-label="Berikutnya">
+                        <i class="bi bi-chevron-right"></i>
+                    </button>
                 </div>
             </div>
 
             <div class="special">
-
+                <div class="special-title">
+                    <h1>What Makes Nusantara Cuisine Special in Jakarta?</h1>
+                    <p>Different regions, traditions, and flavors come together in one city.</p>
+                </div>
+                <div id="special-carousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="7500" data-bs-pause="false">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active special-content">
+                            <img src="/images/gado_cemara.png" alt="First slide">
+                            <div class="carousel-caption">
+                                <h2>Diverse Flavors</h2>
+                                <p>Jakarta offers dishes with a wide range of flavors, from spicy and savory to sweet and rich.</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item special-content">
+                            <img src="/images/gerobak_betawi.png" alt="Second slide">
+                            <div class="carousel-caption">
+                                <h2>Regional Variety</h2>
+                                <p>Find culinary traditions from Sumatra, Java, Sulawesi, and other regions across Jakarta.</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item special-content">
+                            <img src="/images/kafe_betawi.jpg" alt="Third slide">
+                            <div class="carousel-caption">
+                                <h2>Cultural Heritage</h2>
+                                <p>Traditional dishes preserve the culinary traditions and cultural identity of communities living in Jakarta.</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item special-content">
+                            <img src="/images/lapis.png" alt="Fourth slide">
+                            <div class="carousel-caption">
+                                <h2>One City, Many Traditions</h2>
+                                <p>The city's diverse population brings together culinary traditions from different parts of Indonesia.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" type="button" data-bs-target="#special-carousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only"></span>
+                    </a>
+                    <a class="carousel-control-next" type="button" data-bs-target="#special-carousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only"></span>
+                    </a>
+                </div>
             </div>
 
             <div class="start-explore">
-                <div class="container-fluid exploring">
-                    <div class="row">
-                        <div class="col-12 col-md-6 explore-title">
-                            <h1>Start Exploring Jakarta's Culinary Flavors</h1>
+                <div class="container-fluid exploring p-0">
+                    <div class="row g-0">
+                        <div class="col-12 col-lg-6 explore-images">
+                            <div id="explore-carousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000" data-bs-pause="false">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src="/images/gado_cemara.png" alt="First slide">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="/images/gerobak_betawi.png" alt="Second slide">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="/images/kafe_betawi.jpg" alt="Third slide">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="col-12 col-md-6 explore-description">
+                        <div class="col-12 col-lg-6 explore-text">
+                            <h1>Start Exploring Jakarta's Culinary Flavors</h1>
                             <p>From traditional Betawi dishes to flavors brough from across the archipelago, discover Nusantara cuisine waiting to be explored throughout Jakarta.</p>
-                            <button id="tombol-explore-food">Start Explore</button>
+                            <button id="explore-food-button">Start Exploring</button>
                         </div>
                     </div>
                 </div>
