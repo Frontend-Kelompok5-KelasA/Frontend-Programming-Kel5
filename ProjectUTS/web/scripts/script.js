@@ -47,6 +47,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 1 item itu 1 restoran (semua lokasi/cabangnya ada di item.location)
     let gabunganResto = [];
+    let popularCards = [];
+    let perSlide = 0;
 
     const filterTerpilih = { tag: new Set(), cat: new Set(), price: new Set() };
 
@@ -165,9 +167,11 @@ document.addEventListener("DOMContentLoaded", function () {
             .then((restos) => {
                 gabunganResto = gabungCabangResto(restos);
 
+                renderExploreCarousel(restos);
+
                 // index.html nampilin popular dishes
                 if (popularList) renderPopular();
- 
+
                 // explore.html nampilin semua resto & tombol filter
                 if (foodList) {
                     renderFoodCards(gabunganResto);
@@ -233,6 +237,39 @@ document.addEventListener("DOMContentLoaded", function () {
         bangunCarousel();
     }
 
+    // untuk carousel pada bagian explore
+    function renderExploreCarousel(restos) {
+        const carousel = document.getElementById("explore-carousel");
+        if (!carousel) return;
+
+        const inner = carousel.querySelector(".carousel-inner");
+
+        const gambarUnik = [...new Set(restos.map((r) => r.image).filter(Boolean))];
+        if (gambarUnik.length === 0) return; // slide statis di HTML tetap dipakai
+
+        for (let i = gambarUnik.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [gambarUnik[i], gambarUnik[j]] = [gambarUnik[j], gambarUnik[i]];
+        }
+
+        const dipilih = gambarUnik.slice(0, 12);
+
+        inner.innerHTML = dipilih.map((g, i) => `
+            <div class="carousel-item ${i === 0 ? "active" : ""}">
+                <img src="/images/${g}" alt="Kuliner Nusantara" loading="lazy">
+            </div>
+        `).join("");
+
+        inner.innerHTML = gambarUnik.map((g, i) => `
+            <div class="carousel-item ${i === 0 ? "active" : ""}">
+                <img src="/images/${g}" alt="Kuliner Nusantara" loading="lazy">
+            </div>
+        `).join("");
+
+        bootstrap.Carousel.getOrCreateInstance(carousel);
+    }
+
+    // bangun carousel untuk bagian popular food
     function bangunCarousel() {
         const carousel = document.getElementById("popular-carousel");
         const prev = document.getElementById("popular-prev");
