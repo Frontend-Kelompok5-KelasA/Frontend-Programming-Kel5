@@ -1,25 +1,50 @@
 /* ---- MAIN CSS ---- */
 :root {
     /* COLORS */
+
+    /* root */
     --background: white;
+    --desc-header: #afaeae;
+    --text: #000000;
+    --white-text: #ffe5c1;
+    --highlight-text: #ff9b19;
+
+    /* nav */
     --nav: #201c17;
     --nav-element: #eee3d5;
     --nav-hover: #ff9b19;
     --nav-height: 60px;
     --nav-dropdown: #333333;
-    --text: #000000;
-    --white-text: #ffe5c1;
-    --highlight-text: #ff9b19;
-    --header-background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("../images/header_background.jpg") center / cover no-repeat;
+
+    /* facts */
     --facts-background: #260d02;
+
+    /* popular food */
+    --dishes-background: #fff5e3;
+
+    --dishes-img1: url("../images/bundaran-hi.jpg");
+    --dishes-img2: url("../images/culinary-choices.jpg");
+    --dishes-img3: url("../images/nusantara-one-city.jpg");
+    --dishes-img4: url("../images/culinary-diversity.jpg");
+    
+    --areas-jakarta: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), var(--dishes-img1) center / cover no-repeat;
+    --culinary-choices: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), var(--dishes-img2) center / cover no-repeat;
+    --nusantara-one-city: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), var(--dishes-img3) center / cover no-repeat;
+    --culinary-diversity: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), var(--dishes-img4) center / cover no-repeat;
+
+    /* explore */
     --explore-background: #333333;
-    --special-background: #f5d8a6;
+
+    /* footer */
     --footer-background: #561d03;
     --footer-link-background: #260d02;
     --footer-text: #ffe5c1;
     --footer-link: #b5a081;
     --footer-hover: #ff9b19;
-    --desc-header: #afaeae;
+    
+    /* BACKGROUND */
+    --header-img: url("../images/header_background.jpg");
+    --header-background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), var(--header-img) center / cover no-repeat;
 
     /* FONT */
     --font-heading: 'Gabarito', sans-serif;
@@ -202,13 +227,29 @@ hr {
 
 /* facts */
 .facts {
-    padding: 0 0;
+    padding: 20px 10px;
 }
 
 .facts-title {
     padding: 30px 40px;
-    color: var(--white-text);
-    background-color: var(--facts-background);
+}
+
+.facts-fill {
+    padding: 20px 30px;
+}
+
+.the-facts {
+    border: 9px solid white;
+    box-shadow: 3px 3px 10px var(--nav-hover);
+    border-radius: 20px;
+    transition: transform 0.2s;
+    background: var(--card-img);
+    padding: 30px 20px;
+    height: 100%;
+    min-height: 260px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .the-facts h2 {
@@ -219,88 +260,26 @@ hr {
     color: var(--white-text);
 }
 
-.the-facts {
-    padding: 30px;
-}
-
-.facts-image {
-    width: 200px;
-    padding-bottom: 20px;
+.the-facts img {
+    height: 200px;
+    width: auto;
+    object-fit: contain;
 }
 
 .areas-in-jakarta {
-    background: var(--header-background);
+    --card-img: var(--areas-jakarta);
 }
 
 .culinary-choices {
-    background: var(--header-background);
+    --card-img: var(--culinary-choices);
 }
 
 .nusantara-in-one-city {
-    background: var(--header-background);
+    --card-img: var(--nusantara-one-city);
 }
 
 .a-city-of-culinary-diversity {
-    background: var(--header-background);
-}
-
-/* popular foods */
-.popular-wrapper {
-    position: relative;
-    padding: 0 56px;
-}
-
-.popular-row {
-    display: flex;
-    justify-content: center;
-    gap: 24px;
-    padding: 20px 16px;
-}
-
-.popular-btn {
-    position: absolute;
-    top: 300px;
-    transform: none;
-    z-index: 5;
-    width: 40px;
-    height: 40px;
-    padding: 0;
-    border: none;
-    border-radius: 50%;
-    background-color: var(--nav-hover);
-    color: var(--text);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 0.2s ease;
-}
-
-.popular-btn:hover {
-    background-color: var(--nav);
-    color: var(--nav-element);
-}
-
-.popular-btn-prev { left: 24px; }
-.popular-btn-next { right: 24px; }
-
-.popular-food {
-    height: 900px;
-    margin-top: 50px;
-}
-
-.but-card {
-    background-color: var(--nav-hover);
-    border: none;
-    color: var(--text);
-    font-weight: 700;
-    text-decoration: none;
-    border-radius: 10px;
-    padding: 5px 15px;
-}
-
-.but-card:hover {
-    background: white;
-    border: 2px solid var(--nav-hover);
+    --card-img: var(--culinary-diversity);
 }
 
 /* special in jakarta */
@@ -353,6 +332,69 @@ hr {
 
 .special .carousel-control-prev, .special .carousel-control-next {
     z-index: 10;
+}
+
+/* popular foods */
+.popular-food {
+    padding-top: 40px;
+    background-color: var(--dishes-background);
+}
+
+.popular-wrapper {
+    position: relative;
+    padding: 0 56px;
+}
+
+.popular-row {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    padding: 20px 16px;
+}
+
+.popular-btn {
+    position: absolute;
+    top: 300px;
+    transform: none;
+    z-index: 5;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--nav-hover);
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s ease;
+}
+
+.popular-btn:hover {
+    background-color: var(--nav);
+    color: var(--nav-element);
+}
+
+.popular-btn-prev { left: 24px; }
+.popular-btn-next { right: 24px; }
+
+.popular-food {
+    height: 900px;
+}
+
+.but-card {
+    background-color: var(--nav-hover);
+    border: none;
+    color: var(--text);
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 10px;
+    padding: 5px 15px;
+}
+
+.but-card:hover {
+    background: white;
+    border: 2px solid var(--nav-hover);
 }
 
 /* explore restaurants */
