@@ -28,6 +28,7 @@
     </head>
 
     <body>
+        <!-- navbar -->
         <nav class="navbar navbar-expand-md">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav-hamburger" aria-controls="nav-hamburger" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,9 +36,9 @@
                 </button>
                 <a class="navbar-brand" href="index.html"><img class="nav-logo" src="../images/logo.png"></a>
                 <div class="navbar-profile dropdown ms-auto order-md-last ms-md-0">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" id="profile-dd" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <img class="profile-picture" src="../images/profile.png">
-                        <span class="d-none d-sm-inline">Profile</span>
+                        <span class="d-none d-md-inline" id="profile-toggle">Profile</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end">
                         <span class="d-inline d-sm-none username">Profile<hr class="dropdown-hr"></span>
@@ -55,23 +56,151 @@
             </div>
         </nav>
 
+        <!-- content -->
         <div class="main-container">
-            <img class="gambar-logo" src="../images/logo.png">
+            <!-- hero -->
+            <div class="hero">
+                <img class="gambar-logo" src="../images/logo.png">
 
-            <div class="isi-konten-hal-utama">
-                <h1>Serving you the flavors of Nusantara. Explore Indonesia, one delicious dish at a time</h1>
-                <p>Discover Indonesia's beloved flavors, from traditional favorites to hidden culinary gems scattered across Jakarta.</p>
-                <button id="tombol-explore-food">Explore Food</button>
+                <div class="hero-text">
+                    <h1>Serving you the flavors of Nusantara. Explore Indonesia, one delicious dish at a time</h1>
+                    <p>Discover Indonesia's beloved flavors, from traditional favorites to hidden culinary gems scattered across Jakarta.</p>
+                </div>
             </div>
 
+            <!-- facts -->
+            <div class="facts">
+                <div class="facts-title">
+                    <h2>Taste of Indonesia, Right in Jakarta</h2>
+                    <p>Jakarta brings together flavors from across the Indonesian archipelago.</p>
+                </div>
+                <div class="container-fluid facts-fill">
+                    <div class="row gy-4">
+                        <div class="col-12 col-md-6 col-lg-3 areas-in-jakarta">
+                            <div class="the-facts">
+                                <img class="facts-image" src="/images/peta-jakarta.png">
+                                <h2>5 Areas of Jakarta</h2>
+                                <p>Discover Nusantara cuisine spread across Central, South, East, West, and North Jakarta.</p>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 col-lg-3 culinary-choices">
+                            <div class="the-facts">
+                                <img class="facts-image" src="/images/rendang.png">
+                                <h2>100+ Culinary Choices</h2>
+                                <p>Explore a wide variety of traditional Indonesian dishes available throughout the city.</p>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 col-lg-3 nusantara-in-one-city">
+                            <div class="the-facts">
+                                <img class="facts-image" src="/images/kuliner.png">
+                                <h2>Nusantara in One City</h2>
+                                <p>From Padang cuisine to Betawi specialities, Jakarta offers flavors from different parts of Indonesia.</p>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 col-lg-3 a-city-of-culinary-diversity">
+                            <div class="the-facts">
+                                <img class="facts-image" src="/images/monas.png">
+                                <h2>A City of Culinary Diversity</h2>
+                                <p>Jakarta's diverse communities have brought culinary traditions from across Indonesia into the city.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- special -->
+            <div class="special">
+                <div class="special-title">
+                    <h1>What Makes Nusantara Cuisine Special in Jakarta?</h1>
+                    <p>Different regions, traditions, and flavors come together in one city.</p>
+                </div>
+                <div id="special-carousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="7500" data-bs-pause="false">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active special-content">
+                            <img src="/images/flavors.jpg" alt="Diverse Flavors">
+                            <div class="carousel-caption">
+                                <h2>Diverse Flavors</h2>
+                                <p>Jakarta offers dishes with a wide range of flavors, from spicy and savory to sweet and rich.</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item special-content">
+                            <img src="/images/regional-variety.jpg" alt="Regional Variety">
+                            <div class="carousel-caption">
+                                <h2>Regional Variety</h2>
+                                <p>Find culinary traditions from Sumatra, Java, Sulawesi, and other regions across Jakarta.</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item special-content">
+                            <img src="/images/jakarta-culinary.jpg" alt="Cultural Heritage">
+                            <div class="carousel-caption">
+                                <h2>Cultural Heritage</h2>
+                                <p>Traditional dishes preserve the culinary traditions and cultural identity of communities living in Jakarta.</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item special-content">
+                            <img src="/images/jakarta-city.jpg" alt="One City, Many Traditions">
+                            <div class="carousel-caption">
+                                <h2>One City, Many Traditions</h2>
+                                <p>The city's diverse population brings together culinary traditions from different parts of Indonesia.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" type="button" data-bs-target="#special-carousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only"></span>
+                    </a>
+                    <a class="carousel-control-next" type="button" data-bs-target="#special-carousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only"></span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- popular foods -->
             <div class="popular-food">
                 <h2>Popular Dishes</h2>
                 <p>Our most loved dishes by customers</p>
 
-                <div class="food-list d-flex flex-wrap justify-content-center gap-4" id="popular-list">
-                    <!-- Card di-generate dari data.json lewat script.js -->
-                </div>
+                <div class="popular-wrapper">
+                    <div id="popular-carousel" class="carousel slide" data-bs-ride="false" data-bs-interval="false">
+                        <div class="carousel-inner" id="popular-list">
+                            <!-- Slide & card di-generate dari data.json lewat script.js -->
+                        </div>
+                    </div>
 
+                    <button id="popular-prev" class="popular-btn popular-btn-prev d-none"
+                            type="button" data-bs-target="#popular-carousel" data-bs-slide="prev" aria-label="Sebelumnya">
+                        <i class="bi bi-chevron-left"></i>
+                    </button>
+                    <button id="popular-next" class="popular-btn popular-btn-next d-none"
+                            type="button" data-bs-target="#popular-carousel" data-bs-slide="next" aria-label="Berikutnya">
+                        <i class="bi bi-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- start explore -->
+            <div class="start-explore">
+                <div class="container-fluid exploring p-0">
+                    <div class="row g-0">
+                        <div class="col-12 col-lg-6 explore-images">
+                            <div id="explore-carousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000" data-bs-pause="false">
+                                <div class="carousel-inner">
+                                    <!-- Slide gambar di-generate dari data.json lewat script.js -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 explore-text">
+                            <h1>Start Exploring Jakarta's Culinary Flavors</h1>
+                            <p>From traditional Betawi dishes to flavors brought from across the archipelago, discover Nusantara cuisine waiting to be explored throughout Jakarta.</p>
+                            <button id="explore-food-button">Start Exploring</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         
@@ -114,7 +243,7 @@
                         <div class="footer-socials">
                             <a href="#" class="footer-a"><i class="bi bi-envelope-fill"></i>Email</a>
                             <a href="#" class="footer-a"><i class="bi bi-instagram"></i>Instagram</a>
-                            <a href="#" class="footer-a"><i class="bi bi-whatsapp"></i>Whatsapp</a>
+                            <a href="#" class="footer-a"><i class="bi bi-whatsapp"></i>WhatsApp</a>
                         </div>
                     </div>
                 </div>
