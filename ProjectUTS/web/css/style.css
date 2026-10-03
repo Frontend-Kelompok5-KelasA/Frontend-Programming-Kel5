@@ -8,6 +8,10 @@
     --nav-height: 60px;
     --nav-dropdown: #333333;
     --text: #000000;
+    --white-text: #ffe5c1;
+    --highlight-text: #ff9b19;
+    --header-background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("../images/header_background.jpg") center / cover no-repeat;
+    --facts-background : #260d02;
     --footer-background: #561d03;
     --footer-link-background : #260d02;
     --footer-text: #ffe5c1;
@@ -34,7 +38,6 @@ body {
 }
 
 .main-container {
-    padding: 10px 40px;
     align-items: center;
     text-align: center;
 }
@@ -165,104 +168,79 @@ hr {
     opacity: 100%;
 }
 
-/* FOOTER */
-footer {
-    align-items: center;
-    text-align: center;
-}
-
-.footer-fill {
-    padding: 30px 20px;
-    background-color: var(--footer-link-background);
-    color: var(--footer-text);
-}
-
-.links, .contacts {
-    margin: auto;
-}
-
-.row {
-    gap: 60px 0;
-}
-
-.about #footer-title #footer-logo {
-    width: 30%;
-}
-
-.about #footer-title p {
-    color: var(--footer-text);
-}
-
-.about #footer-team {
-    width: 280px;
-    margin: 0 auto;
-    font-size: 14px;
-}
-
-.footer-links {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.footer-socials {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.footer-a, .contacts p {
-    font-weight: 0;
-    font-size: 18px;
-}
-
-.footer-a {
-    color: var(--footer-link);
-    text-decoration: underline;
-    text-underline-offset: 6px;
-    text-decoration-thickness: 1px;
-}
-
-.footer-a:hover {
-    color: var(--footer-hover);
-}
-
-.contacts p {
-    color: var(--footer-text);
-}
-
-.contacts i {
-    margin-right: 8px;
-}
-
-#copyright {
-    padding: 10px 24px;
-    background-color: var(--nav);
-    font-weight: 500;
-}
-
 /* MAIN PAGE */
 
 /* index */
+.hero {
+    background: var(--header-background);
+    padding: 60px 20px;
+}
+
 .gambar-logo {
     height: auto;
     width: 120px;
     object-fit: cover;
 }
 
-.isi-konten-hal-utama {
+.hero-text {
     margin: 0px 20px;
+    padding: 0;
 }
 
-#tombol-explore-food {
-    border: none;
-    background: var(--nav-hover);
-    padding: 5px 15px;
+.hero-text h1 {
+    color: var(--highlight-text);
+    text-shadow: 0px 1px 4px var(--highlight-text);
 }
 
-#tombol-explore-food:hover {
-    background: white;
-    border: 2px solid var(--nav-hover);
+.hero-text p {
+    color: var(--white-text);
+}
+
+.facts {
+    padding: 0 0;
+}
+
+.facts-title {
+    padding: 30px 40px;
+    color: var(--white-text);
+    background-color: var(--facts-background);
+}
+
+.the-facts h2 {
+    color: var(--highlight-text);
+}
+
+.the-facts p {
+    color: var(--white-text);
+}
+
+.the-facts {
+    padding: 30px;
+}
+
+.facts-image {
+    width: 200px;
+    padding-bottom: 20px;
+}
+
+.areas-in-jakarta {
+    background: var(--header-background);
+}
+
+.culinary-choices {
+    background: var(--header-background);
+}
+
+.nusantara-in-one-city {
+    background: var(--header-background);
+}
+
+.a-city-of-culinary-diversity {
+    background: var(--header-background);
+}
+
+.food-list {
+    padding: 0 40px;
 }
 
 .popular-food {
@@ -280,6 +258,25 @@ footer {
 }
 
 .but-card:hover {
+    background: white;
+    border: 2px solid var(--nav-hover);
+}
+
+.special {
+    
+}
+
+.start-explore {
+    
+}
+
+#tombol-explore-food {
+    border: none;
+    background: var(--nav-hover);
+    padding: 5px 15px;
+}
+
+#tombol-explore-food:hover {
     background: white;
     border: 2px solid var(--nav-hover);
 }
@@ -575,8 +572,87 @@ h5 {
     margin-right: 6px;
 }
 
-@media (min-width: 540px) {
+/* FOOTER */
+footer {
+    align-items: center;
+    text-align: center;
+}
 
+.footer-fill {
+    padding: 30px 20px;
+    background-color: var(--footer-link-background);
+    color: var(--footer-text);
+}
+
+.links, .contacts {
+    margin: auto;
+}
+
+footer .footer-fill .row {
+    gap: 60px 0;
+}
+
+.about #footer-title #footer-logo {
+    width: 30%;
+}
+
+.about #footer-title p {
+    color: var(--footer-text);
+}
+
+.about #footer-team {
+    width: 280px;
+    margin: 0 auto;
+    font-size: 14px;
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.footer-socials {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.footer-a, .contacts p {
+    font-weight: 0;
+    font-size: 18px;
+}
+
+.footer-a {
+    color: var(--footer-link);
+    text-decoration: underline;
+    text-underline-offset: 6px;
+    text-decoration-thickness: 1px;
+}
+
+.footer-a:hover {
+    color: var(--footer-hover);
+}
+
+.contacts p {
+    color: var(--footer-text);
+}
+
+.contacts i {
+    margin-right: 8px;
+}
+
+#copyright {
+    padding: 10px 24px;
+    background-color: var(--nav);
+    font-weight: 500;
+}
+
+@media (min-width: 540px) {
+    .hero-text {
+        margin: 0px 20px;
+        padding: 0 40px;
+    }
 }
 
 @media (min-width: 720px) {
