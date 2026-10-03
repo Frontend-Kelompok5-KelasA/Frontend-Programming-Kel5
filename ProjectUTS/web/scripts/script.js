@@ -366,5 +366,13 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    
+    fetch('api/session').then(async res => {
+        const session = await res.json();
+        if(session){
+            document.getElementById('profile-dd').removeAttribute('data-bs-toggle');
+            document.getElementById('profile-toggle').onclick = () => {
+                window.location.href = '/profile'
+            }
+        }
+    });
 });
