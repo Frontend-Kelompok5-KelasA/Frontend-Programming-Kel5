@@ -3,6 +3,7 @@ const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 
 const { initAuth } = require("./auth");
+const { initReviews } = require("./reviews");
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.get('/api/resto', (req, res) => {
 });
 
 initAuth(app, db);
+initReviews(app, db);
 
 app.listen(8080, () => {
     console.log('Silahkan buka http://localhost:8080 untuk mengakses website')

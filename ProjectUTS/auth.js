@@ -59,9 +59,12 @@ function initAuth(app, db){
             }
 
             const result = await bcrypt.compare(password, user.password);
+
             if(result){
-                req.session.userData = {email: user.email, username: user.username};
+                req.session.userData = {user_id: user.user_id, email: user.email, username: user.username, role: user.role};
                 res.redirect('/index');
+            } else {
+                res.redirect('/login');
             }
         });
     });
