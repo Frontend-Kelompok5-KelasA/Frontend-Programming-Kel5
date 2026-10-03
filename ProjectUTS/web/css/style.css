@@ -812,3 +812,18 @@ footer .footer-fill .row {
         height: 500px;
     }
 }
+
+/* ANIMATION */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: white;
+    z-index: 99999;
+    pointer-events: none;
+    animation: putihHilang 0.9s ease forwards;
+}
+
+@keyframes putihHilang {
+    from { opacity: 1; } to { opacity: 0; visibility: hidden; }
+}
