@@ -30,6 +30,10 @@ app.get('/api/resto', (req, res) => {
 initAuth(app, db);
 initReviews(app, db);
 
+app.use((req, res) => {
+    res.status(404).redirect('/login');
+});
+
 app.listen(8080, () => {
     console.log('Silahkan buka http://localhost:8080 untuk mengakses website')
 });

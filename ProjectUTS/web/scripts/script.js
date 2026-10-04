@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    redirectButton("#tombol-explore-food", "explore.html");
+    redirectButton("#explore-food-button", "explore.html");
     redirectButton("#profile-button", "login.html");
 
     const navBack = document.querySelector("#nav-back");
@@ -510,12 +510,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     fetch('api/session').then(async res => {
         const session = await res.json();
-        currentUser = session;
         if(session){
-            document.getElementById('profile-dd').removeAttribute('data-bs-toggle');
-            document.getElementById('profile-toggle').onclick = () => {
-                window.location.href = '/profile'
-            }
+            document.getElementById('profile-logged').classList.remove('d-none');
+            return;
         }
+
+        document.getElementById('profile-out').classList.remove('d-none');
     });
 });
