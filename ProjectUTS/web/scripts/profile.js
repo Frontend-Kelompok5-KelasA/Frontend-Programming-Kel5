@@ -11,8 +11,9 @@ async function loadReviews() {
         return;
     }
 
-    const reviews = await res.json();
-    const showUser = true;
+    const data = await res.json();
+    const reviews = data.reviews;
+    const showUser = data.scope === "all";
 
     const columns = showUser ? 5 : 4;
 

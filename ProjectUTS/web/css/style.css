@@ -450,6 +450,7 @@ main {
     box-shadow: 0px 5px 5px #afaeae;
     border-radius: 20px;
     padding: 30px 40px;
+    margin: 200px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -518,7 +519,7 @@ h5 {
 }
 #search-rest {
     margin: 10px 0px;
-    width: 90%;
+    width: 790%;
     border: 2px solid var(--nav-hover);
     text-decoration: none;
     padding: 5px 10px;
@@ -653,6 +654,7 @@ h5 {
 }
 
 .list-resto {
+    margin: 0 60px;
     margin-top: 25px;
 }
 
@@ -841,6 +843,7 @@ h5 {
     display: block;
     min-height: 100%;
     padding: 30px 24px;
+    margin: 25px 0 100px 0;
 }
 
 .halaman-tabel h1 {
@@ -909,6 +912,7 @@ h5 {
     border-radius: 20px;
     box-shadow: 0px 5px 5px #afaeae;
     padding: 30px 40px;
+    margin: 40px;
 }
 
 .kotak-form h1 {
