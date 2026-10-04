@@ -58,27 +58,26 @@
         <div class="main-container">
             <img class="gambar-logo" src="../images/profile.png">
 
-        <div class="isi-konten-hal-utama">
             <div class="biodata">
                 <h3 id="profile-name">User's Name</h3>
                 <p id="profile-fav">User's Fav Food/Restaurant</p>
                 <p id="profile-memory">User's memories (berapa journal yang pernah ditulis)</p>
             </div>
+
+            <section class="list-review container" id="review-section">
+                <h3 id="review-title">My Reviews</h3>
+                <p id="review-summary">Loading reviews...</p>
+
+                <input type="search" id="review-search" placeholder="Search reviews...">
+
+                <div class="review-table-wrap">
+                    <table class="review-table">
+                        <thead id="review-head"></thead>
+                        <tbody id="review-body"></tbody>
+                    </table>
+                </div>
+            </section>
         </div>
-
-        <section class="list-review container" id="review-section">
-            <h3 id="review-title">My Reviews</h3>
-            <p id="review-summary">Loading reviews...</p>
-
-            <input type="search" id="review-search" placeholder="Search reviews...">
-
-            <div class="review-table-wrap">
-                <table class="review-table">
-                    <thead id="review-head"></thead>
-                    <tbody id="review-body"></tbody>
-                </table>
-            </div>
-        </section>
 
         <footer>
             <div class="container-fluid footer-fill">
