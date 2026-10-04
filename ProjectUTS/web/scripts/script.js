@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    redirectButton("#tombol-explore-food", "explore.html");
+    redirectButton("#explore-food-button", "explore.html");
     redirectButton("#profile-button", "login.html");
 
     const navBack = document.querySelector("#nav-back");
