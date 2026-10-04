@@ -510,6 +510,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     fetch('api/session').then(async res => {
         const session = await res.json();
+        currentUser = session;
         if(session){
             document.getElementById('profile-logged').classList.remove('d-none');
             return;
