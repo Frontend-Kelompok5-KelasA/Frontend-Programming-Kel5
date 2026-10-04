@@ -14,7 +14,7 @@ function initAuth(app, db){
                 path: match ? '/' + match[1] : '/',
                 httpOnly: true,
                 secure: req.secure || false,
-                maxAge: 60000,
+                maxAge: 24 * 60 * 60 * 1000,
             };
         },
     }))
@@ -38,8 +38,6 @@ function initAuth(app, db){
                 res.redirect('/login');
             }
         );
-
-
     });
 
     app.post('/api/login', (req, res) => {
@@ -72,11 +70,16 @@ function initAuth(app, db){
     app.post('/api/logout', (req, res) => {
         req.session.userData = null;
         res.redirect('/login');
-    })
+    });
+
+    app.get('/api/logout', (req, res) => {
+        req.session.userData = null;
+        res.redirect('/login');
+    });
 
     app.get('/api/session', (req, res) => {
         res.json(req.session.userData || null);
-    })
+    });
 }
 
 module.exports = { initAuth };
