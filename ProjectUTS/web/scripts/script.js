@@ -644,7 +644,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!tbody) return;
 
         try {
-            const res = await fetch('/api/reviews');
+            const res = await fetch('/api/reviews/all');
             if (!res.ok) throw new Error('Gagal mengambil data review');
 
             const data = await res.json();

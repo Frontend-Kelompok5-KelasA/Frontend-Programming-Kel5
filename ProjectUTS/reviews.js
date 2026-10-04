@@ -26,7 +26,7 @@ function initReviews(app, db) {
 
             db.run(
                 `INSERT INTO review (user_id, restaurant_id, rating, comment, created_at)
-                 VALUES (?, ?, ?, ?, datetime('now', 'localtime'))`,
+                VALUES (?, ?, ?, ?, datetime('now', 'localtime'))`,
                 [req.session.userData.user_id, restaurant_id, nilai, teks],
                 function (err) {
                     if (err) return res.status(500).json({ error: err.message });
@@ -42,8 +42,8 @@ function initReviews(app, db) {
 
         const query = `
             SELECT rv.review_id, rv.rating, rv.comment, rv.created_at,
-                   u.username, u.email,
-                   rs.id AS restaurant_id, rs.name AS restaurant_name, rs.city
+                u.username, u.email,
+                rs.id AS restaurant_id, rs.name AS restaurant_name, rs.city
             FROM review rv
             LEFT JOIN user u ON u.user_id = rv.user_id
             LEFT JOIN restaurant rs ON rs.id = rv.restaurant_id
@@ -55,6 +55,22 @@ function initReviews(app, db) {
             res.json({ scope: isAdmin ? 'all' : 'mine', reviews: rows });
         });
     });
+
+    app.get('/api/reviews/all', (req, res) => {
+    const query = `
+        SELECT rv.review_id, rv.rating, rv.comment, rv.created_at,
+            u.username,
+            rs.id AS restaurant_id, rs.name AS restaurant_name, rs.city
+        FROM review rv
+        LEFT JOIN user u ON u.user_id = rv.user_id
+        LEFT JOIN restaurant rs ON rs.id = rv.restaurant_id
+        ORDER BY rv.review_id DESC`;
+
+    db.all(query, [], (err, rows) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json({ scope: 'all', reviews: rows });
+    });
+});
 }
 
 module.exports = { initReviews };
