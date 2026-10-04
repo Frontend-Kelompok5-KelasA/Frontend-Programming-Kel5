@@ -1,3 +1,10 @@
+// mengubah teks dari user agar aman ditampilkan di HTML
+function esc(s) {
+    return String(s ?? "").replace(/[&<>"']/g, (c) => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+    }[c]));
+}
+
 document.addEventListener("DOMContentLoaded", function () {
 
     const hamburger = document.getElementById("nav-hamburger");
@@ -19,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    redirectButton("#tombol-explore-food", "explore.html");
+    redirectButton("#explore-food-button", "explore.html");
     redirectButton("#profile-button", "login.html");
 
     const navBack = document.querySelector("#nav-back");
@@ -44,6 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const CARD_WIDTH = 288;
     const CARD_GAP = 24;
     const ROW_PADDING = 32;
+    let currentUser = null;
 
     // 1 item itu 1 restoran (semua lokasi/cabangnya ada di item.location)
     let gabunganResto = [];
@@ -161,7 +169,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     if (foodList || popularList) {
-        // ambil data dari data.json
+        // ambil data dari /api/resto
         fetch("../api/resto")
             .then((response) => response.json())
             .then((restos) => {
@@ -188,7 +196,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     PRICE_RANGES.forEach((range, i) => buatTombolFilter(priceFilter, range.label, i));
                 }
             })
-            .catch((error) => console.error("Failed fetching data.json:", error));
+            .catch((error) => console.error("Failed fetching /api/resto:", error));
     }
 
     // gabungan search dan semua filter
@@ -364,6 +372,28 @@ document.addEventListener("DOMContentLoaded", function () {
             <img class="ig" src="images/instagram.webp" alt="instagram">Instagram</a>` : ""
         ].join(" ");
 
+        const reviewHTML = currentUser ? `
+            <h3>Tulis Review</h3>
+            <form id="review-form" class="review-form d-flex flex-column gap-2">
+                <select name="restaurant_id" required>
+                    ${resto.locations.map((l) =>
+                        `<option value="${esc(l.id)}">${esc(l.city)} - ${esc(l.place?.slice(0, 50))}</option>`
+                    ).join("")}
+                </select>
+                <select name="rating" required>
+                    <option value="">Pilih rating</option>
+                    <option value="5">⭐⭐⭐⭐⭐ (5)</option>
+                    <option value="4">⭐⭐⭐⭐ (4)</option>
+                    <option value="3">⭐⭐⭐ (3)</option>
+                    <option value="2">⭐⭐ (2)</option>
+                    <option value="1">⭐ (1)</option>
+                </select>
+                <textarea name="comment" rows="3" maxlength="1000" placeholder="Ceritakan pengalamanmu..." required></textarea>
+                <button type="submit">Kirim Review</button>
+                <p id="review-msg"></p>
+            </form>`
+            : `<p><a href="/login">Login</a> untuk menulis review.</p>`;
+
         detailContent.innerHTML = `
             <img src="images/${imageFile}" alt="${resto.name}" class="detail-img">
             <h2>${resto.name}</h2>
@@ -372,6 +402,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <h3>Lokasi (${resto.locations.length})</h3>
             <ul class="loc-list">${lokasiHTML}</ul>
             <div class="detail-links">${links}</div>
+            ${reviewHTML}
         `;
 
         detailModal.classList.add("open");
@@ -397,6 +428,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
         document.addEventListener("keydown", (e) => {
             if (e.key === "Escape") closeDetail();
+        });
+
+        detailContent.addEventListener("submit", async (e) => {
+            if (e.target.id !== "review-form") return;
+            e.preventDefault();
+
+            const form = e.target;
+            const msg = form.querySelector("#review-msg");
+            const body = Object.fromEntries(new FormData(form));
+
+            try {
+                const res = await fetch("/api/reviews", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(body)
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || "Gagal mengirim review.");
+
+                msg.textContent = "Terima kasih! Review kamu sudah terkirim.";
+                form.reset();
+            } catch (err) {
+                msg.textContent = err.message;
+            }
         });
     }
 
@@ -455,11 +510,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     fetch('api/session').then(async res => {
         const session = await res.json();
+        currentUser = session;
         if(session){
-            document.getElementById('profile-dd').removeAttribute('data-bs-toggle');
-            document.getElementById('profile-toggle').onclick = () => {
-                window.location.href = '/profile'
-            }
+            document.getElementById('profile-logged').classList.remove('d-none');
+            return;
         }
+
+        document.getElementById('profile-out').classList.remove('d-none');
     });
 });

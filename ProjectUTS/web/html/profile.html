@@ -35,22 +35,32 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <a class="navbar-brand" href="index.html"><img class="nav-logo" src="../images/logo.png"></a>
-                <div class="navbar-profile dropdown ms-auto order-md-last ms-md-0">
-                    <a class="nav-link dropdown-toggle" id="profile-dd" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="navbar-profile dropdown ms-auto order-md-last ms-md-0 d-none" id="profile-out">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <img class="profile-picture" src="../images/profile.png">
-                        <span class="d-none d-md-inline" id="profile-toggle">Profile</span>
+                        <span class="d-none d-md-inline">Profile</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end">
-                        <span class="d-inline d-md-none username">Profile<hr class="dropdown-hr"></span>
+                        <span class="d-inline d-sm-none username">Profile<hr class="dropdown-hr"></span>
                         <a class="dropdown-item" href="login.html">Log In</a>
                         <a class="dropdown-item" href="sign-up.html">Sign Up</a>
+                    </div>
+                </div>
+                <div class="navbar-profile dropdown ms-auto order-md-last ms-md-0 d-none" id="profile-logged">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img class="profile-picture" src="../images/profile.png">
+                        <span class="d-none d-md-inline">Profile</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <span class="d-inline d-sm-none username">Profile<hr class="dropdown-hr"></span>
+                        <a class="dropdown-item" href="profile.html">View Profile</a>
+                        <a class="dropdown-item" href="/api/logout">Sign Out</a>
                     </div>
                 </div>
                 <div class="collapse navbar-collapse justify-content-center" id="nav-hamburger">
                     <div class="navbar-nav">
                         <a class="nav-link" href="index.html">Home</a>
                         <a class="nav-link" href="explore.html">Explore</a>
-                        <a class="nav-link" href="#">Your Favorites</a>
                     </div>
                 </div>
             </div>
@@ -59,13 +69,27 @@
         <div class="main-container">
             <img class="gambar-logo" src="../images/profile.png">
 
-        <div class="isi-konten-hal-utama">
             <div class="biodata">
                 <h3 id="profile-name">User's Name</h3>
                 <p id="profile-fav">User's Fav Food/Restaurant</p>
                 <p id="profile-memory">User's memories (berapa journal yang pernah ditulis)</p>
             </div>
+
+            <section class="list-review container" id="review-section">
+                <h3 id="review-title">My Reviews</h3>
+                <p id="review-summary">Loading reviews...</p>
+
+                <input type="search" id="review-search" placeholder="Search reviews...">
+
+                <div class="review-table-wrap">
+                    <table class="review-table">
+                        <thead id="review-head"></thead>
+                        <tbody id="review-body"></tbody>
+                    </table>
+                </div>
+            </section>
         </div>
+
         <footer>
             <div class="container-fluid footer-fill">
                 <div class="row">
@@ -93,7 +117,6 @@
                         <div class="footer-links">
                             <a href="index.html" class="footer-a">Home</a>
                             <a href="explore.html" class="footer-a">Explore</a>
-                            <a href="#" class="footer-a">Your Favorites</a>
                         </div>
                     </div>
                     <div class="col-12 col-md-6 col-lg-4 order-2 order-md-2 order-lg-3 contacts">
