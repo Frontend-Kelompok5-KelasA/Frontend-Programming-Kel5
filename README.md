@@ -1,5 +1,6 @@
 # Frontend-Programming
 ## Kumpulan tugas kelompok yang dibuat oleh Kelompok 5
+Setiap folder project memiliki file yang telah di zip
 
 ## Kelompok 5
 - 535250023 Gabriella Geraldine
