@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 
-export const Footer = () => {
+export const Navbar = () => {
     return (
         <nav className="navbar navbar-expand-md sticky-top">
             <div className="container-fluid">
