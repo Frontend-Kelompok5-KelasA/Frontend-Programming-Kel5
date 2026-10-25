@@ -1,5 +1,6 @@
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
+import Image from "next/image";
+import { Navbar } from "../../components/Navbar";
+import { Footer } from "../../components/Footer";
 
 export default function Admin() {
     return (
@@ -12,17 +13,17 @@ export default function Admin() {
                 <div id="dashboard-content" className="dashboard-content row g-4">
                     <div id="card-dashboard" className="col-12 col-md-4">
                         <a href="/user_detail" className="card stat-card" data-key="user">
-                            <img src="/images/profile_icon.jpg" />
+                            <Image src="/profile_icon.jpg" alt="" width={200} height={200} />
                             <div className="stat-teks">
                                 <span className="stat-label">Jumlah User</span>
-                                <span className="stat-number">–</span>
+                                <span className="stat-number">-</span>
                             </div>         
                         </a>
                     </div>
 
                     <div className="card-dashboard col-12 col-md-4">
                         <a href="/restoran_detail" className="card stat-card" data-key="restoran">
-                            <img src="/images/shop.png" />
+                            <Image src="/shop.png" alt="" width={200} height={200}/>
                             <div className="stat-teks">
                                 <span className="stat-label">Jumlah Restoran</span>
                                 <span className="stat-number">–</span>
@@ -32,7 +33,7 @@ export default function Admin() {
 
                     <div className="card-dashboard col-12 col-md-4">
                         <a href="/review_detail" className="card stat-card" data-key="review">
-                            <img src="/images/review.png" />
+                            <Image src="/images/review.png" alt="" width={200} height={200}/>
                             <div className="stat-teks">
                                 <span className="stat-label">Jumlah Review</span>
                                 <span className="stat-number">–</span>
