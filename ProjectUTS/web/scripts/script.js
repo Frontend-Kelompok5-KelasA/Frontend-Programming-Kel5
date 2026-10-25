@@ -508,7 +508,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    fetch('api/session').then(async res => {
+    fetch('/api/session').then(async res => {
         const session = await res.json();
         currentUser = session;
         if(session){
@@ -518,4 +518,182 @@ document.addEventListener("DOMContentLoaded", function () {
 
         document.getElementById('profile-out').classList.remove('d-none');
     });
+
+    // Dashboard
+    const loadNumbers = async () => {
+        const wadah = document.getElementById('dashboard-content');
+        if (!wadah) return;
+
+        try {
+            const res = await fetch('/api/stats');
+            if (!res.ok) throw new Error('Gagal mengambil statistik');
+
+            const data = await res.json();
+            console.log('Data statistik:', data);
+
+            wadah.querySelectorAll('.stat-card').forEach((kartu) => {
+                const angka = kartu.querySelector('.stat-number');
+                if (!angka) return;
+
+                const nilai = data[kartu.dataset.key] ?? 0;
+                angka.textContent = Number(nilai).toLocaleString('id-ID');
+            });
+
+        } catch (err) {
+            console.error('Gagal memuat statistik:', err);
+        }
+    };
+    loadNumbers();          
+
+    // Tabel Daftar User
+    const loadUserTable = async () => {
+        const tbody = document.getElementById('tabel-user-body');
+        if (!tbody) return;
+
+        try {
+            const res = await fetch('/api/users');
+            if (!res.ok) throw new Error('Gagal mengambil data user');
+
+            const users = await res.json();
+
+            if (users.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" class="text-center">Belum ada user</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = '';
+
+            users.forEach((user, i) => {
+                const baris = document.createElement('tr');
+
+                const makeCell = (isi, kelas = '') => {
+                    const td = document.createElement('td');
+                    if (kelas) td.className = kelas;
+                    td.textContent = isi;
+                    return td;
+                };
+
+                baris.appendChild(makeCell(i + 1));
+                baris.appendChild(makeCell(user.username));
+                baris.appendChild(makeCell(user.email));
+                baris.appendChild(makeCell(user.role));
+
+                tbody.appendChild(baris);
+            });
+
+        } catch (err) {
+            console.error('Gagal memuat tabel user', err);
+            tbody.innerHTML = '<tr><td colspan="4" class="text-center">Gagal memuat data</td></tr>';
+        }
+    };                              
+    loadUserTable();                
+
+    // Tabel Informasi Restoran
+    const loadRestTable = async () => {
+        const tbody = document.getElementById('tabel-resto-body');
+        if (!tbody) return;
+
+        try {
+            const res = await fetch('/api/resto');
+            if (!res.ok) throw new Error('Gagal mengambil data resto');
+
+            const restos = await res.json();
+
+            if (restos.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" class="text-center">Belum ada restoran.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = '';
+
+            restos.forEach((resto, i) => {
+                const baris = document.createElement('tr');
+
+                const makeCell = (isi) => {
+                    const td = document.createElement('td');
+                    td.textContent = isi ?? '-';
+                    return td;
+                };
+
+                const potong = (teks, maks = 45) =>
+                    teks && teks.length > maks ? teks.slice(0, maks) + '…' : teks;
+
+                baris.appendChild(makeCell(i + 1));
+                baris.appendChild(makeCell(resto.name));
+                baris.appendChild(makeCell(resto.city));
+                baris.appendChild(makeCell(potong(resto.place)));
+                baris.appendChild(makeCell(resto.cat));
+                baris.appendChild(makeCell(resto.status));     
+                baris.appendChild(makeCell(resto.price));
+                baris.appendChild(makeCell(resto.rating));
+
+                tbody.appendChild(baris);
+            });
+
+        } catch (err) {
+            console.error('Gagal memuat tabel resto:', err);
+            tbody.innerHTML = '<tr><td colspan="8" class="text-center">Gagal memuat data.</td></tr>';
+        }
+    };
+
+    loadRestTable();
+
+    // Tabel Review
+    const loadReviewTable = async () => {
+        const tbody = document.getElementById('tabel-review-body');
+        if (!tbody) return;
+
+        try {
+            const res = await fetch('/api/reviews/all');
+            if (!res.ok) throw new Error('Gagal mengambil data review');
+
+            const data = await res.json();
+            const reviews = Array.isArray(data) ? data : data.reviews;
+
+            if (reviews.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="text-center">Belum ada review.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = '';
+
+            const formatTanggal = (nilai) => {
+                if (!nilai) return '-';
+                const d = new Date(String(nilai).replace(' ', 'T'));
+                if (isNaN(d)) return nilai;
+                return d.toLocaleDateString('id-ID', {
+                    day: '2-digit', month: 'short', year: 'numeric'
+                });
+            };
+
+            const potong = (teks, maks = 60) =>
+                teks && teks.length > maks ? teks.slice(0, maks) + '…' : teks;
+
+            reviews.forEach((r, i) => {
+                const baris = document.createElement('tr');
+
+                const makeCell = (isi) => {
+                    const td = document.createElement('td');
+                    td.textContent = isi ?? '-';
+                    return td;
+                };
+
+                baris.appendChild(makeCell(i + 1));
+                baris.appendChild(makeCell(r.username));              
+                baris.appendChild(makeCell(formatTanggal(r.created_at))); 
+                baris.appendChild(makeCell(r.restaurant_name));        
+                baris.appendChild(makeCell(r.rating));                
+                baris.appendChild(makeCell(potong(r.comment)));       
+
+                tbody.appendChild(baris);
+            });
+
+        } catch (err) {
+            console.error('Gagal memuat tabel review:', err);
+            tbody.innerHTML = '<tr><td colspan="6" class="text-center">Gagal memuat data.</td></tr>';
+        }
+    };
+    loadReviewTable();
+
+
 });

@@ -52,7 +52,7 @@ function initAuth(app, db){
             if (err) return res.status(500).json({ error: err.message });
 
             if(!user){
-                res.redirect('/login');
+                res.redirect('/admin');
                 return;
             }
 
@@ -65,6 +65,21 @@ function initAuth(app, db){
                 res.redirect('/login');
             }
         });
+
+        app.get('/api/users', (req, res) => {
+            db.all(
+                'SELECT user_id, email, username, role FROM user ORDER BY user_id',
+                [],
+                (err, rows) => {
+                    if (err) {
+                        console.error(err);
+                        return res.status(500).json({ error: 'Terjadi kesalahan' });
+                    }
+                    res.json(rows);
+                }
+            );
+        });
+
     });
 
     app.post('/api/logout', (req, res) => {
