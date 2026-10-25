@@ -1,8 +1,16 @@
+"use client"
+import { useEffect } from "react";
 import Image from "next/image";
 import { Navbar } from "../../components/Navbar";
 import { Footer } from "../../components/Footer";
 
+import { checkProfile } from "../../script/profile";
+
 export default function Profile() {
+    useEffect(() => {
+        checkProfile();
+    }, []);
+    
     return (
         <main>
             <Navbar />
