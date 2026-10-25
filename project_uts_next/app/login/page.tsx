@@ -1,11 +1,31 @@
 "use client";
-import { useEffect } from "react";
+
+import React, { useEffect } from "react";
 import Image from "next/image";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { checkSession } from "@/script/login";
+import {redirect} from "next/navigation";
 
 export default function Login() {
+    async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>){
+        event.preventDefault();
+
+        const data = Object.fromEntries(new FormData(event.currentTarget));
+
+        const response = await fetch('/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if(result.success)redirect('/');
+
+        redirect('/login');
+    }
+
     useEffect(() => {
         checkSession();
     }, []);
@@ -21,7 +41,7 @@ export default function Login() {
                     <h2>Welcome Back</h2>
                     <p>Login to explore the Nusantara</p>
 
-                    <form className="halaman-regist-login" action="http://localhost:8080/api/login" method="post">
+                    <form className="halaman-regist-login" onSubmit={handleSubmit}>
                         <input type="email" name="email" required placeholder="Email"/>
                         <input type="password" name="password" required placeholder="Password"/>
                         <button type="submit" id="submit">Login</button>
