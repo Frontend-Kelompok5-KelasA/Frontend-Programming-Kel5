@@ -530,4 +530,8 @@ export async function onLoad(){
             });
         }
     }
+
+    const response = await fetch('/api/session');
+
+    currentUser = response.json();
 }
