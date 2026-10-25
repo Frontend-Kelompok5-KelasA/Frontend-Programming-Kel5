@@ -47,8 +47,8 @@
     --header-background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), var(--header-img) center / cover no-repeat;
 
     /* FONT */
-    --font-heading: 'Gabarito', sans-serif;
-    --font-body: "DM Sans", sans-serif;
+    --font-heading: var(--font-gabarito), sans-serif;
+    --font-body: var(--font-dm-sans), sans-serif;
 }
 
 html {
@@ -137,6 +137,7 @@ hr {
 
 .nav-logo {
     width: 60px;
+    height: auto;
 }
 
 .navbar-collapse {
@@ -440,17 +441,14 @@ hr {
 }
 
 main {
-    min-height: 100%;;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    min-height: 100%;
 }
 
 .kotak-register-login {
     box-shadow: 0px 5px 5px #afaeae;
     border-radius: 20px;
     padding: 30px 40px;
-    margin: 200px 0;
+    margin: 200px auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -913,7 +911,7 @@ h5 {
     border-radius: 20px;
     box-shadow: 0px 5px 5px #afaeae;
     padding: 30px 40px;
-    margin: 40px;
+    margin: 40px auto;
 }
 
 .kotak-form h1 {
@@ -963,6 +961,7 @@ footer .footer-fill .row {
 
 .about #footer-title #footer-logo {
     width: 30%;
+    height: auto;
 }
 
 .about #footer-title p {

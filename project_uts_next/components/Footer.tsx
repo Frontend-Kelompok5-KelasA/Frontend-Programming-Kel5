@@ -29,9 +29,9 @@ export const Footer = () => {
                         <h3>Explore</h3>
                         <br />
                         <div className="footer-links">
-                            <Link href="/" className="footer-Link">Home</Link>
-                            <Link href="/explore" className="footer-Link">Explore</Link>
-                            <Link href="/admin" className="footer-Link">Admin</Link>
+                            <Link href="/" className="footer-a">Home</Link>
+                            <Link href="/explore" className="footer-a">Explore</Link>
+                            <Link href="/admin" className="footer-a">Admin</Link>
                         </div>
                     </div>
                     <div className="col-12 col-md-6 col-lg-4 order-2 order-md-2 order-lg-3 contacts">
@@ -40,9 +40,9 @@ export const Footer = () => {
                         <p><i className="bi bi-geo-alt-fill"></i>Jakarta, Indonesia</p>
                         <br />
                         <div className="footer-socials">
-                            <Link href="#" className="footer-Link"><i className="bi bi-envelope-fill"></i>Email</Link>
-                            <Link href="#" className="footer-Link"><i className="bi bi-instagram"></i>Instagram</Link>
-                            <Link href="#" className="footer-Link"><i className="bi bi-whatsapp"></i>WhatsApp</Link>
+                            <Link href="#" className="footer-a"><i className="bi bi-envelope-fill"></i>Email</Link>
+                            <Link href="#" className="footer-a"><i className="bi bi-instagram"></i>Instagram</Link>
+                            <Link href="#" className="footer-a"><i className="bi bi-whatsapp"></i>WhatsApp</Link>
                         </div>
                     </div>
                 </div>
