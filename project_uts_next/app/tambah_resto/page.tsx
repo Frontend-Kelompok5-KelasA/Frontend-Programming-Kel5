@@ -1,7 +1,15 @@
+"use client";
+
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { useEffect } from "react";
+import { loadSession } from "@/script/utils";
 
 export default function AddResto() {
+    useEffect(() => {
+        loadSession();
+    });
+
     return (
         <main>
             <Navbar />

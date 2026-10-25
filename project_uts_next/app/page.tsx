@@ -1,8 +1,26 @@
+"use client";
+
 import Image from "next/image";
 import { Footer } from "../components/Footer";
 import { Navbar } from "../components/Navbar";
+import {useEffect, useState} from "react";
+import { loadSession } from "@/script/utils";
+import { onLoad } from "@/script/home";
 
 export default function Home() {
+    const [load, setLoad] = useState(false);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setLoad(true);
+        }, 2000);
+    });
+
+    useEffect(() => {
+        loadSession();
+        onLoad();
+    }, [load]);
+
   return (
     <main>
       <Navbar />
