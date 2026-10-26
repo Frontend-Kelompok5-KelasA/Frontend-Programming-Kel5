@@ -1,0 +1,47 @@
+// use prisma-8
+
+model User {
+    userId              Int         @id @default(autoincrement()) @map("user_id")
+    email               String      @unique
+    password            String
+    role                String
+    profile             String
+    username            String
+}
+
+model Restaurant {
+    id                  String
+    name                String
+    city                String
+    place               String
+    description         String
+    cat                 String
+    tag                 String
+    status              String
+    openHour            String      @map("open_hour")
+    rating              Float
+    price               String
+    officialWebsite     String      @map("official_website")
+    instagram           String
+    image               String
+}
+
+model Category {
+    categoryId          Int     @id @default(autoincrement()) @map("category_id")
+    categoryName        String  @map("category_name")
+}
+
+model RestaurantPhoto {
+    photoId             Int     @id @default(autoincrement()) @map("photo_id")
+    restaurantId        String  @map("restaurant_id")
+    filePath            String  @map("file_path")
+}
+
+model Review {
+    reviewId            Int     @id @default(autoincrement()) @map("review_id")
+    userId              Int     @map("user_id")
+    restaurantId        String  @map("restaurant_id")
+    rating              Int
+    comment             String
+    createdAt           String  @map("created_at")
+}
