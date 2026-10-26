@@ -276,13 +276,13 @@ export async function onLoad(){
         if(inner){
             inner.innerHTML = dipilih.map((g, i) => `
                 <div class="carousel-item ${i === 0 ? "active" : ""}">
-                    <img src="/images/${g}" alt="Kuliner Nusantara" loading="lazy">
+                    <img src="/${g}" alt="Kuliner Nusantara" loading="lazy">
                 </div>
             `).join("");
 
             inner.innerHTML = gambarUnik.map((g, i) => `
                 <div class="carousel-item ${i === 0 ? "active" : ""}">
-                    <img src="/images/${g}" alt="Kuliner Nusantara" loading="lazy">
+                    <img src="/${g}" alt="Kuliner Nusantara" loading="lazy">
                 </div>
             `).join("");
         }
@@ -341,7 +341,7 @@ export async function onLoad(){
             card.style.width = CARD_WIDTH + "px";
 
             card.innerHTML = `
-                <img src="images/${imageFile}" class="card-img-top" alt="${resto.name}">
+                <img src="/${imageFile}" class="card-img-top" alt="${resto.name}">
                 <div class="card-body">
                     <h5 class="card-title">${resto.name}</h5>
                     <p class="card-text">${resto.desc}</p>
@@ -380,9 +380,9 @@ export async function onLoad(){
 
         const links = [
             resto.official_website ? `<a href="${resto.official_website}" target="_blank" rel="noopener">
-            <img class="web" src="images/web.avif" alt="website">Website</a>` : "",
+            <img class="web" src="/web.avif" alt="website">Website</a>` : "",
             resto.instagram ? `<a href="${resto.instagram}" target="_blank" rel="noopener">
-            <img class="ig" src="images/instagram.webp" alt="instagram">Instagram</a>` : ""
+            <img class="ig" src="/instagram.webp" alt="instagram">Instagram</a>` : ""
         ].join(" ");
 
         const reviewHTML = currentUser ? `
@@ -408,7 +408,7 @@ export async function onLoad(){
             : `<p><a href="/login">Login</a> untuk menulis review.</p>`;
 
         if(detailContent)detailContent.innerHTML = `
-            <img src="images/${imageFile}" alt="${resto.name}" class="detail-img">
+            <img src="/${imageFile}" alt="${resto.name}" class="detail-img">
             <h2>${resto.name}</h2>
             <p>${resto.tag} · ${resto.cat} · ${resto.status}</p>
             ${resto.desc ? `<p>${resto.desc}</p>` : ""}

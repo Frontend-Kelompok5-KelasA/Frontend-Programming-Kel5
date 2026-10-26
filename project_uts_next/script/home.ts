@@ -167,7 +167,7 @@ export async function onLoad(){
             card.style.width = CARD_WIDTH + "px";
 
             card.innerHTML = `
-                <img src="images/${imageFile}" class="card-img-top" alt="${resto.name}">
+                <img src="/${imageFile}" class="card-img-top" alt="${resto.name}">
                 <div class="card-body">
                     <h5 class="card-title">${resto.name}</h5>
                     <p class="card-text">${resto.desc}</p>
