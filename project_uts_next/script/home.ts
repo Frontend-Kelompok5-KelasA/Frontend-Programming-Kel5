@@ -1,5 +1,7 @@
 "use client";
 
+declare const bootstrap: any;
+
 export async function onLoad(){
     const foodList = document.getElementById("food-list");
     const popularList = document.getElementById("popular-list");
@@ -134,18 +136,37 @@ export async function onLoad(){
         wadah.appendChild(button);
     }
 
-// baca tombol yang sedang "selected" -> simpan ke filterTerpilih
-    function simpanFilter() {
-        const baca = (id: string, himpunan: Set<string|number>, ubah: any) => {
-            himpunan.clear();
-            document.querySelectorAll(`#${id} .filter-option.selected`)
-                // @ts-ignore
-                .forEach((b: Element) => himpunan.add(ubah(b.dataset.value)));
-        };
+    function renderExploreCarousel(restos: Record<string, any>[]) {
+        const carousel = document.getElementById("explore-carousel");
+        if (!carousel) return;
 
-        baca("asal-daerah-filter", filterTerpilih.tag, String);
-        baca("jenis-filter", filterTerpilih.cat, String);
-        baca("price-filter", filterTerpilih.price, Number);
+        const inner = carousel.querySelector(".carousel-inner");
+
+        const gambarUnik = [...new Set(restos.map((r) => r.image).filter(Boolean))];
+        if (gambarUnik.length === 0) return; // slide statis di HTML tetap dipakai
+
+        for (let i = gambarUnik.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [gambarUnik[i], gambarUnik[j]] = [gambarUnik[j], gambarUnik[i]];
+        }
+
+        const dipilih = gambarUnik.slice(0, 12);
+
+        if(inner){
+            inner.innerHTML = dipilih.map((g, i) => `
+                <div class="carousel-item ${i === 0 ? "active" : ""}">
+                    <img src="/${g}" alt="Kuliner Nusantara" loading="lazy">
+                </div>
+            `).join("");
+
+            inner.innerHTML = gambarUnik.map((g, i) => `
+                <div class="carousel-item ${i === 0 ? "active" : ""}">
+                    <img src="/${g}" alt="Kuliner Nusantara" loading="lazy">
+                </div>
+            `).join("");
+        }
+
+        bootstrap.Carousel.getOrCreateInstance(carousel);
     }
 
     function renderFoodCards(restos: GabunganResto[], target = foodList, tampilRating = false) {
@@ -238,6 +259,8 @@ export async function onLoad(){
         .then((response) => response.json())
         .then((restos) => {
             gabunganResto = gabungCabangResto(restos);
+
+            renderExploreCarousel(restos);
 
             // index.html nampilin popular dishes
             if (popularList) renderPopular();
