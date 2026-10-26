@@ -172,7 +172,7 @@ export async function onLoad(){
 
     if (foodList || popularList) {
         // ambil data dari /api/resto
-        fetch("../api/resto")
+        fetch("/api/resto")
             .then((response) => response.json())
             .then((restos) => {
                 gabunganResto = gabungCabangResto(restos);
