@@ -6,6 +6,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { checkSession } from "@/script/login";
 import {redirect} from "next/navigation";
+import {loadSession} from "@/script/utils";
 
 export default function Login() {
     async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>){
@@ -28,6 +29,7 @@ export default function Login() {
 
     useEffect(() => {
         checkSession();
+        loadSession();
     }, []);
 
     return (
