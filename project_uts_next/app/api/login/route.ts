@@ -4,6 +4,8 @@ import { getSession } from "@/backend-scripts/session-handler";
 import { redirect } from "next/navigation";
 const bcrypt = require('bcrypt');
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(req: Request){
     const session = await getSession();
     if(session.userData){

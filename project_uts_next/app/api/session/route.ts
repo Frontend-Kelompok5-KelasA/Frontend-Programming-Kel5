@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
-import {getSession} from "@/backend-scripts/session-handler";
+import { getSession } from "@/backend-scripts/session-handler";
+
+export const dynamic = 'force-dynamic';
 
 export async function GET(){
     const session = await getSession();

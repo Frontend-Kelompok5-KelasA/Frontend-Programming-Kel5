@@ -1,7 +1,9 @@
 import { getPrisma, getRawPrisma } from "@/backend-scripts/database";
 import { NextResponse } from "next/server";
-import {getSession} from "@/backend-scripts/session-handler";
-import {redirect} from "next/navigation";
+import { getSession } from "@/backend-scripts/session-handler";
+import { redirect } from "next/navigation";
+
+export const dynamic = 'force-dynamic';
 
 export async function POST(req: Request){
     const session = await getSession();

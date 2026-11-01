@@ -1,7 +1,9 @@
 import { getPrisma } from "@/backend-scripts/database";
 import { NextResponse } from "next/server";
 import { getSession } from "@/backend-scripts/session-handler";
-import { redirect } from "next/navigation";
+
+export const dynamic = 'force-dynamic';
+
 const bcrypt = require('bcrypt');
 
 export async function POST(req: Request){
