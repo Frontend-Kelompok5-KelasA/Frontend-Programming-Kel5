@@ -5,10 +5,12 @@ import Image from "next/image";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { checkSession } from "@/script/login";
-import {redirect} from "next/navigation";
-import {loadSession} from "@/script/utils";
+import { redirect, useRouter } from "next/navigation";
+import { loadSession } from "@/script/utils";
 
 export default function Login() {
+    const router = useRouter();
+
     async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>){
         event.preventDefault();
 
@@ -22,7 +24,11 @@ export default function Login() {
 
         const result = await response.json();
 
-        if(result.success)redirect('/');
+        if(result.success) {
+            router.push('/');
+            router.refresh();
+            return;
+        }
 
         redirect('/login');
     }
