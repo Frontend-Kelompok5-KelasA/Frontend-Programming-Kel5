@@ -1,8 +1,16 @@
+"use client";
+
 import Image from "next/image";
 import { Navbar } from "../../components/Navbar";
 import { Footer } from "../../components/Footer";
+import { useEffect } from "react";
+import { loadSession } from "@/script/utils";
 
 export default function Admin() {
+    useEffect(() => {
+        loadSession();
+    }, []);
+
     return (
         <main>
             <Navbar />
