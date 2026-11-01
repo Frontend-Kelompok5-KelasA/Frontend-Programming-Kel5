@@ -32,6 +32,11 @@ export async function checkProfile() {
         }
 
         const data = await res.json();
+        if (!data.reviews) {
+            summary.textContent = "Failed to load reviews.";
+            return;
+        }
+
         const reviews: Review[] = data.reviews;
         const showUser = data.scope === "all";
 

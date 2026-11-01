@@ -1,4 +1,4 @@
-import { getDatabase } from "@/backend-scripts/database";
+import { getPrisma } from "@/backend-scripts/database";
 import { NextResponse } from "next/server";
 import { getSession } from "@/backend-scripts/session-handler";
 import { redirect } from "next/navigation";
@@ -10,12 +10,14 @@ export async function POST(req: Request){
         redirect('/');
     }
 
-    const {email, password} = await req.json();
+    const { email, password } = await req.json();
 
-    const db = await getDatabase();
+    const db = getPrisma();
 
     try {
-        const user = await db.get('SELECT * FROM user WHERE email = ? LIMIT 1', [email]);
+        const user = await db.User.where({
+            email: email
+        }).first();
         if(!user){
             redirect('/admin');
         }
@@ -24,7 +26,12 @@ export async function POST(req: Request){
         if(result){
             const session = await getSession();
 
-            session.userData = {user_id: user.user_id, email: user.email, username: user.username, role: user.role};
+            session.userData = {
+                user_id: String(user.userId),
+                email: user.email,
+                username: user.username,
+                role: user.role
+            };
 
             await session.save();
 

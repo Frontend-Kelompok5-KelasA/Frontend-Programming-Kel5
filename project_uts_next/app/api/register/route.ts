@@ -1,4 +1,4 @@
-import { getDatabase } from "@/backend-scripts/database";
+import { getPrisma } from "@/backend-scripts/database";
 import { NextResponse } from "next/server";
 import { getSession } from "@/backend-scripts/session-handler";
 import { redirect } from "next/navigation";
@@ -14,13 +14,16 @@ export async function POST(req: Request){
 
     const hashedPass = await bcrypt.hash(password, 15);
 
-    const db = await getDatabase();
+    const db = getPrisma();
 
     try {
-        await db.run(
-            'INSERT INTO user (email, password, role, username) VALUES (?, ?, ?, ?)',
-            [email, hashedPass, 'user', username]
-        );
+        await db.User.create({
+            email: email,
+            password: hashedPass,
+            role: 'user',
+            username: username,
+            profile: ''
+        });
 
         return NextResponse.json({ success: true, login: false });
     } catch(err: any){

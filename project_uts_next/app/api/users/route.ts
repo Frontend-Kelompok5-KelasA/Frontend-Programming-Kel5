@@ -1,12 +1,14 @@
-import { getDatabase } from "@/backend-scripts/database";
+import { getPrisma } from "@/backend-scripts/database";
 import { NextResponse } from "next/server";
 
 export async function GET(){
-    const query = 'SELECT user_id, email, username, role FROM user ORDER BY user_id';
-
     try {
-        const db = await getDatabase();
-        const result = await db.all(query);
+        const db = getPrisma();
+
+        const result = await db.User
+            .orderBy(fields => fields.userId.desc())
+            .all();
+
         return NextResponse.json(result);
     } catch(err: any){
         return NextResponse.json({ error: err.message });
