@@ -208,8 +208,6 @@ export async function onLoad(){
             .sort((a, b) => b.rataRating - a.rataRating)
             .slice(0, 12);
 
-        console.log(gabunganResto);
-
         const temp = document.createElement("div");
         renderFoodCards(populer, temp, true);
         popularCards = [...temp.querySelectorAll(".card")];
