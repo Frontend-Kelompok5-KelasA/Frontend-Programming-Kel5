@@ -35,7 +35,7 @@ export const Navbar = () => {
                             <hr className="dropdown-hr"/>
                         </span>
                         <Link className="dropdown-item" href="/profile">View Profile</Link>
-                        <Link className="dropdown-item" href="/api/logout">Sign Out</Link>
+                        <Link className="dropdown-item" href="/api/logout" prefetch={false}>Sign Out</Link>
                     </div>
                 </div>
                 <div className="collapse navbar-collapse justify-content-center" id="nav-hamburger">
