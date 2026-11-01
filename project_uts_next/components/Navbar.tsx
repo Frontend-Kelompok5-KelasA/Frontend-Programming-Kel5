@@ -13,16 +13,16 @@ export const Navbar = () => {
                     <Image className="nav-logo" src="/logo.png" alt="logo buat nav" width={100} height={100} />
                 </Link>
                 <div className="navbar-profile dropdown ms-auto order-md-last ms-md-0 d-none" id="profile-out">
-                    <Link className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <Image className="profile-picture" src="/profile.png" alt="logo profile" width={100} height={100} />
                         <span className="d-none d-md-inline">Profile</span>
-                    </Link>
+                    </div>
                     <div className="dropdown-menu dropdown-menu-end">
                         <span className="d-inline d-sm-none username">Profile
                             <hr className="dropdown-hr" />
                         </span>
-                        <Link className="dropdown-item" href="login">Log In</Link>
-                        <Link className="dropdown-item" href="sign-up">Sign Up</Link>
+                        <Link className="dropdown-item" href="/login">Log In</Link>
+                        <Link className="dropdown-item" href="/sign-up">Sign Up</Link>
                     </div>
                 </div>
                 <div className="navbar-profile dropdown ms-auto order-md-last ms-md-0 d-none" id="profile-logged">
@@ -34,7 +34,7 @@ export const Navbar = () => {
                         <span className="d-inline d-sm-none username">Profile
                             <hr className="dropdown-hr"/>
                         </span>
-                        <Link className="dropdown-item" href="profile">View Profile</Link>
+                        <Link className="dropdown-item" href="/profile">View Profile</Link>
                         <Link className="dropdown-item" href="/api/logout">Sign Out</Link>
                     </div>
                 </div>
