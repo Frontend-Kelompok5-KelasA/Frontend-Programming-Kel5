@@ -1,8 +1,25 @@
-import React from "react";
+"use client";
+
+import React, {useEffect, useState} from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 export const Navbar = () => {
+    const [elements, setElements] = useState<string[]>();
+    
+    useEffect(() => {
+        const check: any = async() => {
+            const res = await fetch('/api/session');
+            const session = await res.json();
+
+            if(session?.role === "admin"){
+                setElements(() => ["admin"]);
+            }
+        };
+
+        check();
+    }, []);
+
     return (
         <nav className="navbar navbar-expand-md sticky-top">
             <div className="container-fluid">
@@ -42,7 +59,9 @@ export const Navbar = () => {
                     <div className="navbar-nav">
                         <Link className="nav-link" href="/">Home</Link>
                         <Link className="nav-link" href="/explore">Explore</Link>
-                        <Link className="nav-link" href="/admin">Admin</Link>
+                        {elements?.map((item, index) => (
+                            <Link className="nav-link" key={index} href={`/${item}`}>Admin</Link>
+                        ))}
                     </div>
                 </div>
             </div>
