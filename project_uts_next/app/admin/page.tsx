@@ -5,10 +5,12 @@ import { Navbar } from "../../components/Navbar";
 import { Footer } from "../../components/Footer";
 import { useEffect } from "react";
 import { loadSession } from "@/script/utils";
+import { onLoad } from "@/script/admin";
 
 export default function Admin() {
     useEffect(() => {
         loadSession();
+        onLoad();
     }, []);
 
     return (
