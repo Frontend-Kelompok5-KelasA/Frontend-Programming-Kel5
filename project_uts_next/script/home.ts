@@ -1,8 +1,31 @@
 "use client";
 
+import {forEach} from "eslint-config-next";
+
 declare const bootstrap: any;
 
+async function loadPageConfig(){
+    const res = await fetch('/api/config/home');
+
+    const { config } = await res.json();
+    if(!config)return;
+
+    console.log(config)
+    Object.entries(config).forEach(([compId, data]: [string, any]) => {
+        if(compId){
+            const element = document.getElementById(compId);
+            if(element){
+                data.forEach((conf: {type: string, value: string}) => {
+                    (element as any)[conf.type] = conf.value;
+                })
+            }
+        }
+    })
+}
+
 export async function onLoad(){
+    loadPageConfig();
+
     const foodList = document.getElementById("food-list");
     const popularList = document.getElementById("popular-list");
     const searchInput = document.getElementById("search-rest");
