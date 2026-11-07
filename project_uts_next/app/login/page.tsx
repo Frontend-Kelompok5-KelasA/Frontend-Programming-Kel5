@@ -43,10 +43,10 @@ export default function Login() {
                 {/* kotak login  */}
                 <div className="kotak-register-login">
                     <div className="login-signup-image">
-                        <Image className="login-image" src="/aruma.jpg" alt="" width={200} height={200} />
+                        <Image className="login-image" src="/images/restaurantImages/aruma.jpg" alt="" width={200} height={200} />
                     </div>
                     <div className="login-signup-box">
-                        <Image className="gambar-logo-login" src="/logo.png" alt="" width={200} height={200}/>
+                        <Image className="gambar-logo-login" src="/images/websiteEssentials/logo.png" alt="" width={200} height={200}/>
                         <h2>Welcome Back</h2>
                         <p>Login to explore the Nusantara</p>
 

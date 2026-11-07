@@ -180,13 +180,13 @@ export async function onLoad(){
         if(inner){
             inner.innerHTML = dipilih.map((g, i) => `
                 <div class="carousel-item ${i === 0 ? "active" : ""}">
-                    <img src="/${g}" alt="Kuliner Nusantara" loading="lazy">
+                    <img src="/images/restaurantImages/${g}" alt="Kuliner Nusantara" loading="lazy">
                 </div>
             `).join("");
 
             inner.innerHTML = gambarUnik.map((g, i) => `
                 <div class="carousel-item ${i === 0 ? "active" : ""}">
-                    <img src="/${g}" alt="Kuliner Nusantara" loading="lazy">
+                    <img src="/images/restaurantImages/${g}" alt="Kuliner Nusantara" loading="lazy">
                 </div>
             `).join("");
         }
@@ -213,7 +213,7 @@ export async function onLoad(){
             card.style.width = CARD_WIDTH + "px";
 
             card.innerHTML = `
-                <img src="/${imageFile}" class="card-img-top" alt="${resto.name}">
+                <img src="/images/restaurantImages/${imageFile}" class="card-img-top" alt="${resto.name}">
                 <div class="card-body">
                     <h5 class="card-title">${resto.name}</h5>
                     <p class="card-text">${resto.desc}</p>

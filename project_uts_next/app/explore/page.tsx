@@ -18,7 +18,7 @@ export default function Home() {
             <div className="search-filter-section">
                 <input type="search" id="search-rest" placeholder="Search..." />
                 <button id="open-m-filter">Filter
-                    <Image src="/filter.png" alt="logo filter" width={100} height={100} />
+                    <Image src="/images/websiteEssentials/filter.png" alt="logo filter" width={100} height={100} />
                 </button>
 
                 <div id="modal">

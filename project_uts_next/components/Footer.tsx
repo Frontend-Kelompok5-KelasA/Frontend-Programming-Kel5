@@ -9,7 +9,7 @@ export const Footer = () => {
                 <div className="row">
                     <div className="col-12 col-md-12 col-lg-5 order-3 order-md-3 order-lg-1 about">
                         <div id="footer-title">
-                            <Image id="footer-logo" src="/logo.png" alt="logo footer" width={100} height={100} />
+                            <Image id="footer-logo" src="/images/websiteEssentials/logo.png" alt="logo footer" width={100} height={100} />
                             <h3>Kuliner Nusantara di Jakarta</h3>
                             <p>Menjelajahi cita rasa Nusantara di tengah hiruk-piruk Jakarta</p>
                         </div>

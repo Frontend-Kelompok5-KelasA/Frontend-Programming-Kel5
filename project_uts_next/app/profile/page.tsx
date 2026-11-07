@@ -15,7 +15,7 @@ export default function Profile() {
         <main>
             <div className="main-container">
                 {/* <!-- bagian biodata --> */}
-                <Image className="gambar-logo" src="/profile.png" alt="logo" width={360} height={360}/>
+                <Image className="gambar-logo" src="/images/websiteEssentials/profile.png" alt="logo" width={360} height={360}/>
 
                 <div className="biodata">
                     <h3 id="profile-name">User&apos;s Name</h3>

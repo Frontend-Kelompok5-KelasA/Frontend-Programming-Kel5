@@ -27,13 +27,13 @@ export const Navbar = () => {
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <Link className="navbar-brand" href="/">
-                    <Image className="nav-logo" src="/logo.png" alt="logo buat nav" width={100} height={100} />
+                    <Image className="nav-logo" src="/images/websiteEssentials/logo.png" alt="logo buat nav" width={100} height={100} />
                     <span className="nav-title d-none d-md-inline">Kuliner Nusantara di Jakarta</span>
                 </Link>
                 <span className="nav-divider d-none d-md-block"></span>
                 <div className="navbar-profile dropdown ms-auto order-md-last ms-md-0 d-none" id="profile-out">
                     <div className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <Image className="profile-picture" src="/profile.png" alt="logo profile" width={100} height={100} />
+                        <Image className="profile-picture" src="/images/websiteEssentials/profile.png" alt="logo profile" width={100} height={100} />
                         <span className="d-none d-md-inline">Profile</span>
                     </div>
                     <div className="dropdown-menu dropdown-menu-end">
@@ -46,7 +46,7 @@ export const Navbar = () => {
                 </div>
                 <div className="navbar-profile dropdown ms-auto order-md-last ms-md-0 d-none" id="profile-logged">
                     <div className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <Image className="profile-picture" src="/profile.png" alt="profile-picture-img" width={100} height={100} />
+                        <Image className="profile-picture" src="/images/websiteEssentials/profile.png" alt="profile-picture-img" width={100} height={100} />
                         <span className="d-none d-md-inline">Profile</span>
                     </div>
                     <div className="dropdown-menu dropdown-menu-end">
