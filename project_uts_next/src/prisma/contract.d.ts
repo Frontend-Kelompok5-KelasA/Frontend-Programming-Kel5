@@ -23,7 +23,7 @@ import type {
 } from '@prisma/orm-postgres/contract/types';
 
 export type StorageHash =
-  StorageHashBase<'97e0bccbf4623565518109e611bda10f6f20673efd6740b2d451a5045b7e4427'>;
+  StorageHashBase<'cfe9542dc68a86f472c3daa70d5c28d22560ee08ff8246e60eb155f3d5122e4f'>;
 export type ExecutionHash = ExecutionHashBase<string>;
 export type ProfileHash =
   ProfileHashBase<'3916f444a8a17ad749191acf9e08dad97d1a327b88c2f1d45d12f240296aa8b2'>;
@@ -274,6 +274,11 @@ export namespace Models {
     categoryName: FieldOutputTypes['public']['Category']['categoryName'];
     readonly [RelationKeys]?: never;
   };
+  export type public_Page = {
+    configuration: FieldOutputTypes['public']['Page']['configuration'];
+    pageId: FieldOutputTypes['public']['Page']['pageId'];
+    readonly [RelationKeys]?: never;
+  };
   export type public_Restaurant = {
     cat: FieldOutputTypes['public']['Restaurant']['cat'];
     city: FieldOutputTypes['public']['Restaurant']['city'];
@@ -320,6 +325,7 @@ export namespace Models {
 export declare const models: {
   public: {
     Category: Models.public_Category;
+    Page: Models.public_Page;
     Restaurant: Models.public_Restaurant;
     RestaurantPhoto: Models.public_RestaurantPhoto;
     Review: Models.public_Review;
@@ -365,6 +371,25 @@ type ContractBase = Omit<
                 };
               };
               primaryKey: { readonly columns: readonly ['category_id'] };
+              uniques: readonly [];
+              indexes: readonly [];
+              foreignKeys: readonly [];
+            };
+            readonly Page: {
+              columns: {
+                readonly configuration: {
+                  readonly dataType: 'pg/text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: false;
+                  readonly many: false;
+                };
+                readonly page_id: {
+                  readonly dataType: 'pg/text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: false;
+                  readonly many: false;
+                };
+              };
               uniques: readonly [];
               indexes: readonly [];
               foreignKeys: readonly [];
@@ -582,7 +607,7 @@ type ContractBase = Omit<
                 };
               };
               primaryKey: { readonly columns: readonly ['user_id'] };
-              uniques: readonly [{ readonly columns: readonly ['email'] }];
+              uniques: readonly [];
               indexes: readonly [];
               foreignKeys: readonly [];
             };
@@ -598,6 +623,7 @@ type ContractBase = Omit<
   readonly targetFamily: 'sql';
   readonly roots: {
     readonly Category: { readonly namespace: 'public' & NamespaceId; readonly model: 'Category' };
+    readonly Page: { readonly namespace: 'public' & NamespaceId; readonly model: 'Page' };
     readonly Restaurant: {
       readonly namespace: 'public' & NamespaceId;
       readonly model: 'Restaurant';
@@ -631,6 +657,27 @@ type ContractBase = Omit<
               readonly fields: {
                 readonly categoryId: { readonly column: 'category_id' };
                 readonly categoryName: { readonly column: 'category_name' };
+              };
+            };
+          };
+          readonly Page: {
+            readonly fields: {
+              readonly configuration: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
+              readonly pageId: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
+            };
+            readonly relations: Record<string, never>;
+            readonly storage: {
+              readonly table: 'Page';
+              readonly namespaceId: 'public';
+              readonly fields: {
+                readonly configuration: { readonly column: 'configuration' };
+                readonly pageId: { readonly column: 'page_id' };
               };
             };
           };
