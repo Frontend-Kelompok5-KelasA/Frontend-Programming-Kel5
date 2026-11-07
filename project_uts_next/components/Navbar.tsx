@@ -1,12 +1,14 @@
 "use client";
 
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 export const Navbar = () => {
     const [elements, setElements] = useState<string[]>();
-    
+
+    const profileName = useRef<HTMLParagraphElement>(null);
+
     useEffect(() => {
         const check: any = async() => {
             const res = await fetch('/api/session');
@@ -14,6 +16,10 @@ export const Navbar = () => {
 
             if(session?.role === "admin"){
                 setElements(() => ["admin"]);
+            }
+
+            if(profileName.current){
+                profileName.current.textContent = session ? session.username : "Profile";
             }
         };
 
@@ -47,7 +53,7 @@ export const Navbar = () => {
                 <div className="navbar-profile dropdown ms-auto order-md-last ms-md-0 d-none" id="profile-logged">
                     <div className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <Image className="profile-picture" src="/images/websiteEssentials/profile.png" alt="profile-picture-img" width={100} height={100} />
-                        <span className="d-none d-md-inline">Profile</span>
+                        <span ref={profileName} className="d-none d-md-inline">Profile</span>
                     </div>
                     <div className="dropdown-menu dropdown-menu-end">
                         <span className="d-inline d-sm-none username">Profile
