@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 import Image from "next/image";
-
 import { checkProfile } from "../../script/profile";
 import { loadSession } from "@/script/utils";
 
