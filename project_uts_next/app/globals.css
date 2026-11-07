@@ -22,10 +22,10 @@
     /* popular food */
     --dishes-background: #fff5e3;
 
-    --dishes-img1: url("/bundaran-hi.jpg");
-    --dishes-img2: url("/culinary-choices.jpg");
-    --dishes-img3: url("/nusantara-one-city.jpg");
-    --dishes-img4: url("/culinary-diversity.jpg");
+    --dishes-img1: url("/images/homepage/bundaran-hi.jpg");
+    --dishes-img2: url("/images/homepage/culinary-choices.jpg");
+    --dishes-img3: url("/images/homepage/nusantara-one-city.jpg");
+    --dishes-img4: url("/images/homepage/culinary-diversity.jpg");
     
     --areas-jakarta: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), var(--dishes-img1) center / cover no-repeat;
     --culinary-choices: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), var(--dishes-img2) center / cover no-repeat;
