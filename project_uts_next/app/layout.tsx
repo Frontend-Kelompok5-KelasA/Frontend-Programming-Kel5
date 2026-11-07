@@ -3,6 +3,8 @@ import { Geist, Geist_Mono, DM_Sans, Gabarito, Lora } from "next/font/google";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./globals.css";
+import { Navbar } from "../components/Navbar";
+import { Footer } from "../components/Footer";
 import Script from "next/script";
 
 const geistSans = Geist({
@@ -41,7 +43,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${dmSans.variable} ${gabarito.variable} ${lora.variable}`}>
       <body>
+        <Navbar />
         {children}
+        <Footer />
         <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" strategy="afterInteractive" />
       </body>
     </html>

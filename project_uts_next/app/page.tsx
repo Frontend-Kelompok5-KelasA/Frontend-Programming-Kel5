@@ -1,8 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { Footer } from "../components/Footer";
-import { Navbar } from "../components/Navbar";
 import {useEffect, useRef, useState} from "react";
 import { loadSession } from "@/script/utils";
 import { onLoad } from "@/script/home";
@@ -15,8 +13,6 @@ export default function Home() {
 
   return (
     <main>
-      <Navbar />
-
         {/* content */}
         <div className="main-container">
             {/* hero */}
@@ -164,7 +160,6 @@ export default function Home() {
                 </div>
             </div>
         </div>
-        <Footer />
     </main>
   );
 }

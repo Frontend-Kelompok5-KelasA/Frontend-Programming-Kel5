@@ -2,8 +2,6 @@
 
 import React, { useEffect } from "react";
 import Image from "next/image";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
 import { checkSession } from "@/script/login";
 import { redirect, useRouter } from "next/navigation";
 import { loadSession } from "@/script/utils";
@@ -40,8 +38,6 @@ export default function Login() {
 
     return (
         <main>
-            <Navbar />
-
             <div className="main-container">
                 {/* kotak login  */}
                 <div className="kotak-register-login">
@@ -55,11 +51,9 @@ export default function Login() {
                         <button type="submit" id="submit">Login</button>
                     </form>
                     <hr/>
-                    <p className="sign-up">Don't have an account? <a href="/sign-up" id="register">Sign Up</a></p>
+                    <p className="sign-up">Don&apos;t have an account? <a href="/sign-up" id="register">Sign Up</a></p>
                 </div>
             </div>
-
-            <Footer />
         </main>
     )
 }
