@@ -49,6 +49,7 @@
     /* FONT */
     --font-heading: var(--font-gabarito), sans-serif;
     --font-body: var(--font-dm-sans), sans-serif;
+    --font-title: var(--font-lobster), cursive;
 }
 
 html {
@@ -111,7 +112,34 @@ hr {
     text-decoration: underline;
     text-underline-offset: 6px;
     text-decoration-thickness: 2px;
+}
 
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-title {
+    color: var(--nav-element);
+    font-family: var(--font-title);
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 1.2;
+    white-space: nowrap;
+    padding-right: 15px;
+}
+
+.navbar-brand:hover .nav-title {
+    color: var(--nav-hover);
+}
+
+.nav-divider {
+    width: 2px;
+    height: 36px;
+    background-color: var(--nav-element);
+    opacity: 0.2;
+    border-radius: 2px;
 }
 
 .navbar-toggler {
