@@ -43,7 +43,7 @@
     --footer-hover: #ff9b19;
     
     /* BACKGROUND */
-    --header-img: url("/header_background.jpg");
+    --header-img: url("/images/homepage/header_background.jpg");
     --header-background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), var(--header-img) center / cover no-repeat;
 
     /* FONT */
