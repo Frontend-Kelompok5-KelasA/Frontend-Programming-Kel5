@@ -49,6 +49,7 @@
     /* FONT */
     --font-heading: var(--font-gabarito), sans-serif;
     --font-body: var(--font-dm-sans), sans-serif;
+    --font-title: var(--font-lobster), cursive;
 }
 
 html {
@@ -111,7 +112,34 @@ hr {
     text-decoration: underline;
     text-underline-offset: 6px;
     text-decoration-thickness: 2px;
+}
 
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-title {
+    color: var(--nav-element);
+    font-family: var(--font-title);
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 1.2;
+    white-space: nowrap;
+    padding-right: 15px;
+}
+
+.navbar-brand:hover .nav-title {
+    color: var(--nav-hover);
+}
+
+.nav-divider {
+    width: 2px;
+    height: 36px;
+    background-color: var(--nav-element);
+    opacity: 0.2;
+    border-radius: 2px;
 }
 
 .navbar-toggler {
@@ -447,21 +475,44 @@ main {
 .kotak-register-login {
     box-shadow: 0px 5px 5px #afaeae;
     border-radius: 20px;
-    padding: 30px 40px;
+    padding: 0;
     margin: 200px auto;
+    overflow: hidden;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 320px;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 0; 
+    width: 80%;
 }
 
 .kotak-register-login p {
     font-size: 14px;
 }
 
+.login-signup-image {
+    display: none;
+}
+
+.login-signup-box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 30px;
+    gap: 10px;
+}
+
 .gambar-logo-login {
     height: auto;
     width: 80px;
+    object-fit: cover;
+}
+
+.login-image {
+    display: block;
+    width: 500px;
+    height: 500px;
     object-fit: cover;
 }
 
@@ -472,10 +523,14 @@ main {
     width: 100%;
 }
 
-
 .halaman-regist-login input, .halaman-regist-login button {
     border-radius: 7px;
+    padding: 8px;
     border: 1px solid var(--nav-hover);
+}
+
+.halaman-regist-login a button {
+    background-color: var(--nav-hover);
 }
 
 #submit {
@@ -483,9 +538,15 @@ main {
     background-color: var(--nav-hover);
 }
 
-.sign-up {
-    margin-top: 20px;
-    margin-bottom: 0;
+.login-btn {
+    display: inline-block;
+    background-color: var(--nav-hover);
+    color: var(--text);
+    padding: 4px 15px;
+    border-radius: 20px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    text-decoration: none;
 }
 
 /*EXPLORE.HTML*/
@@ -505,6 +566,13 @@ main {
 }
 
 .card img {
+    border-radius: 20px;
+}
+
+.card .card-img-top {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
     border-radius: 20px;
 }
 
@@ -1028,6 +1096,21 @@ footer .footer-fill .row {
 @media (min-width: 720px) {
     .explore-images img {
         height: 500px;
+    }
+
+    .kotak-register-login {
+        width: 650px;
+    }
+}
+
+@media (min-width: 992px) {
+    .login-signup-image {
+        display: flex;
+        flex: 0 0 45%;
+    }
+
+    .kotak-register-login {
+        width: 900px;
     }
 }
 

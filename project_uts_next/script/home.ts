@@ -16,6 +16,8 @@ export async function onLoad(){
     const CARD_WIDTH = 288;
     const CARD_GAP = 24;
     const ROW_PADDING = 32;
+    const MAX_PER_SLIDE = 5;
+    const JUMLAH_SLIDE = 5;
     let currentUser: any = null;
 
 // 1 item itu 1 restoran (semua lokasi/cabangnya ada di item.location)
@@ -204,9 +206,7 @@ export async function onLoad(){
     function renderPopular() {
         const populer = gabunganResto
             .map((resto) => ({ ...resto, rataRating: rataRating(resto) }))
-            .filter((resto) => resto.rataRating >= 4.4)
-            .sort((a, b) => b.rataRating - a.rataRating)
-            .slice(0, 12);
+            .sort((a, b) => b.rataRating - a.rataRating);
 
         const temp = document.createElement("div");
         renderFoodCards(populer, temp, true);
@@ -228,26 +228,28 @@ export async function onLoad(){
         if (!carousel || popularCards.length === 0) return;
 
         const tersedia = carousel.clientWidth - ROW_PADDING;
-        const n = Math.max(1, Math.floor((tersedia + CARD_GAP) / (CARD_WIDTH + CARD_GAP)));
+        const n = Math.min(MAX_PER_SLIDE, Math.max(1, Math.floor((tersedia + CARD_GAP) / (CARD_WIDTH + CARD_GAP))));
 
         if (n === perSlide) return;
         perSlide = n;
 
+        const tampil = popularCards.slice(0, n * JUMLAH_SLIDE);
+
         if(popularList)popularList.innerHTML = "";
 
-        for (let i = 0; i < popularCards.length; i += n) {
+        for (let i = 0; i < tampil.length; i += n) {
             const item = document.createElement("div");
             item.className = "carousel-item" + (i === 0 ? " active" : "");
 
             const row = document.createElement("div");
             row.className = "popular-row";
-            row.append(...popularCards.slice(i, i + n));
+            row.append(...tampil.slice(i, i + n));
 
             item.appendChild(row);
             if(popularList)popularList.appendChild(item);
         }
 
-        const adaBanyakSlide = popularCards.length > n;
+        const adaBanyakSlide = tampil.length > n;
         if(prev)prev.classList.toggle("d-none", !adaBanyakSlide);
         if(next)next.classList.toggle("d-none", !adaBanyakSlide);
     }

@@ -1,8 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { Navbar } from "../../components/Navbar";
-import { Footer } from "../../components/Footer";
 import { useEffect } from "react";
 import { loadSession } from "@/script/utils";
 import { onLoad } from "@/script/admin";
@@ -15,8 +13,6 @@ export default function Admin() {
 
     return (
         <main>
-            <Navbar />
-
             <section id="dashboard">
                 <h1>Dashboard Admin</h1>
 
@@ -52,8 +48,6 @@ export default function Admin() {
                     </div>
                 </div>
             </section>
-
-            <Footer />
         </main>
     )
 }

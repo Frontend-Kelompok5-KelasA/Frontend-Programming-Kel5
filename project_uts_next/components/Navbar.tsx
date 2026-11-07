@@ -28,7 +28,9 @@ export const Navbar = () => {
                 </button>
                 <Link className="navbar-brand" href="/">
                     <Image className="nav-logo" src="/logo.png" alt="logo buat nav" width={100} height={100} />
+                    <span className="nav-title d-none d-md-inline">Kuliner Nusantara di Jakarta</span>
                 </Link>
+                <span className="nav-divider d-none d-md-block"></span>
                 <div className="navbar-profile dropdown ms-auto order-md-last ms-md-0 d-none" id="profile-out">
                     <div className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <Image className="profile-picture" src="/profile.png" alt="logo profile" width={100} height={100} />
@@ -55,7 +57,7 @@ export const Navbar = () => {
                         <Link className="dropdown-item" href="/api/logout" prefetch={false}>Sign Out</Link>
                     </div>
                 </div>
-                <div className="collapse navbar-collapse justify-content-center" id="nav-hamburger">
+                <div className="collapse navbar-collapse" id="nav-hamburger">
                     <div className="navbar-nav">
                         <Link className="nav-link" href="/">Home</Link>
                         <Link className="nav-link" href="/explore">Explore</Link>

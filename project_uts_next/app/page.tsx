@@ -1,8 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Footer } from "../components/Footer";
-import { Navbar } from "../components/Navbar";
+import Link from "next/link";
 import {useEffect, useRef, useState} from "react";
 import { loadSession } from "@/script/utils";
 import { onLoad } from "@/script/home";
@@ -15,8 +14,6 @@ export default function Home() {
 
   return (
     <main>
-      <Navbar />
-
         {/* content */}
         <div className="main-container">
             {/* hero */}
@@ -158,13 +155,12 @@ export default function Home() {
                         <div className="col-12 col-lg-6 explore-text">
                             <h1>Start Exploring Jakarta&apos;s Culinary Flavors</h1>
                             <p>From traditional Betawi dishes to flavors brought from across the archipelago, discover Nusantara cuisine waiting to be explored throughout Jakarta.</p>
-                            <button id="explore-food-button">Start Exploring</button>
+                            <Link href="/explore"><button id="explore-food-button">Start Exploring</button></Link>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <Footer />
     </main>
   );
 }

@@ -1,7 +1,5 @@
 "use client";
 
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
 import { useEffect } from "react";
 import { loadSession } from "@/script/utils";
 
@@ -12,8 +10,6 @@ export default function AddResto() {
 
     return (
         <main>
-            <Navbar />
-
             <div className="kotak-form">
                 <h1>Tambah Restoran</h1>
 

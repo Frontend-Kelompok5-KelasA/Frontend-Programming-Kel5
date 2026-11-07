@@ -1,8 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { Navbar } from "../../components/Navbar";
-import { Footer } from "../../components/Footer";
 import { useEffect } from "react";
 import { loadSession } from "@/script/utils";
 import { onLoad } from "@/script/explore";
@@ -15,8 +13,6 @@ export default function Home() {
 
     return (
         <main>
-        <Navbar />
-        
         <div className="main-container">
             {/* search bar */}
             <div className="search-filter-section">
@@ -63,7 +59,6 @@ export default function Home() {
                 </div>
                 </div>
         </div>
-        <Footer />
         </main>
     );
 }
