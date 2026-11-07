@@ -16,6 +16,7 @@ export async function onLoad(){
     const CARD_WIDTH = 288;
     const CARD_GAP = 24;
     const ROW_PADDING = 32;
+    const MAX_PER_SLIDE = 5;
     let currentUser: any = null;
 
 // 1 item itu 1 restoran (semua lokasi/cabangnya ada di item.location)
@@ -228,7 +229,7 @@ export async function onLoad(){
         if (!carousel || popularCards.length === 0) return;
 
         const tersedia = carousel.clientWidth - ROW_PADDING;
-        const n = Math.max(1, Math.floor((tersedia + CARD_GAP) / (CARD_WIDTH + CARD_GAP)));
+        const n = Math.min(MAX_PER_SLIDE, Math.max(1, Math.floor((tersedia + CARD_GAP) / (CARD_WIDTH + CARD_GAP))));
 
         if (n === perSlide) return;
         perSlide = n;
