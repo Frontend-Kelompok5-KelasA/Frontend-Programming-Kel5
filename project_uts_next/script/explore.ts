@@ -13,7 +13,7 @@ export async function onLoad(){
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(bangunCarousel, 150);
     });
-    const gambar_def = "migor.png";
+    const gambar_def = "/images/restaurantImages/migor.png";
 
     const CARD_WIDTH = 288;
     const CARD_GAP = 24;
@@ -276,13 +276,13 @@ export async function onLoad(){
         if(inner){
             inner.innerHTML = dipilih.map((g, i) => `
                 <div class="carousel-item ${i === 0 ? "active" : ""}">
-                    <img src="/${g}" alt="Kuliner Nusantara" loading="lazy">
+                    <img src="/images/restaurantImages/${g}" alt="Kuliner Nusantara" loading="lazy">
                 </div>
             `).join("");
 
             inner.innerHTML = gambarUnik.map((g, i) => `
                 <div class="carousel-item ${i === 0 ? "active" : ""}">
-                    <img src="/${g}" alt="Kuliner Nusantara" loading="lazy">
+                    <img src="/images/restaurantImages/${g}" alt="Kuliner Nusantara" loading="lazy">
                 </div>
             `).join("");
         }
@@ -341,7 +341,7 @@ export async function onLoad(){
             card.style.width = CARD_WIDTH + "px";
 
             card.innerHTML = `
-                <img src="/${imageFile}" class="card-img-top" alt="${resto.name}">
+                <img src="/images/restaurantImages/${imageFile}" class="card-img-top" alt="${resto.name}">
                 <div class="card-body">
                     <h5 class="card-title">${resto.name}</h5>
                     <p class="card-text">${resto.desc}</p>
@@ -408,7 +408,7 @@ export async function onLoad(){
             : `<p><a href="/login">Login</a> untuk menulis review.</p>`;
 
         if(detailContent)detailContent.innerHTML = `
-            <img src="/${imageFile}" alt="${resto.name}" class="detail-img">
+            <img src="/images/restaurantImages/${imageFile}" alt="${resto.name}" class="detail-img">
             <h2>${resto.name}</h2>
             <p>${resto.tag} · ${resto.cat} · ${resto.status}</p>
             ${resto.desc ? `<p>${resto.desc}</p>` : ""}

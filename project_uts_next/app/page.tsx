@@ -18,7 +18,7 @@ export default function Home() {
         <div className="main-container">
             {/* hero */}
             <div className="hero">
-                <Image className="gambar-logo" src="/logo.png" alt="gambar logo" width={500} height={500} />
+                <Image className="gambar-logo" src="/images/websiteEssentials/logo.png" alt="gambar logo" width={500} height={500} />
 
                 <div className="hero-text">
                     <h1>Serving you the flavors of Nusantara. Explore Indonesia, one delicious dish at a time</h1>
@@ -36,7 +36,7 @@ export default function Home() {
                     <div className="row gy-4">
                         <div className="col-12 col-md-6 col-lg-3 areas-in-jakarta">
                             <div className="the-facts">
-                                <Image className="facts-image" src="/peta-jakarta.png" alt="peta-jakarta" width={500} height={500} />
+                                <Image className="facts-image" src="/images/homepage/peta-jakarta.png" alt="peta-jakarta" width={500} height={500} />
                                 <h2>5 Areas of Jakarta</h2>
                                 <p>Discover Nusantara cuisine spread across Central, South, East, West, and North Jakarta.</p>
                             </div>
@@ -44,7 +44,7 @@ export default function Home() {
 
                         <div className="col-12 col-md-6 col-lg-3 culinary-choices">
                             <div className="the-facts">
-                                <Image className="facts-image" src="/rendang.png" alt="rendang" width={500} height={500} />
+                                <Image className="facts-image" src="/images/homepage/rendang.png" alt="rendang" width={500} height={500} />
                                 <h2>100+ Culinary Choices</h2>
                                 <p>Explore a wide variety of traditional Indonesian dishes available throughout the city.</p>
                             </div>
@@ -52,7 +52,7 @@ export default function Home() {
 
                         <div className="col-12 col-md-6 col-lg-3 nusantara-in-one-city">
                             <div className="the-facts">
-                                <Image className="facts-image" src="/kuliner.png" alt="gambar facts" width={500} height={500} />
+                                <Image className="facts-image" src="/images/homepage/kuliner.png" alt="gambar facts" width={500} height={500} />
                                 <h2>Nusantara in One City</h2>
                                 <p>From Padang cuisine to Betawi specialities, Jakarta offers flavors from different parts of Indonesia.</p>
                             </div>
@@ -60,7 +60,7 @@ export default function Home() {
 
                         <div className="col-12 col-md-6 col-lg-3 a-city-of-culinary-diversity">
                             <div className="the-facts">
-                                <Image className="facts-image" src="/monas.png" alt="gambar monas" width={500} height={500} />
+                                <Image className="facts-image" src="/images/homepage/monas.png" alt="gambar monas" width={500} height={500} />
                                 <h2>A City of Culinary Diversity</h2>
                                 <p>Jakarta&apos;s diverse communities have brought culinary traditions from across Indonesia into the city.</p>
                             </div>
@@ -78,28 +78,28 @@ export default function Home() {
                 <div id="special-carousel" className="carousel slide" data-bs-ride="carousel" data-bs-interval="7500" data-bs-pause="false">
                     <div className="carousel-inner">
                         <div className="carousel-item active special-content">
-                            <Image src="/flavors.jpg" alt="Diverse Flavors" width={2000} height={2000} />
+                            <Image src="/images/homepage/flavors.jpg" alt="Diverse Flavors" width={2000} height={2000} />
                             <div className="carousel-caption">
                                 <h2>Diverse Flavors</h2>
                                 <p>Jakarta offers dishes with a wide range of flavors, from spicy and savory to sweet and rich.</p>
                             </div>
                         </div>
                         <div className="carousel-item special-content">
-                            <Image src="/regional-variety.jpg" alt="Regional Variety" width={2000} height={2000} />
+                            <Image src="/images/homepage/regional-variety.jpg" alt="Regional Variety" width={2000} height={2000} />
                             <div className="carousel-caption">
                                 <h2>Regional Variety</h2>
                                 <p>Find culinary traditions from Sumatra, Java, Sulawesi, and other regions across Jakarta.</p>
                             </div>
                         </div>
                         <div className="carousel-item special-content">
-                            <Image src="/jakarta-culinary.jpg" alt="Cultural Heritage" width={2000} height={2000} />
+                            <Image src="/images/homepage/jakarta-culinary.jpg" alt="Cultural Heritage" width={2000} height={2000} />
                             <div className="carousel-caption">
                                 <h2>Cultural Heritage</h2>
                                 <p>Traditional dishes preserve the culinary traditions and cultural identity of communities living in Jakarta.</p>
                             </div>
                         </div>
                         <div className="carousel-item special-content">
-                            <Image src="/jakarta-city.jpg" alt="One City, Many Traditions" width={2000} height={2000} />
+                            <Image src="/images/homepage/jakarta-city.jpg" alt="One City, Many Traditions" width={2000} height={2000} />
                             <div className="carousel-caption">
                                 <h2>One City, Many Traditions</h2>
                                 <p>The city&apos;s diverse population brings together culinary traditions from different parts of Indonesia.</p>
