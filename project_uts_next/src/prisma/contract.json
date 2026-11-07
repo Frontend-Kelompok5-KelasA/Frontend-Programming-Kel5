@@ -8,6 +8,10 @@
       "model": "Category",
       "namespace": "public"
     },
+    "Page": {
+      "model": "Page",
+      "namespace": "public"
+    },
     "Restaurant": {
       "model": "Restaurant",
       "namespace": "public"
@@ -58,6 +62,37 @@
               },
               "namespaceId": "public",
               "table": "Category"
+            }
+          },
+          "Page": {
+            "fields": {
+              "configuration": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "pageId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {},
+            "storage": {
+              "fields": {
+                "configuration": {
+                  "column": "configuration"
+                },
+                "pageId": {
+                  "column": "page_id"
+                }
+              },
+              "namespaceId": "public",
+              "table": "Page"
             }
           },
           "Restaurant": {
@@ -429,6 +464,23 @@
               },
               "uniques": []
             },
+            "Page": {
+              "columns": {
+                "configuration": {
+                  "codecId": "pg/text@1",
+                  "dataType": "pg/text",
+                  "nullable": false
+                },
+                "page_id": {
+                  "codecId": "pg/text@1",
+                  "dataType": "pg/text",
+                  "nullable": false
+                }
+              },
+              "foreignKeys": [],
+              "indexes": [],
+              "uniques": []
+            },
             "Restaurant": {
               "columns": {
                 "cat": {
@@ -627,13 +679,7 @@
                   "user_id"
                 ]
               },
-              "uniques": [
-                {
-                  "columns": [
-                    "email"
-                  ]
-                }
-              ]
+              "uniques": []
             }
           }
         },
@@ -641,7 +687,7 @@
         "kind": "postgres-schema"
       }
     },
-    "storageHash": "97e0bccbf4623565518109e611bda10f6f20673efd6740b2d451a5045b7e4427"
+    "storageHash": "cfe9542dc68a86f472c3daa70d5c28d22560ee08ff8246e60eb155f3d5122e4f"
   },
   "capabilities": {
     "postgres": {
