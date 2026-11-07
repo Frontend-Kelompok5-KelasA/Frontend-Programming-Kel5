@@ -1,7 +1,5 @@
 "use client";
 
-import {forEach} from "eslint-config-next";
-
 declare const bootstrap: any;
 
 async function loadPageConfig(){
@@ -10,7 +8,6 @@ async function loadPageConfig(){
     const { config } = await res.json();
     if(!config)return;
 
-    console.log(config)
     Object.entries(config).forEach(([compId, data]: [string, any]) => {
         if(compId){
             const element = document.getElementById(compId);
