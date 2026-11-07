@@ -379,9 +379,9 @@ export async function onLoad(){
         `).join("");
 
         const links = [
-            resto.official_website ? `<a href="${resto.official_website}" target="_blank" rel="noopener">
+            resto.official_website ? `<a href="/images/websiteEssentials/${resto.official_website}" target="_blank" rel="noopener">
             <img class="web" src="/web.avif" alt="website">Website</a>` : "",
-            resto.instagram ? `<a href="${resto.instagram}" target="_blank" rel="noopener">
+            resto.instagram ? `<a href="/images/websiteEssentials/${resto.instagram}" target="_blank" rel="noopener">
             <img class="ig" src="/instagram.webp" alt="instagram">Instagram</a>` : ""
         ].join(" ");
 
