@@ -75,6 +75,7 @@ export const Navbar = () => {
                             <hr className="dropdown-hr"/>
                         </span>
                         <Link className="dropdown-item" href="/profile">View Profile</Link>
+                        <Link className="dropdown-item" href="/user_settings">Settings</Link>
                         {elements?.map((item, index) => (
                             <Link className="dropdown-item" key={index} href={`/${item}`}>Admin</Link>
                         ))}
