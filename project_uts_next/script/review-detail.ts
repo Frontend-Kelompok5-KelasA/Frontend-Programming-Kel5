@@ -1,22 +1,4 @@
 export async function onLoad(){
-    const hapusReview = async (id: string, tombol: HTMLButtonElement) => {
-        if (!confirm('Yakin ingin menghapus review ini?')) return;
-
-        tombol.disabled = true;
-        try {
-            const res = await fetch(`/api/reviews/${id}`, { method: 'DELETE' });
-            if (!res.ok) {
-                const err = await res.json().catch(() => ({}));
-                throw new Error(err.error || 'Gagal menghapus review');
-            }
-            await loadReviewTable();
-        } catch (err) {
-            console.error(err);
-            alert(err instanceof Error ? err.message : 'Gagal menghapus review');
-            tombol.disabled = false;
-        }
-    };
-
     const loadReviewTable = async () => {
         const tbody = document.getElementById('tabel-review-body');
         if (!tbody) return;
@@ -62,14 +44,6 @@ export async function onLoad(){
                 baris.appendChild(makeCell(r.restaurant_name));
                 baris.appendChild(makeCell(r.rating));
                 baris.appendChild(makeCell(potong(r.comment)));
-                const tdAksi = document.createElement('td');
-                const btnHapus = document.createElement('button');
-                btnHapus.type = 'button';
-                btnHapus.className = 'btn btn-danger btn-sm';
-                btnHapus.textContent = 'Hapus';
-                btnHapus.addEventListener('click', () => hapusReview(String(r.id), btnHapus));
-                tdAksi.appendChild(btnHapus);
-                baris.appendChild(tdAksi);
 
                 tbody.appendChild(baris);
             });

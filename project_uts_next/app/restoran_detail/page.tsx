@@ -33,12 +33,11 @@ export default function RestoDetail() {
                                 <th scope="col">Status</th>
                                 <th scope="col">Harga</th>
                                 <th scope="col">Rating</th>
-                                <th scope="col">Aksi</th>
                             </tr>
                         </thead>
                         <tbody id="tabel-resto-body">
                             <tr>
-                                <td colSpan= {9} className="text-center">Memuat data...</td>
+                                <td colSpan= {8} className="text-center">Memuat data...</td>
                             </tr>
                         </tbody>
                     </table>
