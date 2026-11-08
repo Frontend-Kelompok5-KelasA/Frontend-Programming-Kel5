@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { loadSession } from "@/script/utils";
 import { onLoad } from "@/script/home";
-import parse, { domToReact } from "html-react-parser";
+import parse from "html-react-parser";
 
 export default function Home() {
     const [loading, setLoading] = useState(true);
@@ -51,7 +51,7 @@ export default function Home() {
     const options = {
         replace: (node: any) => {
             if(node.name === "img"){
-                const { src, alt, width, height } = node.attribs;
+                const { src, alt } = node.attribs;
                 return (
                     <Image src={src} alt={alt} width={500} height={500} />
                 );

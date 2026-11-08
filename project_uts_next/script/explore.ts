@@ -4,7 +4,40 @@ import { esc } from "@/script/utils";
 
 declare const bootstrap: any;
 
-export async function onLoad(){
+async function loadPageConfig(
+    refs: any, states: {filterText: any}
+){
+    const applyConf = (ref: any, comps: Record<string, string | number>) => {
+        Object.entries(comps).forEach(([compId, data]: [string, string | number]) => {
+            ref[compId] = data;
+        })
+    };
+
+    const res = await fetch('/api/config/explore');
+
+    const { config } = await res.json();
+    if(!config)return;
+
+    applyConf(refs.filter.input, config.filter.input);
+
+    states.filterText(config.filter.button.text.textContent);
+
+    applyConf(refs.filter.button.image, config.filter.button.image);
+
+    applyConf(refs.filter.menu.title, config.filter.menu.title);
+    applyConf(refs.filter.menu.regions, config.filter.menu.regions);
+    applyConf(refs.filter.menu.types, config.filter.menu.types);
+    applyConf(refs.filter.menu.prices, config.filter.menu.prices);
+    applyConf(refs.filter.menu.done, config.filter.menu.done);
+
+    applyConf(refs.filter.cancel, config.filter.cancel);
+
+    applyConf(refs.title, config.title);
+}
+
+export async function onLoad(refs: any, states: {filterText: any}){
+    await loadPageConfig(refs, states);
+
     const foodList = document.getElementById("food-list");
     const popularList = document.getElementById("popular-list");
     const searchInput = document.getElementById("search-rest");
