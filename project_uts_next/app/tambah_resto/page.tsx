@@ -1,12 +1,49 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { loadSession } from "@/script/utils";
 
 export default function AddResto() {
+    const [pesan, setPesan] = useState("");
+    const [preview, setPreview] = useState<string | null>(null);
+
     useEffect(() => {
         loadSession();
-    });
+    }, []);
+
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        const form = e.currentTarget;
+        const formData = new FormData(form);
+
+        let imageName = "";
+        const file = formData.get("image");
+
+        if (file instanceof File && file.size > 0) {
+            const fd = new FormData();
+            fd.append("image", file);
+
+            const upRes = await fetch("/api/upload", { method: "POST", body: fd });
+            const upData = await upRes.json();
+
+            if (!upRes.ok) {
+                setPesan(upData.error);
+                return;
+            }
+            imageName = upData.filename;
+        }
+
+        const body = Object.fromEntries(formData);
+        body.image = imageName;
+
+        const res = await fetch("/api/restaurants", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body),
+        });
+
+        setPesan(res.ok ? "Restoran berhasil ditambahkan" : "Gagal menyimpan");
+    }
 
     return (
         <main>
@@ -113,14 +150,18 @@ export default function AddResto() {
                     </div>
 
                     <div className="mb-3">
-                        <label htmlFor="image" className="form-label">Nama File Gambar</label>
-                        <input type="text" className="form-control" id="image" name="image"
-                            placeholder="ex: made.png" />
-                        <small className="text-muted">File gambar dimasukkan di folder <code>images/</code></small>
+                        <label htmlFor="image" className="form-label">Gambar</label>
+                        <input type="file" className="form-control" id="image" name="image" accept="image/png,image/jpeg,image/webp"
+                            onChange={(e) => {
+                                const f = e.target.files?.[0];
+                                setPreview(f ? URL.createObjectURL(f) : null);
+                            }}
+                        />
+                        {preview && (<img src={preview} alt="Preview" className="mt-2" style={{ maxWidth: 200 }} />)}
                     </div>
 
                     <button type="submit" className="btn-tambah w-100 mt-2">Simpan</button>
-                    <p id="pesan-form" className="mt-3 text-center"></p>
+                    <p id="pesan-form" className="mt-3 text-center">{pesan}</p>
 
                 </form>
             </div>
