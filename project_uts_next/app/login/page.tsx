@@ -24,8 +24,7 @@ export default function Login() {
         const result = await response.json();
 
         if(result.success) {
-            router.push('/');
-            router.refresh();
+            window.location.href = '/';
             return;
         }
 
