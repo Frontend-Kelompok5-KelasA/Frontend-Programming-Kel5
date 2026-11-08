@@ -1,4 +1,22 @@
 export async function onLoad(){
+    const hapusUser = async (id: string, username: string, tombol: HTMLButtonElement) => {
+        if (!confirm(`Yakin ingin menghapus user "${username}"?`)) return;
+
+        tombol.disabled = true;
+        try {
+            const res = await fetch(`/api/users/${encodeURIComponent(id)}`, { method: 'DELETE' });
+            if (!res.ok) {
+                const err = await res.json().catch(() => ({}));
+                throw new Error(err.error || 'Gagal menghapus user');
+            }
+            await loadUserTable(); // muat ulang tabel
+        } catch (err) {
+            console.error(err);
+            alert(err instanceof Error ? err.message : 'Gagal menghapus user');
+            tombol.disabled = false;
+        }
+    };
+    
     const loadUserTable = async () => {
         const tbody = document.getElementById('tabel-user-body');
         if (!tbody) return;
@@ -30,6 +48,22 @@ export async function onLoad(){
                 baris.appendChild(makeCell(user.username));
                 baris.appendChild(makeCell(user.email));
                 baris.appendChild(makeCell(user.role));
+                const tdAksi = document.createElement('td');
+                tdAksi.className = 'text-nowrap';
+
+                const btnEdit = document.createElement('a');
+                btnEdit.href = `/edit_user/${encodeURIComponent(user.id)}`;
+                btnEdit.className = 'btn btn-warning btn-sm me-1';
+                btnEdit.textContent = 'Edit';
+
+                const btnHapus = document.createElement('button');
+                btnHapus.type = 'button';
+                btnHapus.className = 'btn btn-danger btn-sm';
+                btnHapus.textContent = 'Hapus';
+                btnHapus.addEventListener('click', () => hapusUser(String(user.id), user.username, btnHapus));
+
+                tdAksi.append(btnEdit, btnHapus);
+                baris.appendChild(tdAksi);
 
                 tbody.appendChild(baris);
             });
