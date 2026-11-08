@@ -1,18 +1,24 @@
+"use client";
+
 import Image from "next/image";
-import { Navbar } from "../../components/Navbar";
-import { Footer } from "../../components/Footer";
+import { useEffect } from "react";
+import { loadSession } from "@/script/utils";
+import { onLoad } from "@/script/explore";
 
 export default function Home() {
+    useEffect(() => {
+        loadSession()
+        onLoad();
+    });
+
     return (
         <main>
-        <Navbar />
-        
         <div className="main-container">
             {/* search bar */}
             <div className="search-filter-section">
                 <input type="search" id="search-rest" placeholder="Search..." />
                 <button id="open-m-filter">Filter
-                    <Image src="/filter.png" alt="logo filter" width={100} height={100} />
+                    <Image src="/images/websiteEssentials/filter.png" alt="logo filter" width={100} height={100} />
                 </button>
 
                 <div id="modal">
@@ -53,7 +59,6 @@ export default function Home() {
                 </div>
                 </div>
         </div>
-        <Footer />
         </main>
     );
 }

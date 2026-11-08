@@ -1,16 +1,22 @@
-import { Navbar } from "../../components/Navbar";
-import { Footer } from "../../components/Footer";
+"use client";
+
+import { useEffect } from "react";
+import { loadSession } from "@/script/utils";
+import { onLoad } from "@/script/resto-detail";
 
 export default function RestoDetail() {
+    useEffect(() => {
+        loadSession();
+        onLoad();
+    });
+
     return (
         <main>
-            <Navbar />
-
             <section className="halaman-tabel">
                 <div className="d-flex justify-content-between align-items-center mb-3">
                     <h1 className="mb-0">Tabel Informasi Restoran</h1>
 
-                    <a href="tambah_resto.html" className="btn-tambah">
+                    <a href="tambah_resto" className="btn-tambah">
                         <i className="bi bi-plus-lg"></i> Tambah Restoran
                     </a>
                 </div>

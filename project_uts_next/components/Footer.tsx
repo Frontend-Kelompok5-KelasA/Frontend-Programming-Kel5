@@ -9,7 +9,7 @@ export const Footer = () => {
                 <div className="row">
                     <div className="col-12 col-md-12 col-lg-5 order-3 order-md-3 order-lg-1 about">
                         <div id="footer-title">
-                            <Image id="footer-logo" src="/logo.png" alt="logo footer" width={100} height={100} />
+                            <Image id="footer-logo" src="/images/websiteEssentials/logo.png" alt="logo footer" width={100} height={100} />
                             <h3>Kuliner Nusantara di Jakarta</h3>
                             <p>Menjelajahi cita rasa Nusantara di tengah hiruk-piruk Jakarta</p>
                         </div>
@@ -29,9 +29,8 @@ export const Footer = () => {
                         <h3>Explore</h3>
                         <br />
                         <div className="footer-links">
-                            <Link href="/" className="footer-Link">Home</Link>
-                            <Link href="/explore" className="footer-Link">Explore</Link>
-                            <Link href="/admin" className="footer-Link">Admin</Link>
+                            <Link href="/" className="footer-a">Home</Link>
+                            <Link href="/explore" className="footer-a">Explore</Link>
                         </div>
                     </div>
                     <div className="col-12 col-md-6 col-lg-4 order-2 order-md-2 order-lg-3 contacts">
@@ -40,9 +39,9 @@ export const Footer = () => {
                         <p><i className="bi bi-geo-alt-fill"></i>Jakarta, Indonesia</p>
                         <br />
                         <div className="footer-socials">
-                            <Link href="#" className="footer-Link"><i className="bi bi-envelope-fill"></i>Email</Link>
-                            <Link href="#" className="footer-Link"><i className="bi bi-instagram"></i>Instagram</Link>
-                            <Link href="#" className="footer-Link"><i className="bi bi-whatsapp"></i>WhatsApp</Link>
+                            <Link href="#" className="footer-a"><i className="bi bi-envelope-fill"></i>Email</Link>
+                            <Link href="#" className="footer-a"><i className="bi bi-instagram"></i>Instagram</Link>
+                            <Link href="#" className="footer-a"><i className="bi bi-whatsapp"></i>WhatsApp</Link>
                         </div>
                     </div>
                 </div>

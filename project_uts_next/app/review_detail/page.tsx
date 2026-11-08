@@ -1,11 +1,18 @@
+"use client";
+
 import Image from "next/image";
-import { Navbar } from "../../components/Navbar";
-import { Footer } from "../../components/Footer";
+import { useEffect } from "react";
+import { loadSession } from "@/script/utils";
+import { onLoad } from "@/script/review-detail";
 
 export default function ReviewDetail() {
+    useEffect(() => {
+        loadSession();
+        onLoad();
+    });
+
     return (
         <main>
-            <Navbar />
             <div className="halaman-tabel">
                 <h1>Daftar Review</h1>
                 <div className="table-wrap lebar">
@@ -28,7 +35,6 @@ export default function ReviewDetail() {
                     </table>
                 </div>
             </div>
-            <Footer />
         </main>
     );
 }

@@ -22,10 +22,10 @@
     /* popular food */
     --dishes-background: #fff5e3;
 
-    --dishes-img1: url("/bundaran-hi.jpg");
-    --dishes-img2: url("/culinary-choices.jpg");
-    --dishes-img3: url("/nusantara-one-city.jpg");
-    --dishes-img4: url("/culinary-diversity.jpg");
+    --dishes-img1: url("/images/homepage/bundaran-hi.jpg");
+    --dishes-img2: url("/images/homepage/culinary-choices.jpg");
+    --dishes-img3: url("/images/homepage/nusantara-one-city.jpg");
+    --dishes-img4: url("/images/homepage/culinary-diversity.jpg");
     
     --areas-jakarta: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), var(--dishes-img1) center / cover no-repeat;
     --culinary-choices: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), var(--dishes-img2) center / cover no-repeat;
@@ -43,12 +43,13 @@
     --footer-hover: #ff9b19;
     
     /* BACKGROUND */
-    --header-img: url("/header_background.jpg");
+    --header-img: url("/images/homepage/header_background.jpg");
     --header-background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), var(--header-img) center / cover no-repeat;
 
     /* FONT */
-    --font-heading: 'Gabarito', sans-serif;
-    --font-body: "DM Sans", sans-serif;
+    --font-heading: var(--font-gabarito), sans-serif;
+    --font-body: var(--font-dm-sans), sans-serif;
+    --font-title: var(--font-lobster), cursive;
 }
 
 html {
@@ -111,7 +112,34 @@ hr {
     text-decoration: underline;
     text-underline-offset: 6px;
     text-decoration-thickness: 2px;
+}
 
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-title {
+    color: var(--nav-element);
+    font-family: var(--font-title);
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 1.2;
+    white-space: nowrap;
+    padding-right: 15px;
+}
+
+.navbar-brand:hover .nav-title {
+    color: var(--nav-hover);
+}
+
+.nav-divider {
+    width: 2px;
+    height: 36px;
+    background-color: var(--nav-element);
+    opacity: 0.2;
+    border-radius: 2px;
 }
 
 .navbar-toggler {
@@ -137,6 +165,7 @@ hr {
 
 .nav-logo {
     width: 60px;
+    height: auto;
 }
 
 .navbar-collapse {
@@ -440,30 +469,50 @@ hr {
 }
 
 main {
-    min-height: 100%;;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    min-height: 100%;
 }
 
 .kotak-register-login {
     box-shadow: 0px 5px 5px #afaeae;
     border-radius: 20px;
-    padding: 30px 40px;
-    margin: 200px 0;
+    padding: 0;
+    margin: 200px auto;
+    overflow: hidden;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 320px;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 0; 
+    width: 80%;
 }
 
 .kotak-register-login p {
     font-size: 14px;
 }
 
+.login-signup-image {
+    display: none;
+}
+
+.login-signup-box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 30px;
+    gap: 10px;
+}
+
 .gambar-logo-login {
     height: auto;
     width: 80px;
+    object-fit: cover;
+}
+
+.login-image {
+    display: block;
+    width: 500px;
+    height: 500px;
     object-fit: cover;
 }
 
@@ -474,10 +523,14 @@ main {
     width: 100%;
 }
 
-
 .halaman-regist-login input, .halaman-regist-login button {
     border-radius: 7px;
+    padding: 8px;
     border: 1px solid var(--nav-hover);
+}
+
+.halaman-regist-login a button {
+    background-color: var(--nav-hover);
 }
 
 #submit {
@@ -485,9 +538,15 @@ main {
     background-color: var(--nav-hover);
 }
 
-.sign-up {
-    margin-top: 20px;
-    margin-bottom: 0;
+.login-btn {
+    display: inline-block;
+    background-color: var(--nav-hover);
+    color: var(--text);
+    padding: 4px 15px;
+    border-radius: 20px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    text-decoration: none;
 }
 
 /*EXPLORE.HTML*/
@@ -507,6 +566,13 @@ main {
 }
 
 .card img {
+    border-radius: 20px;
+}
+
+.card .card-img-top {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
     border-radius: 20px;
 }
 
@@ -913,7 +979,7 @@ h5 {
     border-radius: 20px;
     box-shadow: 0px 5px 5px #afaeae;
     padding: 30px 40px;
-    margin: 40px;
+    margin: 40px auto;
 }
 
 .kotak-form h1 {
@@ -963,6 +1029,7 @@ footer .footer-fill .row {
 
 .about #footer-title #footer-logo {
     width: 30%;
+    height: auto;
 }
 
 .about #footer-title p {
@@ -1029,6 +1096,21 @@ footer .footer-fill .row {
 @media (min-width: 720px) {
     .explore-images img {
         height: 500px;
+    }
+
+    .kotak-register-login {
+        width: 650px;
+    }
+}
+
+@media (min-width: 992px) {
+    .login-signup-image {
+        display: flex;
+        flex: 0 0 45%;
+    }
+
+    .kotak-register-login {
+        width: 900px;
     }
 }
 
