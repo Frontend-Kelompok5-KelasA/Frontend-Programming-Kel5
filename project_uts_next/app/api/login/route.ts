@@ -1,7 +1,7 @@
 import { getPrisma } from "@/backend-scripts/database";
 import { NextResponse } from "next/server";
 import { getSession } from "@/backend-scripts/session-handler";
-import bcrypt from "bcrypt";
+const bcrypt = require('bcrypt');
 
 export const dynamic = 'force-dynamic';
 
