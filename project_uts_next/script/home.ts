@@ -2,26 +2,83 @@
 
 declare const bootstrap: any;
 
-async function loadPageConfig(){
+async function loadPageConfig(
+    refs: any,
+    states: {factContent: any, specialContent: any}
+){
+    const applyConf = (ref: any, comps: Record<string, string|number>) => {
+        Object.entries(comps).forEach(([compId, data]: [string, string|number]) => {
+            ref[compId] = data;
+        })
+    };
+
     const res = await fetch('/api/config/home');
 
     const { config } = await res.json();
     if(!config)return;
 
-    Object.entries(config).forEach(([compId, data]: [string, any]) => {
-        if(compId){
-            const element = document.getElementById(compId);
-            if(element){
-                data.forEach((conf: {type: string, value: string}) => {
-                    (element as any)[conf.type] = conf.value;
-                })
-            }
-        }
-    })
+    applyConf(refs.hero.title, config.hero.title);
+    applyConf(refs.hero.subtitle, config.hero.subtitle);
+
+    applyConf(refs.facts.title, config.facts.title);
+    applyConf(refs.facts.subtitle, config.facts.subtitle);
+
+    let factContent = "";
+    config.facts.contents.forEach((data: {
+        "id": string,
+        "title": Record<string, string|number>,
+        "subtitle": Record<string, string|number>,
+        "image": Record<string, string|number>
+    }) => {
+        factContent += `
+            <div className="col-12 col-md-6 col-lg-3 ${data.id}">
+                <div className="the-facts">
+                    <img className="facts-image" 
+                            src=${data.image.src} 
+                            alt=${data.image.alt} 
+                            width={500} 
+                            height={500} 
+                    />
+                    <h2>${data.title.textContent}</h2>
+                    <p>${data.subtitle.textContent}</p>
+                </div>
+            </div>
+        `;
+    });
+    states.factContent(factContent);
+
+    applyConf(refs.special.title, config.special.title);
+    applyConf(refs.special.subtitle, config.special.subtitle);
+
+    let specialContent = '';
+    config.special.contents.forEach((data: {
+        "id": string,
+        "title": Record<string, string|number>,
+        "subtitle": Record<string, string|number>,
+        "image": Record<string, string|number>
+    }, i: number) => {
+        specialContent += `
+            <div className="carousel-item special-content ${i === 0 ? 'active' : ''}">
+                <img src=${data.image.src} alt=${data.image.alt} width={2000} height={2000} />
+                <div className="carousel-caption">
+                    <h2>${data.title.textContent}</h2>
+                    <p>${data.subtitle.textContent}</p>
+                </div>
+            </div>
+        `;
+    });
+    states.specialContent(specialContent);
+
+    applyConf(refs.popular.title, config.popular.title);
+    applyConf(refs.popular.subtitle, config.popular.subtitle);
+
+    applyConf(refs.explore.title, config.explore.title);
+    applyConf(refs.explore.subtitle, config.explore.subtitle);
+    applyConf(refs.explore.button, config.explore.button);
 }
 
-export async function onLoad(){
-    loadPageConfig();
+export async function onLoad(refs: any, states: {factContent: any, specialContent: any}){
+    await loadPageConfig(refs, states);
 
     const foodList = document.getElementById("food-list");
     const popularList = document.getElementById("popular-list");
