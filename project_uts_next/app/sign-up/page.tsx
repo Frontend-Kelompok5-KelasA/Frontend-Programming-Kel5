@@ -1,30 +1,41 @@
 "use client";
 
-import React, {SubmitEventHandler, useEffect} from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { checkSession } from "@/script/sign-up";
 import { loadSession } from "@/script/utils";
-import {redirect} from "next/navigation";
 
 export default function SignUp() {
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
+    
     async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>){
         event.preventDefault();
+        setError("");
+        setLoading(true);
 
         const data = Object.fromEntries(new FormData(event.currentTarget));
 
-        const response = await fetch('/api/register', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        });
+        try {
+            const response = await fetch('/api/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
 
-        const result = await response.json();
+            const result = await response.json();
 
-        if(result.success && result.login)redirect('/');
+            if (result.success) {
+                window.location.href = result.login ? '/' : '/login';
+                return;
+            }
 
-        if(result.success){
-            redirect('/login');
+            setError(result.message || "Pendaftaran gagal, silakan coba lagi.");
+        } catch {
+            setError("Terjadi kesalahan, silakan coba lagi.");
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -47,16 +58,11 @@ export default function SignUp() {
                         <p>Sign up to explore the Nusantara</p>
 
                         <form className="halaman-regist-login" onSubmit={handleSubmit}>
-                            <input type="email" name="email" placeholder="Email" required/>
-                            <input
-                                    type="text"
-                                    name="username"
-                                    placeholder="Username"
-                                    spellCheck={false}
-                                    required
-                            />
-                            <input type="password" name="password" placeholder="Make a password" minLength={8} required/>
-                            <button type="submit" id="submit">Register</button>
+                            <input type="email" name="email" placeholder="Email" required onChange={() => setError("")}/>
+                            <input type="text" name="username" placeholder="Username" spellCheck={false} required onChange={() => setError("")}/>
+                            <input type="password" name="password" placeholder="Make a password" minLength={8} required onChange={() => setError("")}/>
+                            {error && <p className="login-error" role="alert">{error}</p>}
+                            <button type="submit" id="submit" disabled={loading}>Register</button>
                         </form>
                         <p className="sign-up">Already have an account? <Link href="/login" className="login-btn">Log In</Link></p>
                     </div>
