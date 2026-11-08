@@ -90,27 +90,3 @@ export async function GET(){
         if (err) return NextResponse.json({ error: err.message });
     }
 }
-export async function DELETE(
-    _req: Request,
-    { params }: { params: Promise<{ id: string }> }
-) {
-    const { id } = await params;
-
-    const session = await getSession();
-    const user = session?.userData; // sesuaikan dengan cara /api/session membacanya
-    if (!user) {
-        return NextResponse.json({ error: 'Belum login' }, { status: 401 });
-    }
-    if (user.role !== 'admin') {
-        return NextResponse.json({ error: 'Tidak punya akses' }, { status: 403 });
-    }
-
-    try {
-        const prisma = getPrisma();
-        await prisma.review.delete({ where: { id: Number(id) } });
-        return NextResponse.json({ success: true });
-    } catch (err) {
-        console.error(err);
-        return NextResponse.json({ error: 'Review tidak ditemukan' }, { status: 404 });
-    }
-}

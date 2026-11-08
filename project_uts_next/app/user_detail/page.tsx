@@ -22,12 +22,11 @@ export default function UserDetail() {
                                 <th scope="col">Username</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Role</th>
-                                <th scope="col">Aksi</th>
                             </tr>
                         </thead>
                         <tbody id="tabel-user-body">
                             <tr>
-                                <td colSpan={5} className="text-center">Memuat data...</td>
+                                <td colSpan={4} className="text-center">Memuat data...</td>
                             </tr>
                         </tbody>
                     </table>
