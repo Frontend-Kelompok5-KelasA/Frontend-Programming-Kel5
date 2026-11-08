@@ -60,6 +60,11 @@ export default function Login() {
                         <form className="halaman-regist-login" onSubmit={handleSubmit}>
                             <input type="email" name="email" required placeholder="Email" onChange={() => setError("")}/>
                             <input type="password" name="password" required placeholder="Password" onChange={() => setError("")}/>
+                            <div className="forgot-password">
+                                <Link href="/customer-service">
+                                    Forgot password
+                                </Link>
+                            </div>
                             {error && (<p className="login-error" role="alert">{error}</p>)}
                             <button type="submit" id="submit" disabled={loading}>Login</button>
                         </form>
