@@ -16,14 +16,14 @@ export async function POST(req: Request){
 
         if (!email || !username || !password) {
             return NextResponse.json(
-                { success: false, message: "Semua field wajib diisi" },
+                { success: false, message: "All fields must be filled" },
                 { status: 400 }
             );
         }
 
         if (password.length < 8) {
             return NextResponse.json(
-                { success: false, message: "Password minimal 8 karakter" },
+                { success: false, message: "Minimum 8 characters for password" },
                 { status: 400 }
             );
         }
@@ -33,7 +33,7 @@ export async function POST(req: Request){
         const existing = await db.User.where({ email: email }).first();
         if (existing) {
             return NextResponse.json(
-                { success: false, message: "Email sudah terdaftar" },
+                { success: false, message: "Email or username already registered" },
                 { status: 409 }
             );
         }
@@ -52,14 +52,14 @@ export async function POST(req: Request){
     } catch (err: any) {
         if (err?.code === 'P2002') {
             return NextResponse.json(
-                { success: false, message: "Email atau username sudah terdaftar" },
+                { success: false, message: "Email or username already registered" },
                 { status: 409 }
             );
         }
 
         console.error(err);
         return NextResponse.json(
-            { success: false, message: "Terjadi kesalahan pada server" },
+            { success: false, message: "There's a problem with the server" },
             { status: 500 }
         );
     }

@@ -26,7 +26,7 @@ export async function POST(req: Request){
 
         if (!user || !passwordMatch) {
             return NextResponse.json(
-                { success: false, message: "Email atau password salah" },
+                { success: false, message: "Wrong email or password" },
                 { status: 401 }
             );
         }
@@ -44,7 +44,7 @@ export async function POST(req: Request){
     } catch (err) {
         console.error(err);
         return NextResponse.json(
-            { success: false, message: "Terjadi kesalahan pada server" },
+            { success: false, message: "There's a problem with the server" },
             { status: 500 }
         );
     }
