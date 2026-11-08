@@ -7,19 +7,34 @@ import Link from "next/link";
 export const Navbar = () => {
     const [elements, setElements] = useState<string[]>();
 
-    const profileName = useRef<HTMLParagraphElement>(null);
-
     useEffect(() => {
         const check: any = async() => {
             const res = await fetch('/api/session');
             const session = await res.json();
 
-            if(session?.role === "admin"){
-                setElements(() => ["admin"]);
+            console.log(session)
+
+            if(session){
+                if(session.role === "admin"){
+                    setElements(() => ["admin"]);
+                }
+
+                const profileName = document.getElementById("profile-name");
+                if(profileName){
+                    profileName.textContent = session.username;
+                }
+
+                const profileOut = document.getElementById("profile-out");
+                if(profileOut){
+                    profileOut.hidden = true;
+                }
+
+                return;
             }
 
-            if(profileName.current){
-                profileName.current.textContent = session ? session.username : "Profile";
+            const profileIn = document.getElementById("profile-logged");
+            if(profileIn){
+                profileIn.hidden = true;
             }
         };
 
@@ -53,14 +68,14 @@ export const Navbar = () => {
                 <div className="navbar-profile dropdown ms-auto order-md-last ms-md-0 d-none" id="profile-logged">
                     <div className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <Image className="profile-picture" src="/images/websiteEssentials/profile.png" alt="profile-picture-img" width={100} height={100} />
-                        <span ref={profileName} className="d-none d-md-inline">Profile</span>
+                        <span id="profile-name" className="d-none d-md-inline">Profile</span>
                     </div>
                     <div className="dropdown-menu dropdown-menu-end">
                         <span className="d-inline d-sm-none username">Profile
                             <hr className="dropdown-hr"/>
                         </span>
                         <Link className="dropdown-item" href="/profile">View Profile</Link>
-                        <Link className="dropdown-item" href="/api/logout" prefetch={false}>Sign Out</Link>
+                        <Link className="dropdown-item" href="/logout" prefetch={false}>Sign Out</Link>
                     </div>
                 </div>
                 <div className="collapse navbar-collapse" id="nav-hamburger">
