@@ -76,7 +76,7 @@ export const Navbar = () => {
                         </span>
                         <Link className="dropdown-item" href="/profile">View Profile</Link>
                         {elements?.map((item, index) => (
-                            <Link className="nav-link" key={index} href={`/${item}`}>Admin</Link>
+                            <Link className="dropdown-item" key={index} href={`/${item}`}>Admin</Link>
                         ))}
                         <Link className="dropdown-item" href="/logout" prefetch={false}>Sign Out</Link>
                     </div>
