@@ -25,11 +25,12 @@ export default function ReviewDetail() {
                                 <th scope="col">Restoran</th>
                                 <th scope="col">Rating</th>
                                 <th scope="col">Komentar</th>
+                                <th scope="col">Aksi</th>
                             </tr>
                         </thead>
                         <tbody id="tabel-review-body">
                             <tr>
-                                <td colSpan={6} className="text-center">Memuat data...</td>
+                                <td colSpan={7} className="text-center">Memuat data...</td>
                             </tr>
                         </tbody>
                     </table>
