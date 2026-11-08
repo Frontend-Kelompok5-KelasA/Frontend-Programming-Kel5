@@ -75,6 +75,10 @@ export const Navbar = () => {
                             <hr className="dropdown-hr"/>
                         </span>
                         <Link className="dropdown-item" href="/profile">View Profile</Link>
+                        <Link className="dropdown-item" href="/user_settings">Settings</Link>
+                        {elements?.map((item, index) => (
+                            <Link className="dropdown-item" key={index} href={`/${item}`}>Admin</Link>
+                        ))}
                         <Link className="dropdown-item" href="/logout" prefetch={false}>Sign Out</Link>
                     </div>
                 </div>
@@ -82,9 +86,7 @@ export const Navbar = () => {
                     <div className="navbar-nav">
                         <Link className="nav-link" href="/">Home</Link>
                         <Link className="nav-link" href="/explore">Explore</Link>
-                        {elements?.map((item, index) => (
-                            <Link className="nav-link" key={index} href={`/${item}`}>Admin</Link>
-                        ))}
+                        <Link className="nav-link" href="/about_us">About Us</Link>
                     </div>
                 </div>
             </div>

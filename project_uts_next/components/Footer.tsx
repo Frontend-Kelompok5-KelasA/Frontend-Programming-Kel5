@@ -31,6 +31,7 @@ export const Footer = () => {
                         <div className="footer-links">
                             <Link href="/" className="footer-a">Home</Link>
                             <Link href="/explore" className="footer-a">Explore</Link>
+                            <Link href="/about_us" className="footer-a">About Us</Link>
                         </div>
                     </div>
                     <div className="col-12 col-md-6 col-lg-4 order-2 order-md-2 order-lg-3 contacts">

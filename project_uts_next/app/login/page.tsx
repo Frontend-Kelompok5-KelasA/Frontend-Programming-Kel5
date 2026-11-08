@@ -1,34 +1,42 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { checkSession } from "@/script/login";
-import { redirect, useRouter } from "next/navigation";
 import { loadSession } from "@/script/utils";
 
 export default function Login() {
-    const router = useRouter();
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
 
-    async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>){
+    async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
         event.preventDefault();
+        setError("");
+        setLoading(true);
 
         const data = Object.fromEntries(new FormData(event.currentTarget));
 
-        const response = await fetch('/api/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        });
+        try {
+            const response = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
 
-        const result = await response.json();
+            const result = await response.json();
 
-        if(result.success) {
-            window.location.href = '/';
-            return;
+            if (result.success) {
+                window.location.href = '/';
+                return;
+            }
+
+            setError(result.message || "Email atau password salah");
+        } catch {
+            setError("Terjadi kesalahan, silakan coba lagi.");
+        } finally {
+            setLoading(false);
         }
-
-        redirect('/login');
     }
 
     useEffect(() => {
@@ -50,10 +58,12 @@ export default function Login() {
                         <p>Login to explore the Nusantara</p>
 
                         <form className="halaman-regist-login" onSubmit={handleSubmit}>
-                            <input type="email" name="email" required placeholder="Email"/>
-                            <input type="password" name="password" required placeholder="Password"/>
-                            <button type="submit" id="submit">Login</button>
+                            <input type="email" name="email" required placeholder="Email" onChange={() => setError("")}/>
+                            <input type="password" name="password" required placeholder="Password" onChange={() => setError("")}/>
+                            {error && (<p className="login-error" role="alert">{error}</p>)}
+                            <button type="submit" id="submit" disabled={loading}>Login</button>
                         </form>
+                        <p className="forgot-password"><Link href="/forgot-password" className="login-btn">I forgot my password</Link></p>
                         <p className="sign-up">Don&apos;t have an account? <Link href="/sign-up" className="login-btn">Sign Up</Link></p>
                     </div>
                 </div>

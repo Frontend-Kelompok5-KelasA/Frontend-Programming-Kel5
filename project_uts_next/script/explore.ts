@@ -381,7 +381,7 @@ export async function onLoad(){
         const links = [
             resto.official_website ? `<a href="${resto.official_website}" target="_blank" rel="noopener">
             <img class="web" src="/images/websiteEssentials/web.avif" alt="website">Website</a>` : "",
-            resto.instagram ? `<a href="/images/websiteEssentials/${resto.instagram}" target="_blank" rel="noopener">
+            resto.instagram ? `<a href="${resto.instagram}" target="_blank" rel="noopener">
             <img class="ig" src="/images/websiteEssentials/instagram.webp" alt="instagram">Instagram</a>` : ""
         ].join(" ");
 
