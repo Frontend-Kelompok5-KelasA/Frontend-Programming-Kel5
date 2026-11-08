@@ -549,6 +549,16 @@ main {
     text-decoration: none;
 }
 
+.login-error {
+    color: #d93025;
+    background: #fdecea;
+    border: 1px solid #f5c2c0;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    margin: 0;
+}
+
 /*EXPLORE.HTML*/
 .search-filter-section {
     display: flex;
