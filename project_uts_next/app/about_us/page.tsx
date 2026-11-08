@@ -29,9 +29,7 @@ export default function AboutUs() {
         <div className="container my-5">
           <div className="about-card mb-5">
             <p>
-              Website Kuliner Nusantara di Jakarta adalah proyek Ujian Akhir
-              Semester mata kuliah Frontend Programming yang dikembangkan
-              oleh kami Kelompok 5.
+              Website Kuliner Nusantara di Jakarta adalah proyek Ujian Akhir Semester mata kuliah Frontend Programming yang dikembangkan oleh kami Kelompok 5.
             </p>
           </div>
 
