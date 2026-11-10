@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 export const Navbar = () => {
     const [elements, setElements] = useState<string[]>();
+    const [role, setRole] = useState<string | null>(null);
 
     useEffect(() => {
         const check: any = async() => {
@@ -40,6 +41,26 @@ export const Navbar = () => {
 
         check();
     }, []);
+
+    useEffect(() => {
+            const checkSession = async () => {
+                try {
+                    const response = await fetch("/api/session", {
+                        cache: "no-store"
+                    });
+    
+                    const session = await response.json();
+    
+                    if (session) {
+                        setRole(session.role);
+                    }
+                } catch (error) {
+                    console.error("Gagal memeriksa session:", error);
+                }
+            };
+    
+            checkSession();
+        }, []);
 
     return (
         <nav className="navbar navbar-expand-md sticky-top">
@@ -86,6 +107,9 @@ export const Navbar = () => {
                     <div className="navbar-nav">
                         <Link className="nav-link" href="/">Home</Link>
                         <Link className="nav-link" href="/explore">Explore</Link>
+                        {role === "user" && (
+                                <Link href="/favorites" className="nav-link">Favorite</Link>
+                        )}
                         <Link className="nav-link" href="/about_us">About Us</Link>
                     </div>
                 </div>

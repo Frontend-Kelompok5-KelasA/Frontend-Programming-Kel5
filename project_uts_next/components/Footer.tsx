@@ -1,8 +1,31 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 export const Footer = () => {
+    const [role, setRole] = useState<string | null>(null);
+
+    useEffect(() => {
+        const checkSession = async () => {
+            try {
+                const response = await fetch("/api/session", {
+                    cache: "no-store"
+                });
+
+                const session = await response.json();
+
+                if (session) {
+                    setRole(session.role);
+                }
+            } catch (error) {
+                console.error("Gagal memeriksa session:", error);
+            }
+        };
+
+        checkSession();
+    }, []);
+
     return (
         <footer>
             <div className="container-fluid footer-fill">
@@ -31,9 +54,13 @@ export const Footer = () => {
                         <div className="footer-links">
                             <Link href="/" className="footer-a">Home</Link>
                             <Link href="/explore" className="footer-a">Explore</Link>
+                            {role === "user" && (
+                                <Link href="/favorites" className="footer-a">Favorite</Link>
+                            )}
                             <Link href="/about_us" className="footer-a">About Us</Link>
                         </div>
                     </div>
+                    
                     <div className="col-12 col-md-6 col-lg-4 order-2 order-md-2 order-lg-3 contacts">
                         <h3>Contact</h3>
                         <br />

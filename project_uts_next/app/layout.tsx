@@ -6,6 +6,7 @@ import "./globals.css";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
 import Script from "next/script";
+import AuthPromptProvider from "../components/AuthPromptProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -49,9 +50,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${dmSans.variable} ${gabarito.variable} ${lora.variable} ${lobster.variable}`}>
       <body>
-        <Navbar />
-        {children}
-        <Footer />
+        <AuthPromptProvider>
+          <Navbar />
+          {children}
+          <Footer />
+        </AuthPromptProvider>
         <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" strategy="afterInteractive" />
       </body>
     </html>
