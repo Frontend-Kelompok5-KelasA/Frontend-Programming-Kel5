@@ -490,7 +490,15 @@ main {
 }
 
 .login-signup-image {
-    display: none;
+    width: 50%;
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+}
+
+.login-signup-image > * {
+    width: 100%;
+    height: 100%;
 }
 
 .login-signup-box {

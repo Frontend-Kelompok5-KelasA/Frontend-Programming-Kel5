@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { checkSession } from "@/script/login";
 import { loadSession } from "@/script/utils";
+import HeroSection from "@/components/CarouselLogin";
 
 export default function Login() {
     const [error, setError] = useState("");
@@ -50,7 +51,7 @@ export default function Login() {
                 {/* kotak login  */}
                 <div className="kotak-register-login">
                     <div className="login-signup-image">
-                        <Image className="login-image" src="/images/restaurantImages/aruma.jpg" alt="" width={200} height={200} />
+                        <HeroSection />
                     </div>
                     <div className="login-signup-box">
                         <Image className="gambar-logo-login" src="/images/websiteEssentials/logo.png" alt="" width={200} height={200}/>
