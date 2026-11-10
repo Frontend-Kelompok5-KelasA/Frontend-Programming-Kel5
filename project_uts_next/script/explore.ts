@@ -1,6 +1,9 @@
 "use client";
 
-import { esc } from "@/script/utils";
+import { esc } from "../script/utils";
+import { createRoot, type Root } from "react-dom/client";
+import FavoriteButton from "../components/FavoriteButton";
+import { createElement } from "react";
 
 declare const bootstrap: any;
 
@@ -52,6 +55,30 @@ export async function onLoad(refs: any, states: {filterText: any}){
     const CARD_GAP = 24;
     const ROW_PADDING = 32;
     let currentUser: any = null;
+    // simpen daftar key restoran yang udah difavoritin
+    let favoriteKeys = new Set<string>();
+    // Menyimpan React root dari setiap tombol Favorite
+    const favoriteRoots = new WeakMap<HTMLElement, Root[]>();
+
+    // Mengambil session user
+    const response = await fetch("/api/session", {
+        cache: "no-store"
+    });
+
+    currentUser = await response.json();
+
+    // Mengambil daftar Favorite jika role user
+    if (currentUser?.role === "user") {
+        const resFavorite = await fetch("/api/favorites", {
+            cache: "no-store"
+        });
+
+        if (resFavorite.ok) {
+            const dataFavorite = await resFavorite.json();
+
+            favoriteKeys = new Set(dataFavorite.favorites);
+        }
+    }
 
 // 1 item itu 1 restoran (semua lokasi/cabangnya ada di item.location)
     interface GabunganResto {
@@ -176,7 +203,7 @@ export async function onLoad(refs: any, states: {filterText: any}){
         const baca = (id: string, himpunan: Set<string|number>, ubah: any) => {
             himpunan.clear();
             document.querySelectorAll(`#${id} .filter-option.selected`)
-                // @ts-ignore
+                // @ts-expect-error - Third-party library type mismatch
                 .forEach((b: Element) => himpunan.add(ubah(b.dataset.value)));
         };
 
@@ -195,7 +222,7 @@ export async function onLoad(refs: any, states: {filterText: any}){
 
         grup.forEach(([id, himpunan, ubah]) => {
             document.querySelectorAll(`#${id} .filter-option`).forEach((b) => {
-                // @ts-ignore
+                // @ts-expect-error - Third-party library type mismatch
                 b.classList.toggle("selected", himpunan.has(ubah(b.dataset.value)));
             });
         });
@@ -243,7 +270,7 @@ export async function onLoad(refs: any, states: {filterText: any}){
 // gabungan search dan semua filter
 // dalam 1 kelompok = OR (boleh pilih beberapa), antar kelompok = AND
     function terapkanFilter() {
-        // @ts-ignore
+        // @ts-expect-error - Third-party library type mismatch
         const keyword = searchInput ? searchInput.value.trim().toLowerCase() : "";
 
         const hasil = gabunganResto.filter((resto) => {
@@ -282,7 +309,7 @@ export async function onLoad(refs: any, states: {filterText: any}){
 
         if(popularList && popularCards.length === 0){
             popularList.innerHTML = temp.innerHTML;
-            return;
+            return; 
         }
 
         perSlide = 0;
@@ -373,17 +400,50 @@ export async function onLoad(refs: any, states: {filterText: any}){
             card.className = "card";
             card.style.width = CARD_WIDTH + "px";
 
+            // Guest: tombol tetap ditampilkan biar bisa meminta login ketika diklik
+            // User: tombol ditampilkan.
+            // Admin: tombol tidak ditampilkan.
+            const tampilkanFavorite = !currentUser || currentUser.role === "user";
+            const sudahFavorite = favoriteKeys.has(resto.key);
+
             card.innerHTML = `
-                <img src="/images/restaurantImages/${imageFile}" class="card-img-top" alt="${resto.name}">
-                <div class="card-body">
-                    <h5 class="card-title">${resto.name}</h5>
-                    <p class="card-text">${resto.desc}</p>
-                    <p class="card-loc">📍 ${firstLoc.city || "-"}${extra > 0 ? ` <small>(+${extra} cabang lain)</small>` : ""}</p>
-                    <button class="but-card" data-key="${resto.key}">Lihat Detail</button>
-                </div>
+            <img src="/images/restaurantImages/${imageFile}" class="card-img-top" alt="${resto.name}">
+            <div class="card-body">
+                <h5 class="card-title">${resto.name}</h5>
+                <div class="favorite-container"></div>
+                <p class="card-text">${resto.desc}</p>
+                <p class="card-loc">📍 ${firstLoc.city || "-"}${extra > 0 ? ` <small>(+${extra} cabang lain)</small>` : ""}</p>
+                <button class="but-card" data-key="${resto.key}">Lihat Detail</button>
+            </div>
             `;
 
+
             if(target)target.appendChild(card);
+
+            // Render FavoriteButton menggunakan React
+            const favoriteContainer = card.querySelector(".favorite-container");
+
+            if (favoriteContainer && target && currentUser?.role !== "admin") {
+
+                const root = createRoot(favoriteContainer);
+
+                favoriteRoots.get(target)?.push(root);
+
+                root.render(
+                    createElement(FavoriteButton, {
+                        restaurantKey: resto.key,
+                        initialFavorite: favoriteKeys.has(resto.key),
+                        isLoggedIn: !!currentUser,
+                        onFavoriteChange: (key, isFavorite) => {
+                            if (isFavorite) {
+                                favoriteKeys.add(key);
+                            } else {
+                                favoriteKeys.delete(key);
+                            }
+                        }
+                    })
+                );
+            }
         });
     }
 
@@ -459,11 +519,28 @@ export async function onLoad(refs: any, states: {filterText: any}){
     }
 
     if (foodList && detailModal) {
-        // event delegation: 1 listener untuk semua tombol "Lihat Detail"
-        foodList.addEventListener("click", (e: PointerEvent) => {
-            // @ts-ignore
-            const btn = e.target?.closest(".but-card");
-            if (btn) openDetail(btn.dataset.key);
+    // event delegation 1 listener untuk semua tombol "Lihat Detail"
+        foodList.addEventListener("click", async (e) => {
+            const target = e.target as HTMLElement;
+            const btn = target.closest(".but-card") as HTMLButtonElement | null;
+
+            if (!btn) return;
+
+            // Memeriksa session pengguna
+            const response = await fetch("/api/session", {
+                cache: "no-store"
+            });
+
+            const session = await response.json();
+
+            // kalau guest, tampilkan LoginFirst
+            if (!session) {
+                window.dispatchEvent(new Event("require-login"));
+                return;
+            }
+
+            // Jika sudah login, buka detail restoran
+            openDetail(btn.dataset.key!);
         });
 
         document.getElementById("close-detail")?.addEventListener("click", closeDetail);
@@ -478,16 +555,16 @@ export async function onLoad(refs: any, states: {filterText: any}){
         });
 
         detailContent?.addEventListener("submit", async (e) => {
-            // @ts-ignore
+            // @ts-expect-error - Third-party library type mismatch
             if (e.target?.id !== "review-form") return;
             e.preventDefault();
 
             const form = e.target;
 
-            // @ts-ignore
+            // @ts-expect-error - Third-party library type mismatch
             const msg = form?.querySelector("#review-msg");
 
-            // @ts-ignore
+            // @ts-expect-error - Third-party library type mismatch
             const body = Object.fromEntries(new FormData(form));
 
             try {
@@ -501,10 +578,10 @@ export async function onLoad(refs: any, states: {filterText: any}){
 
                 msg.textContent = "Terima kasih! Review kamu sudah terkirim.";
 
-                // @ts-ignore
+                // @ts-expect-error - Third-party library type mismatch
                 form.reset();
             } catch (err) {
-                // @ts-ignore
+                // @ts-expect-error - Third-party library type mismatch
                 msg.textContent = err?.message;
             }
         });
@@ -513,7 +590,7 @@ export async function onLoad(refs: any, states: {filterText: any}){
 // index.html: tombol "Lihat Detail" di Popular Dishes mengarah ke halaman explore
     if (popularList) {
         popularList.addEventListener("click", (e) => {
-            // @ts-ignore
+            // @ts-expect-error - Third-party library type mismatch
             if (e.target?.closest(".but-card")) window.location.href = "explore.html";
         });
     }
@@ -563,8 +640,4 @@ export async function onLoad(refs: any, states: {filterText: any}){
             });
         }
     }
-
-    const response = await fetch('/api/session');
-
-    currentUser = response.json();
 }
