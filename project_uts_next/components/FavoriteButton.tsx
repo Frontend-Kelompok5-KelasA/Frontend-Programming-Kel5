@@ -1,8 +1,6 @@
 "use client";
 
 import { useState } from "react";
-// import biar kalau user = guest, diarahin login
-import { useAuthPrompt } from "./AuthPromptProvider";
 
 interface FavoriteButtonProps {
     restaurantKey: string;

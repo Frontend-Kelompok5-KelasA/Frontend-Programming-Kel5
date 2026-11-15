@@ -148,6 +148,8 @@ export default function Favorites() {
                                                 </small>
                                             )}
                                         </p>
+
+                                        
                                     </div>
                                 </div>
                             ))}

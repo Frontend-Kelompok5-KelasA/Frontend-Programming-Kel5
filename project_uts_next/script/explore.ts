@@ -400,12 +400,6 @@ export async function onLoad(refs: any, states: {filterText: any}){
             card.className = "card";
             card.style.width = CARD_WIDTH + "px";
 
-            // Guest: tombol tetap ditampilkan biar bisa meminta login ketika diklik
-            // User: tombol ditampilkan.
-            // Admin: tombol tidak ditampilkan.
-            const tampilkanFavorite = !currentUser || currentUser.role === "user";
-            const sudahFavorite = favoriteKeys.has(resto.key);
-
             card.innerHTML = `
             <img src="/images/restaurantImages/${imageFile}" class="card-img-top" alt="${resto.name}">
             <div class="card-body">
@@ -416,7 +410,6 @@ export async function onLoad(refs: any, states: {filterText: any}){
                 <button class="but-card" data-key="${resto.key}">Lihat Detail</button>
             </div>
             `;
-
 
             if(target)target.appendChild(card);
 
