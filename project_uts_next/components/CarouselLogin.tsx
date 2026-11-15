@@ -11,7 +11,6 @@ const HeroSection = () => {
         { imageUrl: "/images/restaurantImages/bakmi_palu.jpg" },
         { imageUrl: "/images/restaurantImages/bakso_afung.jpg" },
         { imageUrl: "/images/restaurantImages/bebek_Carok.jpg" },  
-        { imageUrl: "/images/restaurantImages/bebek_sinjay.PNG" },
         { imageUrl: "/images/restaurantImages/bima.png" },
         { imageUrl: "/images/restaurantImages/bli_gung.webp" },
         { imageUrl: "/images/restaurantImages/dapur_solo.jpg" },
@@ -44,7 +43,7 @@ const HeroSection = () => {
     ]
 
     return (
-        <Carousel fade interval={ 4000 } data-bs-theme="dark" indicators={false} controls={false}>
+        <Carousel fade interval={ 3000 } data-bs-theme="dark" indicators={false} controls={false}>
             { slides.map((slide, index) => (
                 <Carousel.Item key={ index }>
                     <div
@@ -53,7 +52,7 @@ const HeroSection = () => {
                             backgroundSize:"cover",
                             backgroundPosition:"center",
                             width: "100%",
-                            height:"",
+                            height:"600px",
                         }}>
                     </div>
                 </Carousel.Item>
