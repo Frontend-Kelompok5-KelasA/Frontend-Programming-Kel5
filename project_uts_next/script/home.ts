@@ -331,6 +331,7 @@ export async function onLoad(refs: any, states: {factContent: any, specialConten
         if(next)next.classList.toggle("d-none", !adaBanyakSlide);
     }
 
+    // Popular List halaman utama ambil data dari endpoint /api/resto
     if (popularList) {
         fetch("/api/resto")
         .then((response) => response.json())

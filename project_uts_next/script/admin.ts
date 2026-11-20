@@ -14,7 +14,7 @@ export async function onLoad(){
                 const angka = kartu.querySelector('.stat-number');
                 if (!angka) return;
 
-                // @ts-ignore
+                // @ts-expect-error - Third-party library type mismatch
                 const nilai = data[kartu.dataset.key] ?? 0;
                 angka.textContent = Number(nilai).toLocaleString('id-ID');
             });
