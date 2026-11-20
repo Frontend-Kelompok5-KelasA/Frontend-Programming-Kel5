@@ -404,10 +404,12 @@ export async function onLoad(refs: any, states: {filterText: any}){
             <img src="/images/restaurantImages/${imageFile}" class="card-img-top" alt="${resto.name}">
             <div class="card-body">
                 <h5 class="card-title">${resto.name}</h5>
-                <div class="favorite-container"></div>
                 <p class="card-text">${resto.desc}</p>
                 <p class="card-loc">📍 ${firstLoc.city || "-"}${extra > 0 ? ` <small>(+${extra} cabang lain)</small>` : ""}</p>
-                <button class="but-card" data-key="${resto.key}">Lihat Detail</button>
+                <div class="detail-and-fav">
+                    <button class="but-card" data-key="${resto.key}">Lihat Detail</button>
+                    <div class="favorite-container"></div>
+                </div>
             </div>
             `;
 

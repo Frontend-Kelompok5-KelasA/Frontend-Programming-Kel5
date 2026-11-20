@@ -625,10 +625,14 @@ h5 {
     margin: 10px 0px;
     width: 790%;
     border: 2px solid var(--nav-hover);
-    text-decoration: none;
     padding: 5px 10px;
     border-radius: 20px;
     min-width: 55vw;
+}
+
+#search-rest:focus {
+    outline: none;
+    box-shadow: 3px 3px 10px var(--nav-hover);
 }
 
 #open-m-filter {
@@ -1516,4 +1520,10 @@ body::before {
     justify-content: center;
     flex-wrap: wrap;
     gap: 20px;
+}
+
+.detail-and-fav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

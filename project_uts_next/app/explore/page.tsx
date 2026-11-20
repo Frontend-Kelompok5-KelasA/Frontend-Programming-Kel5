@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { loadSession } from "@/script/utils";
-import { onLoad } from "@/script/explore";
+import { loadSession } from "../../script/utils";
+import { onLoad } from "../../script/explore";
 
 export default function Home() {
     const [loading, setLoading] = useState(true);
@@ -42,7 +42,7 @@ export default function Home() {
     return (
         <main className={loading ? "d-none" : ""}>
             <div className="main-container">
-                {/* search bar */}
+                {/* SEARCH BAR */}
                 <div className="search-filter-section">
                     <input type="search"
                            id="search-rest"
@@ -63,6 +63,7 @@ export default function Home() {
                         />
                     </button>
 
+                    {/* MODAL FILTER */}
                     <div id="modal">
                         <div className="modal-inner">
                             <button id="cancel-filter" aria-label="Tutup">&times;</button>

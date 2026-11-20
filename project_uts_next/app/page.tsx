@@ -3,9 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { loadSession } from "@/script/utils";
-import { onLoad } from "@/script/home";
+import { loadSession } from "../script/utils";
+import { onLoad } from "../script/home";
 import parse from "html-react-parser";
+
 
 export default function Home() {
     const [loading, setLoading] = useState(true);
@@ -168,7 +169,8 @@ export default function Home() {
                             <Link href="/explore">
                                 <button id="explore-food-button" ref={(e) => {
                                     refs.current.explore.button = e;
-                                }} />
+                                }}                                 
+                                />
                             </Link>
                         </div>
                     </div>

@@ -107,6 +107,7 @@ export const Navbar = () => {
                     <div className="navbar-nav">
                         <Link className="nav-link" href="/">Home</Link>
                         <Link className="nav-link" href="/explore">Explore</Link>
+                        {/* pengecekan, kalau role nya user, tampilkan Favorite di navbar */}
                         {role === "user" && (
                                 <Link href="/favorites" className="nav-link">Favorite</Link>
                         )}

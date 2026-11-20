@@ -54,6 +54,7 @@ export const Footer = () => {
                         <div className="footer-links">
                             <Link href="/" className="footer-a">Home</Link>
                             <Link href="/explore" className="footer-a">Explore</Link>
+                            {/* pengecekan, kalau role nya user, tampilkan Favorite di footer  */}
                             {role === "user" && (
                                 <Link href="/favorites" className="footer-a">Favorite</Link>
                             )}

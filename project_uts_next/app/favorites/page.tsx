@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import FavoriteButton from "../../components/FavoriteButton";
 
 interface Restaurant {
     id: number;
@@ -149,7 +150,20 @@ export default function Favorites() {
                                             )}
                                         </p>
 
-                                        
+                                        <FavoriteButton
+                                            restaurantKey={resto.key}
+                                            initialFavorite={true}
+                                            isLoggedIn={true}
+                                            onFavoriteChange={(key, isFavorite) => {
+                                                if (!isFavorite) {
+                                                    setRestos((currentRestos) =>
+                                                        currentRestos.filter(
+                                                            (item) => item.key !== key
+                                                        )
+                                                    );
+                                                }
+                                            }}
+                                        />
                                     </div>
                                 </div>
                             ))}
