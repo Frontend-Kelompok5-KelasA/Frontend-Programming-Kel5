@@ -39,7 +39,7 @@ export default function Home() {
     const [specialContent, setSpecialContent] = useState("")
 
     const load = async() => {
-        await loadSession();
+        loadSession();
         await onLoad(refs.current, {factContent: setFactContent, specialContent: setSpecialContent});
 
         setTimeout(() => setLoading(false), 1000);
@@ -61,7 +61,7 @@ export default function Home() {
     }
 
   return (
-    <main className={loading ? "d-none" : ""}>
+    <main>
         {/* content */}
         <div className="main-container">
             {/* hero */}
@@ -69,6 +69,7 @@ export default function Home() {
                 <Image className="gambar-logo" src="/images/websiteEssentials/logo.png" alt="gambar logo" width={500} height={500} />
 
                 <div className="hero-text">
+                    { loading ? <p> Memuat... </p> : null }
                     <h1 ref={(e) => {
                         refs.current.hero.title = e;
                     }} />
@@ -81,6 +82,7 @@ export default function Home() {
             {/* facts */}
             <div className="facts">
                 <div className="facts-title">
+                    { loading ? <p> Memuat... </p> : null }
                     <h2 ref={(e) => {
                         refs.current.facts.title = e;
                     }} />
@@ -90,6 +92,7 @@ export default function Home() {
                 </div>
                 <div className="container-fluid facts-fill">
                     <div className="row gy-4">
+                        { loading ? <p> Memuat... </p> : null }
                         { parse(factContent, options) }
                     </div>
                 </div>
@@ -98,6 +101,7 @@ export default function Home() {
             {/* special */}
             <div className="special">
                 <div className="special-title">
+                    { loading ? <p> Memuat... </p> : null }
                     <h1 ref={(e) => {
                         refs.current.special.title = e;
                     }} />
@@ -160,6 +164,7 @@ export default function Home() {
                         </div>
 
                         <div className="col-12 col-lg-6 explore-text">
+                            { loading ? <p> Memuat... </p> : null }
                             <h1 ref={(e) => {
                                 refs.current.explore.title = e;
                             }} />

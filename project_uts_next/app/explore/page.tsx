@@ -29,7 +29,7 @@ export default function Home() {
     const [filterText, setFilterText] = useState("");
 
     const load = async() => {
-        await loadSession();
+        loadSession();
         await onLoad(refs.current, {filterText: setFilterText});
 
         setTimeout(() => setLoading(false), 1000);
@@ -40,7 +40,7 @@ export default function Home() {
     }, []);
 
     return (
-        <main className={loading ? "d-none" : ""}>
+        <main>
             <div className="main-container">
                 {/* SEARCH BAR */}
                 <div className="search-filter-section">
@@ -66,6 +66,7 @@ export default function Home() {
                     {/* MODAL FILTER */}
                     <div id="modal">
                         <div className="modal-inner">
+                            { loading ? <p> Memuat... </p> : null }
                             <button id="cancel-filter" aria-label="Tutup">&times;</button>
                             <h1 ref={(e) => {
                                 refs.current.filter.menu.title = e;
@@ -99,6 +100,7 @@ export default function Home() {
                 <hr />
 
                 <div className="list-resto">
+                    { loading ? <p> Memuat... </p> : null }
                     <h2 ref={(e) => {
                         refs.current.title = e;
                     }} />
@@ -112,6 +114,7 @@ export default function Home() {
                 <div className="modal-inner detail-inner">
                     <button id="close-detail" aria-label="Tutup">&times;</button>
                     <div id="detail-content">
+                        { loading ? <p> Memuat... </p> : null }
                         {/* Modal detail restoran diisi di script.js) */}
                     </div>
                     </div>
