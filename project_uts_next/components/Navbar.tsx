@@ -151,21 +151,21 @@ export const Navbar = () => {
               Account
               <hr className="dropdown-hr" />
             </span>
-            {role !== "admin" && (
+            {role !== "admin" ? (
               <>
                 <Link className="dropdown-item" href="/profile">
                   View Profile
                 </Link>
               </>
-            )}
+            ) : null}
             <Link className="dropdown-item" href="/user_settings">
               Settings
             </Link>
-            {role === "admin" && (
+            {role === "admin" ? (
               <Link className="dropdown-item" href="/admin">
                 Admin
               </Link>
-            )}
+            ) : null}
             <Link className="dropdown-item" href="/logout" prefetch={false}>
               Sign Out
             </Link>
@@ -182,22 +182,22 @@ export const Navbar = () => {
                   Explore
                 </Link>
                 {/* pengecekan, kalau role nya user, tampilkan Favorite di navbar */}
-                {role === "user" && (
+                {role === "user" ? (
                   <Link href="/favorites" className="nav-link">
                     Favorite
                   </Link>
-                )}
+                ) : null}
                 <Link className="nav-link" href="/about_us">
                   About Us
                 </Link>
               </>
             )}
 
-            {role === "admin" && (
+            {role === "admin" ? (
               <Link className="nav-link" href="/admin">
                 Admin
               </Link>
-            )}
+            ) : null}
           </div>
         </div>
       </div>
