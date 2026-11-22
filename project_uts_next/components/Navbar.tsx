@@ -106,7 +106,7 @@ export const Navbar = () => {
               width={100}
               height={100}
             />
-            <span className="d-none d-md-inline">Profile</span>
+            <span className="d-none d-md-inline">Account</span>
           </div>
           <div className="dropdown-menu dropdown-menu-end">
             <span className="d-inline d-sm-none username">
@@ -148,7 +148,7 @@ export const Navbar = () => {
           </div>
           <div className="dropdown-menu dropdown-menu-end">
             <span className="d-inline d-sm-none username">
-              Profile
+              Account
               <hr className="dropdown-hr" />
             </span>
             {role !== "admin" && (
@@ -189,6 +189,9 @@ export const Navbar = () => {
                 )}
                 <Link className="nav-link" href="/about_us">
                   About Us
+                </Link>
+                <Link className="nav-link" href="/customer-service">
+                  Contact
                 </Link>
               </>
             )}
