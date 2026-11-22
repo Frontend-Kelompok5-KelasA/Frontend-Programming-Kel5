@@ -1,20 +1,42 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { loadSession } from "@/script/utils";
 import { onLoad } from "@/script/admin";
+import MonthlyChart from "@/components/MonthlyChart";
 
 export default function Admin() {
+    const [reviewData, setReviewData] = useState<number[]>(Array(12).fill(0));
+
     useEffect(() => {
         loadSession();
         onLoad();
+
+        fetch("/api/stats/monthly")
+            .then((r) => r.json())
+            .then((res) => setReviewData(res.reviews ?? Array(12).fill(0)))
+            .catch((err) => console.error("Gagal memuat grafik:", err));
     }, []);
+
 
     return (
         <main>
             <section id="dashboard">
                 <h1>Dashboard Admin</h1>
+
+                {/* GRAFIK */}
+                <div className="row g-4 mb-4">
+                    {/* <div className="col-12 col-md-4">
+                        <MonthlyChart title="User per Bulan" data={userData} />
+                    </div>
+                    <div className="col-12 col-md-4">
+                        <MonthlyChart title="Restoran per Bulan" data={restoData} />
+                    </div> */}
+                    <div className="col-12 col-md-4">
+                        <MonthlyChart title="Jumlah Review/Bulan" data={reviewData} />
+                    </div>
+                </div>
 
                 <div id="dashboard-content" className="dashboard-content row g-4">
                     <div id="card-dashboard" className="col-12 col-md-4">

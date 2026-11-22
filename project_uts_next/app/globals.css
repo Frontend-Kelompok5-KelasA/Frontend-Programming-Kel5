@@ -503,16 +503,16 @@ main {
 }
 
 .kotak-register-login {
-  box-shadow: 0px 5px 5px #afaeae;
-  border-radius: 20px;
-  padding: 0;
-  margin: 200px auto;
-  overflow: hidden;
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  gap: 0;
-  width: 80%;
+    box-shadow: 0px 5px 5px #afaeae;
+    border-radius: 20px;
+    padding: 0;
+    margin: 120px auto 40px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 0; 
+    width: 80%;
 }
 
 .kotak-register-login p {
@@ -520,10 +520,9 @@ main {
 }
 
 .login-signup-image {
-  width: 50%;
-  flex: 1;
-  overflow: hidden;
-  position: relative;
+    flex: 1 1 50%; 
+    overflow: hidden;
+    position: relative;
 }
 
 .login-signup-image > * {
@@ -548,10 +547,11 @@ main {
 }
 
 .login-image {
-  display: block;
-  width: 500px;
-  height: 500px;
-  object-fit: cover;
+    position: absolute;
+    display: block;
+    width: 500px;
+    height: 500px;
+    object-fit: cover;
 }
 
 .halaman-regist-login {
@@ -1425,6 +1425,22 @@ footer .footer-fill .row {
     align-items: flex-start;
     justify-content: center;
   }
+}
+
+@media (max-width: 768px) {
+    .kotak-register-login {
+        flex-direction: column;
+        width: 90%;
+        margin: 100px auto 30px;
+    }
+
+    .login-signup-image {
+        display: none;   
+    }
+
+    .login-signup-box {
+        padding: 20px;
+    }
 }
 
 /* ANIMATION */
