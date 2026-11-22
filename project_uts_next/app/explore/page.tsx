@@ -97,6 +97,16 @@ export default function Home() {
                     refs.current.filter.cancel = e;
                 }} />
 
+                <div className="list-resto" id="halal-section">
+                    <div className="header-halal">
+                        <h2 ref={(e) => {
+                            refs.current.halalTitle = e;
+                        }} />
+                        <Image src="/images/websiteEssentials/logo_halal.jpg" alt="logo halal" width={100} height={100} />
+                    </div>
+                    <div className="food-list d-flex flex-wrap justify-content-center gap-4" id="halal-list" />
+                </div>
+
                 <hr />
 
                 <div className="list-resto">
