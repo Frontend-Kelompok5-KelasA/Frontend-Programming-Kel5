@@ -190,6 +190,9 @@ export const Navbar = () => {
                 <Link className="nav-link" href="/about_us">
                   About Us
                 </Link>
+                <Link className="nav-link" href="/customer-service">
+                  Contact
+                </Link>
               </>
             )}
 

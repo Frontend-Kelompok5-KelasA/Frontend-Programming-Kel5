@@ -618,7 +618,7 @@ main {
   background-color: var(--explore-background);
 }
 
-/*EXPLORE.HTML*/
+/*EXPLORE*/
 .search-filter-section {
   display: flex;
   gap: 10px;
@@ -627,11 +627,27 @@ main {
 }
 
 .card {
-  border: 9px solid white;
-  box-shadow: 3px 3px 10px var(--nav-hover);
-  transition: transform 0.2s;
-  border-radius: 20px;
-  margin-bottom: 15px;
+    border: 9px solid white;
+    box-shadow: 3px 3px 10px var(--nav-hover);
+    transition: transform 0.2s;
+    border-radius: 20px;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+
+.card .like-badge {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    width: 45px;       
+    height: auto;
+    z-index: 10;       
+    border-radius: 0;  
+}
+
+.hide-like .like-badge {
+    display: none;
 }
 
 .card img {
@@ -799,6 +815,24 @@ h5 {
 
 .list-resto h2 {
   margin-bottom: 25px;
+}
+
+.header-halal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px; 
+    gap: 7px;
+}
+
+.list-resto .header-halal h2 {
+    margin: 0;
+}
+
+.header-halal img {
+    width: clamp(32px, 7vw, 55px);
+    height: auto;
+    flex-shrink: 0;
 }
 
 /* MODAL DETAIL RESTORAN */
