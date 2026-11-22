@@ -36,12 +36,18 @@ async function loadPageConfig(
     applyConf(refs.filter.cancel, config.filter.cancel);
 
     applyConf(refs.title, config.title);
+
+    if (config.halal?.title && refs.halalTitle) {
+        applyConf(refs.halalTitle, config.halal.title);
+    }
 }
 
 export async function onLoad(refs: any, states: {filterText: any}){
     loadPageConfig(refs, states);
 
     const foodList = document.getElementById("food-list");
+    const halalList = document.getElementById("halal-list");
+    const halalSection = document.getElementById("halal-section");
     const popularList = document.getElementById("popular-list");
     const searchInput = document.getElementById("search-rest");
     let resizeTimer: NodeJS.Timeout;
@@ -236,6 +242,8 @@ export async function onLoad(refs: any, states: {filterText: any}){
             .then((response) => response.json())
             .then((restos) => {
                 gabunganResto = gabungCabangResto(restos);
+                
+                if (halalList) renderHalal();
 
                 renderExploreCarousel(restos);
 
@@ -272,6 +280,10 @@ export async function onLoad(refs: any, states: {filterText: any}){
     function terapkanFilter() {
         // @ts-expect-error - Third-party library type mismatch
         const keyword = searchInput ? searchInput.value.trim().toLowerCase() : "";
+
+        // Halal Food hanya tampil kalau search bar kosong
+        halalSection?.classList.toggle("d-none", keyword !== "");
+        foodList?.classList.toggle("hide-like", keyword !== "");
 
         const hasil = gabunganResto.filter((resto) => {
             const cocokNama = String(resto.name).toLowerCase().includes(keyword);
@@ -314,6 +326,16 @@ export async function onLoad(refs: any, states: {filterText: any}){
 
         perSlide = 0;
         bangunCarousel();
+    }
+
+    function renderHalal() {
+    const halal = gabunganResto
+        .filter((resto) => resto.status === "Halal")
+        .map((resto) => ({ ...resto, rataRating: rataRating(resto) }))
+        .sort((a, b) => b.rataRating - a.rataRating)
+        .slice(0, 4);
+
+    renderFoodCards(halal, halalList);
     }
 
 // untuk carousel pada bagian explore
@@ -395,12 +417,15 @@ export async function onLoad(refs: any, states: {filterText: any}){
             const imageFile = resto.image ? resto.image : gambar_def;
             const firstLoc = resto.locations[0];
             const extra = resto.locations.length - 1;
+            // variabel untuk badge like
+            const disukai = rataRating(resto) >= 4.8;
 
             const card = document.createElement("div");
             card.className = "card";
             card.style.width = CARD_WIDTH + "px";
 
             card.innerHTML = `
+            ${disukai ? `<img src="/images/websiteEssentials/like.png" class="like-badge" alt="rating tinggi">` : ""}
             <img src="/images/restaurantImages/${imageFile}" class="card-img-top" alt="${resto.name}">
             <div class="card-body">
                 <h5 class="card-title">${resto.name}</h5>
@@ -515,7 +540,7 @@ export async function onLoad(refs: any, states: {filterText: any}){
 
     if (foodList && detailModal) {
     // event delegation 1 listener untuk semua tombol "Lihat Detail"
-        foodList.addEventListener("click", async (e) => {
+        const handleDetailClick = async (e: Event) => {
             const target = e.target as HTMLElement;
             const btn = target.closest(".but-card") as HTMLButtonElement | null;
 
@@ -536,7 +561,10 @@ export async function onLoad(refs: any, states: {filterText: any}){
 
             // Jika sudah login, buka detail restoran
             openDetail(btn.dataset.key!);
-        });
+        };
+
+        foodList.addEventListener("click", handleDetailClick);
+        halalList?.addEventListener("click", handleDetailClick);
 
         document.getElementById("close-detail")?.addEventListener("click", closeDetail);
 
