@@ -17,3 +17,12 @@ export function loadSession(){
         document.getElementById('profile-out')?.classList.remove('d-none');
     });
 }
+
+export function countPerMonth(items: { created_at: string }[], year = new Date().getFullYear()) {
+    const result = Array(12).fill(0);
+    items.forEach((item) => {
+        const d = new Date(item.created_at);
+        if (d.getFullYear() === year) result[d.getMonth()]++;
+    });
+    return result;
+}
