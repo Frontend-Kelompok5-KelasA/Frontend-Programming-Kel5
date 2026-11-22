@@ -36,7 +36,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Restoran tidak ditemukan." });
 
     await db.Review.create({
-      userId: Number(auth.userData.user_id),
+      userId: Number(auth.user.user_id),
       restaurantId: restaurant_id,
       rating: nilai,
       comment: teks,
