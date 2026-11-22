@@ -476,7 +476,7 @@ main {
     box-shadow: 0px 5px 5px #afaeae;
     border-radius: 20px;
     padding: 0;
-    margin: 200px auto;
+    margin: 120px auto 40px;
     overflow: hidden;
     display: flex;
     flex-direction: row;
@@ -490,8 +490,7 @@ main {
 }
 
 .login-signup-image {
-    width: 50%;
-    flex: 1;
+    flex: 1 1 50%; 
     overflow: hidden;
     position: relative;
 }
@@ -518,6 +517,7 @@ main {
 }
 
 .login-image {
+    position: absolute;
     display: block;
     width: 500px;
     height: 500px;
@@ -1391,6 +1391,22 @@ footer .footer-fill .row {
         flex-direction: column;
         align-items: flex-start;
         justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .kotak-register-login {
+        flex-direction: column;
+        width: 90%;
+        margin: 100px auto 30px;
+    }
+
+    .login-signup-image {
+        display: none;   
+    }
+
+    .login-signup-box {
+        padding: 20px;
     }
 }
 
