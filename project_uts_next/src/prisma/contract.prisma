@@ -50,3 +50,10 @@ model Page {
     pageId              String  @map("page_id")
     configuration       String
 }
+
+model Favorite {
+    favoriteId          Int     @id @default(autoincrement()) @map("favorite_id")
+    restaurantId        String  @map("restaurant_id")
+    userId              Int     @map("user_id")
+    createdAt           String  @map("created_at")
+}

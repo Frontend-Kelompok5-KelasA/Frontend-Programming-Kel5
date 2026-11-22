@@ -1,0 +1,99 @@
+[
+  {
+    "id": "table.Favorite",
+    "label": "Create table \"Favorite\"",
+    "summary": "Creates table \"Favorite\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "Favorite"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"Favorite\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Favorite\""
+        ],
+        "expectation": {
+          "expects": "absent",
+          "object": "table \"Favorite\""
+        }
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"Favorite\"",
+        "sql": "CREATE TABLE \"public\".\"Favorite\" (\n  \"created_at\" text NOT NULL,\n  \"favorite_id\" SERIAL NOT NULL,\n  \"restaurant_id\" text NOT NULL,\n  \"user_id\" int4 NOT NULL,\n  PRIMARY KEY (\"favorite_id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"Favorite\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_class\" AS \"c\" WHERE (\"c\".\"oid\" = to_regclass($1) AND (\"c\".\"relkind\" = $2 OR \"c\".\"relkind\" = $3))) AS \"result\"",
+        "params": [
+          "\"public\".\"Favorite\"",
+          "r",
+          "p"
+        ],
+        "expectation": {
+          "expects": "present",
+          "object": "table \"Favorite\""
+        }
+      }
+    ]
+  },
+  {
+    "id": "unique.Favorite.Favorite_user_id_restaurant_id_key",
+    "label": "Add unique constraint on \"Favorite\" (user_id, restaurant_id)",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "unique",
+        "name": "Favorite_user_id_restaurant_id_key",
+        "table": "Favorite"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure constraint \"Favorite_user_id_restaurant_id_key\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "Favorite_user_id_restaurant_id_key",
+          "public",
+          "\"public\".\"Favorite\""
+        ],
+        "expectation": {
+          "expects": "absent",
+          "object": "constraint \"Favorite_user_id_restaurant_id_key\" on \"Favorite\""
+        }
+      }
+    ],
+    "execute": [
+      {
+        "description": "add unique constraint \"Favorite_user_id_restaurant_id_key\"",
+        "sql": "ALTER TABLE \"public\".\"Favorite\" ADD CONSTRAINT \"Favorite_user_id_restaurant_id_key\" UNIQUE (\"user_id\", \"restaurant_id\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify unique constraint \"Favorite_user_id_restaurant_id_key\" exists on (user_id, restaurant_id)",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3) AND \"c\".\"contype\" = $4 AND (SELECT coalesce(jsonb_agg(key_attribute.attname ORDER BY key_column.position), '[]'::jsonb) FROM unnest(\"c\".\"conkey\"::int2[]) WITH ORDINALITY AS key_column(attnum, position) JOIN pg_attribute key_attribute ON key_attribute.attrelid = \"c\".\"conrelid\" AND key_attribute.attnum = key_column.attnum) = ($5)::jsonb)) AS \"result\"",
+        "params": [
+          "Favorite_user_id_restaurant_id_key",
+          "public",
+          "\"public\".\"Favorite\"",
+          "u",
+          "[\"user_id\",\"restaurant_id\"]"
+        ]
+      }
+    ]
+  }
+]

@@ -1,11 +1,53 @@
 "use client";
 
-import { esc } from "@/script/utils";
+import { esc } from "../script/utils";
+import { createRoot, type Root } from "react-dom/client";
+import FavoriteButton from "../components/FavoriteButton";
+import { createElement } from "react";
 
 declare const bootstrap: any;
 
-export async function onLoad(){
+async function loadPageConfig(
+    refs: any, states: {filterText: any}
+){
+    const applyConf = (ref: any, comps: Record<string, string | number>) => {
+        Object.entries(comps).forEach(([compId, data]: [string, string | number]) => {
+            ref[compId] = data;
+        })
+    };
+
+    const res = await fetch('/api/config/explore');
+
+    const { config } = await res.json();
+    if(!config)return;
+
+    applyConf(refs.filter.input, config.filter.input);
+
+    states.filterText(config.filter.button.text.textContent);
+
+    applyConf(refs.filter.button.image, config.filter.button.image);
+
+    applyConf(refs.filter.menu.title, config.filter.menu.title);
+    applyConf(refs.filter.menu.regions, config.filter.menu.regions);
+    applyConf(refs.filter.menu.types, config.filter.menu.types);
+    applyConf(refs.filter.menu.prices, config.filter.menu.prices);
+    applyConf(refs.filter.menu.done, config.filter.menu.done);
+
+    applyConf(refs.filter.cancel, config.filter.cancel);
+
+    applyConf(refs.title, config.title);
+
+    if (config.halal?.title && refs.halalTitle) {
+        applyConf(refs.halalTitle, config.halal.title);
+    }
+}
+
+export async function onLoad(refs: any, states: {filterText: any}){
+    loadPageConfig(refs, states);
+
     const foodList = document.getElementById("food-list");
+    const halalList = document.getElementById("halal-list");
+    const halalSection = document.getElementById("halal-section");
     const popularList = document.getElementById("popular-list");
     const searchInput = document.getElementById("search-rest");
     let resizeTimer: NodeJS.Timeout;
@@ -19,6 +61,30 @@ export async function onLoad(){
     const CARD_GAP = 24;
     const ROW_PADDING = 32;
     let currentUser: any = null;
+    // simpen daftar key restoran yang udah difavoritin
+    let favoriteKeys = new Set<string>();
+    // Menyimpan React root dari setiap tombol Favorite
+    const favoriteRoots = new WeakMap<HTMLElement, Root[]>();
+
+    // Mengambil session user
+    const response = await fetch("/api/session", {
+        cache: "no-store"
+    });
+
+    currentUser = await response.json();
+
+    // Mengambil daftar Favorite jika role user
+    if (currentUser?.role === "user") {
+        const resFavorite = await fetch("/api/favorites", {
+            cache: "no-store"
+        });
+
+        if (resFavorite.ok) {
+            const dataFavorite = await resFavorite.json();
+
+            favoriteKeys = new Set(dataFavorite.favorites);
+        }
+    }
 
 // 1 item itu 1 restoran (semua lokasi/cabangnya ada di item.location)
     interface GabunganResto {
@@ -143,7 +209,7 @@ export async function onLoad(){
         const baca = (id: string, himpunan: Set<string|number>, ubah: any) => {
             himpunan.clear();
             document.querySelectorAll(`#${id} .filter-option.selected`)
-                // @ts-ignore
+                // @ts-expect-error - Third-party library type mismatch
                 .forEach((b: Element) => himpunan.add(ubah(b.dataset.value)));
         };
 
@@ -162,7 +228,7 @@ export async function onLoad(){
 
         grup.forEach(([id, himpunan, ubah]) => {
             document.querySelectorAll(`#${id} .filter-option`).forEach((b) => {
-                // @ts-ignore
+                // @ts-expect-error - Third-party library type mismatch
                 b.classList.toggle("selected", himpunan.has(ubah(b.dataset.value)));
             });
         });
@@ -176,6 +242,8 @@ export async function onLoad(){
             .then((response) => response.json())
             .then((restos) => {
                 gabunganResto = gabungCabangResto(restos);
+                
+                if (halalList) renderHalal();
 
                 renderExploreCarousel(restos);
 
@@ -210,8 +278,12 @@ export async function onLoad(){
 // gabungan search dan semua filter
 // dalam 1 kelompok = OR (boleh pilih beberapa), antar kelompok = AND
     function terapkanFilter() {
-        // @ts-ignore
+        // @ts-expect-error - Third-party library type mismatch
         const keyword = searchInput ? searchInput.value.trim().toLowerCase() : "";
+
+        // Halal Food hanya tampil kalau search bar kosong
+        halalSection?.classList.toggle("d-none", keyword !== "");
+        foodList?.classList.toggle("hide-like", keyword !== "");
 
         const hasil = gabunganResto.filter((resto) => {
             const cocokNama = String(resto.name).toLowerCase().includes(keyword);
@@ -249,11 +321,21 @@ export async function onLoad(){
 
         if(popularList && popularCards.length === 0){
             popularList.innerHTML = temp.innerHTML;
-            return;
+            return; 
         }
 
         perSlide = 0;
         bangunCarousel();
+    }
+
+    function renderHalal() {
+    const halal = gabunganResto
+        .filter((resto) => resto.status === "Halal")
+        .map((resto) => ({ ...resto, rataRating: rataRating(resto) }))
+        .sort((a, b) => b.rataRating - a.rataRating)
+        .slice(0, 4);
+
+    renderFoodCards(halal, halalList);
     }
 
 // untuk carousel pada bagian explore
@@ -335,22 +417,53 @@ export async function onLoad(){
             const imageFile = resto.image ? resto.image : gambar_def;
             const firstLoc = resto.locations[0];
             const extra = resto.locations.length - 1;
+            // variabel untuk badge like
+            const disukai = rataRating(resto) >= 4.8;
 
             const card = document.createElement("div");
             card.className = "card";
             card.style.width = CARD_WIDTH + "px";
 
             card.innerHTML = `
-                <img src="/images/restaurantImages/${imageFile}" class="card-img-top" alt="${resto.name}">
-                <div class="card-body">
-                    <h5 class="card-title">${resto.name}</h5>
-                    <p class="card-text">${resto.desc}</p>
-                    <p class="card-loc">📍 ${firstLoc.city || "-"}${extra > 0 ? ` <small>(+${extra} cabang lain)</small>` : ""}</p>
+            ${disukai ? `<img src="/images/websiteEssentials/like.png" class="like-badge" alt="rating tinggi">` : ""}
+            <img src="/images/restaurantImages/${imageFile}" class="card-img-top" alt="${resto.name}">
+            <div class="card-body">
+                <h5 class="card-title">${resto.name}</h5>
+                <p class="card-text">${resto.desc}</p>
+                <p class="card-loc">📍 ${firstLoc.city || "-"}${extra > 0 ? ` <small>(+${extra} cabang lain)</small>` : ""}</p>
+                <div class="detail-and-fav">
                     <button class="but-card" data-key="${resto.key}">Lihat Detail</button>
+                    <div class="favorite-container"></div>
                 </div>
+            </div>
             `;
 
             if(target)target.appendChild(card);
+
+            // Render FavoriteButton menggunakan React
+            const favoriteContainer = card.querySelector(".favorite-container");
+
+            if (favoriteContainer && target && currentUser?.role !== "admin") {
+
+                const root = createRoot(favoriteContainer);
+
+                favoriteRoots.get(target)?.push(root);
+
+                root.render(
+                    createElement(FavoriteButton, {
+                        restaurantKey: resto.key,
+                        initialFavorite: favoriteKeys.has(resto.key),
+                        isLoggedIn: !!currentUser,
+                        onFavoriteChange: (key, isFavorite) => {
+                            if (isFavorite) {
+                                favoriteKeys.add(key);
+                            } else {
+                                favoriteKeys.delete(key);
+                            }
+                        }
+                    })
+                );
+            }
         });
     }
 
@@ -426,12 +539,32 @@ export async function onLoad(){
     }
 
     if (foodList && detailModal) {
-        // event delegation: 1 listener untuk semua tombol "Lihat Detail"
-        foodList.addEventListener("click", (e: PointerEvent) => {
-            // @ts-ignore
-            const btn = e.target?.closest(".but-card");
-            if (btn) openDetail(btn.dataset.key);
-        });
+    // event delegation 1 listener untuk semua tombol "Lihat Detail"
+        const handleDetailClick = async (e: Event) => {
+            const target = e.target as HTMLElement;
+            const btn = target.closest(".but-card") as HTMLButtonElement | null;
+
+            if (!btn) return;
+
+            // Memeriksa session pengguna
+            const response = await fetch("/api/session", {
+                cache: "no-store"
+            });
+
+            const session = await response.json();
+
+            // kalau guest, tampilkan LoginFirst
+            if (!session) {
+                window.dispatchEvent(new Event("require-login"));
+                return;
+            }
+
+            // Jika sudah login, buka detail restoran
+            openDetail(btn.dataset.key!);
+        };
+
+        foodList.addEventListener("click", handleDetailClick);
+        halalList?.addEventListener("click", handleDetailClick);
 
         document.getElementById("close-detail")?.addEventListener("click", closeDetail);
 
@@ -445,16 +578,16 @@ export async function onLoad(){
         });
 
         detailContent?.addEventListener("submit", async (e) => {
-            // @ts-ignore
+            // @ts-expect-error - Third-party library type mismatch
             if (e.target?.id !== "review-form") return;
             e.preventDefault();
 
             const form = e.target;
 
-            // @ts-ignore
+            // @ts-expect-error - Third-party library type mismatch
             const msg = form?.querySelector("#review-msg");
 
-            // @ts-ignore
+            // @ts-expect-error - Third-party library type mismatch
             const body = Object.fromEntries(new FormData(form));
 
             try {
@@ -468,10 +601,10 @@ export async function onLoad(){
 
                 msg.textContent = "Terima kasih! Review kamu sudah terkirim.";
 
-                // @ts-ignore
+                // @ts-expect-error - Third-party library type mismatch
                 form.reset();
             } catch (err) {
-                // @ts-ignore
+                // @ts-expect-error - Third-party library type mismatch
                 msg.textContent = err?.message;
             }
         });
@@ -480,7 +613,7 @@ export async function onLoad(){
 // index.html: tombol "Lihat Detail" di Popular Dishes mengarah ke halaman explore
     if (popularList) {
         popularList.addEventListener("click", (e) => {
-            // @ts-ignore
+            // @ts-expect-error - Third-party library type mismatch
             if (e.target?.closest(".but-card")) window.location.href = "explore.html";
         });
     }
@@ -530,8 +663,4 @@ export async function onLoad(){
             });
         }
     }
-
-    const response = await fetch('/api/session');
-
-    currentUser = response.json();
 }

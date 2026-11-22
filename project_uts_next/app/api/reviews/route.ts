@@ -2,60 +2,67 @@ import { getPrisma, getRawPrisma } from "@/backend-scripts/database";
 import { NextResponse } from "next/server";
 import { getSession } from "@/backend-scripts/session-handler";
 import { redirect } from "next/navigation";
+import { requireRole } from "@/backend-scripts/auth-guard";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
-export async function POST(req: Request){
-    const session = await getSession();
-    if(!session.userData){
-        redirect('/login');
-    }
+export async function POST(req: Request) {
+  const auth = await requireRole(["user"]);
+  if(auth.error) return auth.error;
 
-    const { restaurant_id, rating, comment } = await req.json();
+  const session = await getSession();
+  if (!session.userData) {
+    redirect("/login");
+  }
 
-    const nilai = Number(rating);
-    if (!Number.isInteger(nilai) || nilai < 1 || nilai > 5) {
-        return NextResponse.json({ error: 'Rating harus angka 1 sampai 5.' });
-    }
+  const { restaurant_id, rating, comment } = await req.json();
 
-    const teks = (comment || '').trim();
-    if (!teks) return NextResponse.json({ error: 'Komentar tidak boleh kosong.' });
-    if (teks.length > 1000) return NextResponse.json({ error: 'Komentar maksimal 1000 karakter.' });
+  const nilai = Number(rating);
+  if (!Number.isInteger(nilai) || nilai < 1 || nilai > 5) {
+    return NextResponse.json({ error: "Rating harus angka 1 sampai 5." });
+  }
 
-    const db = getPrisma();
+  const teks = (comment || "").trim();
+  if (!teks)
+    return NextResponse.json({ error: "Komentar tidak boleh kosong." });
+  if (teks.length > 1000)
+    return NextResponse.json({ error: "Komentar maksimal 1000 karakter." });
 
-    try {
-        const resto = await db.Restaurant.where({ id: restaurant_id }).all();
-        if (!resto) return NextResponse.json({ error: 'Restoran tidak ditemukan.' });
+  const db = getPrisma();
 
-        await db.Review.create({
-            userId: Number(session.userData.user_id),
-            restaurantId: restaurant_id,
-            rating: nilai,
-            comment: teks,
-            createdAt: new Date().toLocaleString('sv-SE')
-        });
+  try {
+    const resto = await db.Restaurant.where({ id: restaurant_id }).all();
+    if (!resto)
+      return NextResponse.json({ error: "Restoran tidak ditemukan." });
 
-        return NextResponse.json({ ok: true });
-    } catch(err: any){
-        return NextResponse.json({ error: err.message });
-    }
+    await db.Review.create({
+      userId: Number(auth.userData.user_id),
+      restaurantId: restaurant_id,
+      rating: nilai,
+      comment: teks,
+      createdAt: new Date().toLocaleString("sv-SE"),
+    });
+
+    return NextResponse.json({ ok: true });
+  } catch (err: any) {
+    return NextResponse.json({ error: err.message });
+  }
 }
 
-export async function GET(){
-    const session = await getSession();
+export async function GET() {
+  const session = await getSession();
 
-    const user = session.userData;
-    if(!user){
-        redirect('/login');
-    }
+  const user = session.userData;
+  if (!user) {
+    redirect("/login");
+  }
 
-    const isAdmin = user.role === 'admin';
+  const isAdmin = user.role === "admin";
 
-    try {
-        const db = getRawPrisma();
+  try {
+    const db = getRawPrisma();
 
-        const plan = db.raw.sql`
+    const plan = db.raw.sql`
             SELECT rv.review_id, rv.rating, rv.comment, rv.created_at,
                 u.username, u.email, u.user_id,
                 rs.id AS restaurant_id, rs.name AS restaurant_name, rs.city
@@ -64,29 +71,32 @@ export async function GET(){
             LEFT JOIN public."Restaurant" rs ON rs.id = rv.restaurant_id
             ORDER BY rv.review_id DESC
         `
-            .returnsRow({
-                user_id: 'pg/numeric@1',
-                review_id: 'pg/numeric@1',
-                rating: 'pg/numeric@1',
-                comment: 'pg/text@1',
-                created_at: 'pg/text@1',
-                username: 'pg/text@1',
-                email: 'pg/text@1',
-                restaurant_id: 'pg/text@1',
-                restaurant_name: 'pg/text@1',
-                city: 'pg/text@1'
-            })
-            .build();
+      .returnsRow({
+        user_id: "pg/numeric@1",
+        review_id: "pg/numeric@1",
+        rating: "pg/numeric@1",
+        comment: "pg/text@1",
+        created_at: "pg/text@1",
+        username: "pg/text@1",
+        email: "pg/text@1",
+        restaurant_id: "pg/text@1",
+        restaurant_name: "pg/text@1",
+        city: "pg/text@1",
+      })
+      .build();
 
-        const rows = await db.query(plan);
+    const rows = await db.query(plan);
 
-        let result = rows;
-        if(!isAdmin){
-            result = rows.filter((u) => user.user_id === u.user_id);
-        }
-
-        return NextResponse.json({ scope: isAdmin ? 'all' : 'mine', reviews: result });
-    } catch (err: any){
-        if (err) return NextResponse.json({ error: err.message });
+    let result = rows;
+    if (!isAdmin) {
+      result = rows.filter((u) => user.user_id === u.user_id);
     }
+
+    return NextResponse.json({
+      scope: isAdmin ? "all" : "mine",
+      reviews: result,
+    });
+  } catch (err: any) {
+    if (err) return NextResponse.json({ error: err.message });
+  }
 }

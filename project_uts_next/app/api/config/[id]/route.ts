@@ -12,6 +12,7 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
         const result = await db.Page.where({
             pageId: pageId
         }).first();
+
         if(!result){
             return NextResponse.json({ config: null });
         }

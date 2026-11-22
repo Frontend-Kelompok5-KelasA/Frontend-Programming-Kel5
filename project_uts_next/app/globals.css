@@ -490,7 +490,15 @@ main {
 }
 
 .login-signup-image {
-    display: none;
+    width: 50%;
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+}
+
+.login-signup-image > * {
+    width: 100%;
+    height: 100%;
 }
 
 .login-signup-box {
@@ -549,6 +557,10 @@ main {
     text-decoration: none;
 }
 
+.sign-up a {
+    margin-left: 10px;
+}
+
 .login-error {
     color: #d93025;
     background: #fdecea;
@@ -572,10 +584,10 @@ main {
 
 .forgot-password a:hover {
     color: var(--nav-hover);
-    text-decoration: underline;
+    background-color: var(--explore-background);
 }
 
-/*EXPLORE.HTML*/
+/*EXPLORE*/
 .search-filter-section {
     display: flex;
     gap: 10px;
@@ -589,6 +601,22 @@ main {
     transition: transform 0.2s;
     border-radius: 20px;
     margin-bottom: 15px;
+    position: relative;
+}
+
+
+.card .like-badge {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    width: 45px;       
+    height: auto;
+    z-index: 10;       
+    border-radius: 0;  
+}
+
+.hide-like .like-badge {
+    display: none;
 }
 
 .card img {
@@ -613,10 +641,14 @@ h5 {
     margin: 10px 0px;
     width: 790%;
     border: 2px solid var(--nav-hover);
-    text-decoration: none;
     padding: 5px 10px;
     border-radius: 20px;
     min-width: 55vw;
+}
+
+#search-rest:focus {
+    outline: none;
+    box-shadow: 3px 3px 10px var(--nav-hover);
 }
 
 #open-m-filter {
@@ -753,6 +785,24 @@ h5 {
 
 .list-resto h2{
     margin-bottom: 25px;
+}
+
+.header-halal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px; 
+    gap: 7px;
+}
+
+.list-resto .header-halal h2 {
+    margin: 0;
+}
+
+.header-halal img {
+    width: clamp(32px, 7vw, 55px);
+    height: auto;
+    flex-shrink: 0;
 }
 
 /* MODAL DETAIL RESTORAN */
@@ -1357,4 +1407,157 @@ body::before {
 
 @keyframes putihHilang {
     from { opacity: 1; } to { opacity: 0; visibility: hidden; }
+}
+
+/* Favorite button */
+.favorite-btn {
+    position: relative;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.favorite-btn.active {
+    animation: pop 0.3s ease;
+}
+
+/* Pop animation */
+@keyframes pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+}
+
+/* partikel container */
+.particles {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    pointer-events: none;
+}
+
+/* partikel satuan */
+.particles span {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: #ff9b19;
+    border-radius: 50%;
+    animation: sparkle 0.6s ease-out forwards;
+}
+
+/* arah partikelnya menyebar kemana */
+.particles span:nth-child(1) {
+    --x: -25px;
+    --y: -25px;
+}
+
+.particles span:nth-child(2) {
+    --x: 25px;
+    --y: -25px;
+}
+
+.particles span:nth-child(3) {
+    --x: -35px;
+    --y: 0px;
+}
+
+.particles span:nth-child(4) {
+    --x: 35px;
+    --y: 0px;
+}
+
+.particles span:nth-child(5) {
+    --x: -20px;
+    --y: 30px;
+}
+
+.particles span:nth-child(6) {
+    --x: 20px;
+    --y: 30px;
+}
+
+@keyframes sparkle {
+    0% {
+        transform: translate(0, 0) scale(0);
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 1;
+        transform: translate(var(--x), var(--y)) scale(1.5);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(
+            calc(var(--x) * 1.5),
+            calc(var(--y) * 1.5)
+        ) scale(0);
+    }
+}
+
+
+#modal-login-dulu {
+    position: fixed;
+    display: none;
+    inset: 0;
+    background-color: #00000046;
+    justify-content: center;
+    align-items: center;
+    margin-top: 60px;
+    padding: 40px 0;
+    box-sizing: border-box;
+    z-index: 90000;
+}
+
+.modal-login-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    border: 4px solid var(--footer-hover);
+    border-radius: 25px;
+    padding: 10px 20px;
+    width: fit-content;
+    text-align: center;
+    margin: 0px 20px;
+    padding-bottom: 17px;
+}
+
+.login-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+#login-button, 
+#register-button {
+    background-color: white;
+    border: 2px solid var(--footer-hover);
+    padding: 2px 10px;
+    transition: 0.3s ease;
+    border-radius: 17px;
+}
+
+#login-button:hover, 
+#register-button:hover {
+    background-color: var(--footer-hover);
+    padding: 2px 10px;
+}
+
+.food-list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.detail-and-fav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

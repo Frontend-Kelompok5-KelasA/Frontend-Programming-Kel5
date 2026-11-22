@@ -1,11 +1,14 @@
 "use client";
 
-import Image from "next/image";
+// import React Hook untuk jalanin proses setelah React selesai melakukan render komponen.
 import { useEffect } from "react";
-import { loadSession } from "@/script/utils";
-import { onLoad } from "@/script/review-detail";
+// mengambil fungsi loadSession dari file utils
+import { loadSession } from "../../script/utils";
+// mengambil fungsi onSession dari file review-detail
+import { onLoad } from "../../script/review-detail";
 
 export default function ReviewDetail() {
+    // untuk menjalankan proses tambahan setelah komponen ditampilkan
     useEffect(() => {
         loadSession();
         onLoad();
@@ -29,6 +32,7 @@ export default function ReviewDetail() {
                         </thead>
                         <tbody id="tabel-review-body">
                             <tr>
+                                {/* Menampilkan tulisan memuat data yang menempati seluruh lebar tabel*/}
                                 <td colSpan={6} className="text-center">Memuat data...</td>
                             </tr>
                         </tbody>

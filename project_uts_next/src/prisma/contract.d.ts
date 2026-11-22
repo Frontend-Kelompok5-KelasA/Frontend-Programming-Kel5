@@ -23,7 +23,7 @@ import type {
 } from '@prisma/orm-postgres/contract/types';
 
 export type StorageHash =
-  StorageHashBase<'cfe9542dc68a86f472c3daa70d5c28d22560ee08ff8246e60eb155f3d5122e4f'>;
+  StorageHashBase<'c2d114d6cfcc13abca42f2fef1aca37f07f2693812736afbad691e8fdea48d74'>;
 export type ExecutionHash = ExecutionHashBase<string>;
 export type ProfileHash =
   ProfileHashBase<'3916f444a8a17ad749191acf9e08dad97d1a327b88c2f1d45d12f240296aa8b2'>;
@@ -274,6 +274,13 @@ export namespace Models {
     categoryName: FieldOutputTypes['public']['Category']['categoryName'];
     readonly [RelationKeys]?: never;
   };
+  export type public_Favorite = {
+    createdAt: FieldOutputTypes['public']['Favorite']['createdAt'];
+    favoriteId: FieldOutputTypes['public']['Favorite']['favoriteId'];
+    restaurantId: FieldOutputTypes['public']['Favorite']['restaurantId'];
+    userId: FieldOutputTypes['public']['Favorite']['userId'];
+    readonly [RelationKeys]?: never;
+  };
   export type public_Page = {
     configuration: FieldOutputTypes['public']['Page']['configuration'];
     pageId: FieldOutputTypes['public']['Page']['pageId'];
@@ -325,6 +332,7 @@ export namespace Models {
 export declare const models: {
   public: {
     Category: Models.public_Category;
+    Favorite: Models.public_Favorite;
     Page: Models.public_Page;
     Restaurant: Models.public_Restaurant;
     RestaurantPhoto: Models.public_RestaurantPhoto;
@@ -371,6 +379,42 @@ type ContractBase = Omit<
                 };
               };
               primaryKey: { readonly columns: readonly ['category_id'] };
+              uniques: readonly [];
+              indexes: readonly [];
+              foreignKeys: readonly [];
+            };
+            readonly Favorite: {
+              columns: {
+                readonly created_at: {
+                  readonly dataType: 'pg/text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: false;
+                  readonly many: false;
+                };
+                readonly favorite_id: {
+                  readonly dataType: 'pg/int4';
+                  readonly codecId: 'pg/int4@1';
+                  readonly nullable: false;
+                  readonly default: {
+                    readonly kind: 'function';
+                    readonly expression: 'autoincrement()';
+                  };
+                  readonly many: false;
+                };
+                readonly restaurant_id: {
+                  readonly dataType: 'pg/text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: false;
+                  readonly many: false;
+                };
+                readonly user_id: {
+                  readonly dataType: 'pg/int4';
+                  readonly codecId: 'pg/int4@1';
+                  readonly nullable: false;
+                  readonly many: false;
+                };
+              };
+              primaryKey: { readonly columns: readonly ['favorite_id'] };
               uniques: readonly [];
               indexes: readonly [];
               foreignKeys: readonly [];
@@ -623,6 +667,7 @@ type ContractBase = Omit<
   readonly targetFamily: 'sql';
   readonly roots: {
     readonly Category: { readonly namespace: 'public' & NamespaceId; readonly model: 'Category' };
+    readonly Favorite: { readonly namespace: 'public' & NamespaceId; readonly model: 'Favorite' };
     readonly Page: { readonly namespace: 'public' & NamespaceId; readonly model: 'Page' };
     readonly Restaurant: {
       readonly namespace: 'public' & NamespaceId;
@@ -657,6 +702,37 @@ type ContractBase = Omit<
               readonly fields: {
                 readonly categoryId: { readonly column: 'category_id' };
                 readonly categoryName: { readonly column: 'category_name' };
+              };
+            };
+          };
+          readonly Favorite: {
+            readonly fields: {
+              readonly createdAt: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
+              readonly favoriteId: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/int4@1' };
+              };
+              readonly restaurantId: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
+              readonly userId: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/int4@1' };
+              };
+            };
+            readonly relations: Record<string, never>;
+            readonly storage: {
+              readonly table: 'Favorite';
+              readonly namespaceId: 'public';
+              readonly fields: {
+                readonly createdAt: { readonly column: 'created_at' };
+                readonly favoriteId: { readonly column: 'favorite_id' };
+                readonly restaurantId: { readonly column: 'restaurant_id' };
+                readonly userId: { readonly column: 'user_id' };
               };
             };
           };

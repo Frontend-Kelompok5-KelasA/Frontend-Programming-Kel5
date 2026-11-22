@@ -3,9 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { loadSession } from "@/script/utils";
-import { onLoad } from "@/script/home";
-import parse, { domToReact } from "html-react-parser";
+import { loadSession } from "../script/utils";
+import { onLoad } from "../script/home";
+import parse from "html-react-parser";
+
 
 export default function Home() {
     const [loading, setLoading] = useState(true);
@@ -38,7 +39,7 @@ export default function Home() {
     const [specialContent, setSpecialContent] = useState("")
 
     const load = async() => {
-        await loadSession();
+        loadSession();
         await onLoad(refs.current, {factContent: setFactContent, specialContent: setSpecialContent});
 
         setTimeout(() => setLoading(false), 1000);
@@ -51,7 +52,7 @@ export default function Home() {
     const options = {
         replace: (node: any) => {
             if(node.name === "img"){
-                const { src, alt, width, height } = node.attribs;
+                const { src, alt } = node.attribs;
                 return (
                     <Image src={src} alt={alt} width={500} height={500} />
                 );
@@ -60,7 +61,7 @@ export default function Home() {
     }
 
   return (
-    <main className={loading ? "d-none" : ""}>
+    <main>
         {/* content */}
         <div className="main-container">
             {/* hero */}
@@ -68,6 +69,7 @@ export default function Home() {
                 <Image className="gambar-logo" src="/images/websiteEssentials/logo.png" alt="gambar logo" width={500} height={500} />
 
                 <div className="hero-text">
+                    { loading ? <p> Memuat... </p> : null }
                     <h1 ref={(e) => {
                         refs.current.hero.title = e;
                     }} />
@@ -80,6 +82,7 @@ export default function Home() {
             {/* facts */}
             <div className="facts">
                 <div className="facts-title">
+                    { loading ? <p> Memuat... </p> : null }
                     <h2 ref={(e) => {
                         refs.current.facts.title = e;
                     }} />
@@ -89,6 +92,7 @@ export default function Home() {
                 </div>
                 <div className="container-fluid facts-fill">
                     <div className="row gy-4">
+                        { loading ? <p> Memuat... </p> : null }
                         { parse(factContent, options) }
                     </div>
                 </div>
@@ -97,6 +101,7 @@ export default function Home() {
             {/* special */}
             <div className="special">
                 <div className="special-title">
+                    { loading ? <p> Memuat... </p> : null }
                     <h1 ref={(e) => {
                         refs.current.special.title = e;
                     }} />
@@ -159,6 +164,7 @@ export default function Home() {
                         </div>
 
                         <div className="col-12 col-lg-6 explore-text">
+                            { loading ? <p> Memuat... </p> : null }
                             <h1 ref={(e) => {
                                 refs.current.explore.title = e;
                             }} />
@@ -168,7 +174,8 @@ export default function Home() {
                             <Link href="/explore">
                                 <button id="explore-food-button" ref={(e) => {
                                     refs.current.explore.button = e;
-                                }} />
+                                }}                                 
+                                />
                             </Link>
                         </div>
                     </div>
