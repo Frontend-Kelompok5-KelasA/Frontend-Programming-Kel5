@@ -143,8 +143,8 @@ a.secondary {
 
 .code {
   font-family: var(--font-geist-mono);
-  font-size: 0.9em;
+  font-size: 8px;
   background: color-mix(in srgb, currentColor 8%, transparent);
-  padding: 0.1em 0.4em;
+  padding: 1px 6px;
   border-radius: 6px;
 }
