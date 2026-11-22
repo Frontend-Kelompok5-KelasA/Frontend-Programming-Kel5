@@ -78,7 +78,7 @@ async function loadPageConfig(
 }
 
 export async function onLoad(refs: any, states: {factContent: any, specialContent: any}){
-    await loadPageConfig(refs, states);
+    loadPageConfig(refs, states);
 
     const foodList = document.getElementById("food-list");
     const popularList = document.getElementById("popular-list");
