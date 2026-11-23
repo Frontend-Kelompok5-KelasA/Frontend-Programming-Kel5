@@ -97,6 +97,7 @@ export default function Home() {
                     refs.current.filter.cancel = e;
                 }} />
 
+
                 <div className="list-resto" id="halal-section">
                     <div className="header-halal">
                         <h2 ref={(e) => {
