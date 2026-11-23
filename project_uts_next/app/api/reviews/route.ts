@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
   const auth = await requireRole(["user"]);
-  if(auth.error) return auth.error;
+  if (auth.error) return auth.error;
 
   const session = await getSession();
   if (!session.userData) {
