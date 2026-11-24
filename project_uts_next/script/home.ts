@@ -232,17 +232,27 @@ export async function onLoad(refs: any, states: {factContent: any, specialConten
         const dipilih = gambarUnik.slice(0, 12);
 
         if(inner){
-            inner.innerHTML = dipilih.map((g, i) => `
-                <div class="carousel-item ${i === 0 ? "active" : ""}">
-                    <img src="/images/restaurantImages/${g}" alt="Kuliner Nusantara" loading="lazy">
-                </div>
-            `).join("");
+            inner.innerHTML = dipilih.map((g, i) => {
+                let imgPath = `/images/restaurantImages/${g}`;
+                if(g.startsWith('http'))imgPath = g;
 
-            inner.innerHTML = gambarUnik.map((g, i) => `
-                <div class="carousel-item ${i === 0 ? "active" : ""}">
-                    <img src="/images/restaurantImages/${g}" alt="Kuliner Nusantara" loading="lazy">
-                </div>
-            `).join("");
+                return `
+                    <div class="carousel-item ${i === 0 ? "active" : ""}">
+                        <img src="${imgPath}" alt="Kuliner Nusantara" loading="lazy">
+                    </div>
+                `;
+            }).join("");
+
+            inner.innerHTML = gambarUnik.map((g, i) => {
+                let imgPath = `/images/restaurantImages/${g}`;
+                if(g.startsWith('http'))imgPath = g;
+
+                return `
+                    <div class="carousel-item ${i === 0 ? "active" : ""}">
+                        <img src="${imgPath}" alt="Kuliner Nusantara" loading="lazy">
+                    </div>
+                `;
+            }).join("");
         }
 
         bootstrap.Carousel.getOrCreateInstance(carousel);
@@ -266,8 +276,11 @@ export async function onLoad(refs: any, states: {factContent: any, specialConten
             card.className = "card";
             card.style.width = CARD_WIDTH + "px";
 
+            let imgPath = `/images/restaurantImages/${imageFile}`;
+            if(imageFile.startsWith('http'))imgPath = imageFile;
+
             card.innerHTML = `
-                <img src="/images/restaurantImages/${imageFile}" class="card-img-top" alt="${resto.name}">
+                <img src="${imgPath}" class="card-img-top" alt="${resto.name}">
                 <div class="card-body">
                     <h5 class="card-title">${resto.name}</h5>
                     <p class="card-text">${resto.desc}</p>

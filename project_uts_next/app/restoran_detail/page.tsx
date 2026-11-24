@@ -33,6 +33,7 @@ export default function RestoDetail() {
                                 <th scope="col">Status</th>
                                 <th scope="col">Harga</th>
                                 <th scope="col">Rating</th>
+                                <th scope="col">Edit</th>
                             </tr>
                         </thead>
                         <tbody id="tabel-resto-body">

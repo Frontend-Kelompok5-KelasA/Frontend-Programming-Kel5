@@ -1,3 +1,5 @@
+import {redirect} from "next/navigation";
+
 export async function onLoad(){
     const loadRestTable = async () => {
         const tbody = document.getElementById('tabel-resto-body');
@@ -36,6 +38,17 @@ export async function onLoad(){
                 baris.appendChild(makeCell(resto.status));
                 baris.appendChild(makeCell(resto.price));
                 baris.appendChild(makeCell(resto.rating));
+
+                const button = document.createElement("button");
+                button.textContent = "Edit"
+                button.addEventListener("click", () => {
+                    redirect(`/edit_resto/${resto.id}`);
+                });
+
+                const td = document.createElement("td");
+                td.appendChild(button);
+
+                baris.appendChild(td);
 
                 tbody.appendChild(baris);
             });
