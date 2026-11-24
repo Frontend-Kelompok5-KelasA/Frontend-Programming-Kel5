@@ -22,6 +22,10 @@ export async function onLoad(){
         } catch (err) {
             console.error('Gagal loading statistik:', err);
         }
+
+        fetch("/api/resto")
+        .then((r) => r.json())
+        .then((res) => console.log("RESTO:", res));
     };
 
     await loadNumbers();

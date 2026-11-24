@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
   const auth = await requireRole(["user"]);
-  if(auth.error) return auth.error;
+  if (auth.error) return auth.error;
 
   const session = await getSession();
   if (!session.userData) {
@@ -36,7 +36,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Restoran tidak ditemukan." });
 
     await db.Review.create({
-      userId: Number(auth.userData.user_id),
+      userId: Number(auth.user.user_id),
       restaurantId: restaurant_id,
       rating: nilai,
       comment: teks,
