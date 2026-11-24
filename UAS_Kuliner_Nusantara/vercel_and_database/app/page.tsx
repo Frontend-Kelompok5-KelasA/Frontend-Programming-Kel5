@@ -83,17 +83,6 @@ export default function Home() {
               height={500}
             />
 
-<<<<<<< HEAD:UAS_Kuliner_Nusantara/vercel_and_database/app/page.tsx
-                <div className="hero-text">
-                    { loading ? <p> Loading... </p> : null }
-                    <h1 ref={(e) => {
-                        refs.current.hero.title = e;
-                    }} />
-                    <p ref={(e) => {
-                        refs.current.hero.subtitle = e;
-                    }} />
-                </div>
-=======
             <div className="hero-text">
               <h1
                 ref={(e) => {
@@ -105,29 +94,9 @@ export default function Home() {
                   refs.current.hero.subtitle = e;
                 }}
               />
->>>>>>> origin/main:project_uts_next/app/page.tsx
             </div>
           </div>
 
-<<<<<<< HEAD:UAS_Kuliner_Nusantara/vercel_and_database/app/page.tsx
-            {/* facts */}
-            <div className="facts">
-                <div className="facts-title">
-                    { loading ? <p> Loading... </p> : null }
-                    <h2 ref={(e) => {
-                        refs.current.facts.title = e;
-                    }} />
-                    <p ref={(e) => {
-                        refs.current.facts.subtitle = e;
-                    }} />
-                </div>
-                <div className="container-fluid facts-fill">
-                    <div className="row gy-4">
-                        { loading ? <p> Loading... </p> : null }
-                        { parse(factContent, options) }
-                    </div>
-                </div>
-=======
           {/* facts */}
           <div className="facts">
             <div className="facts-title">
@@ -142,7 +111,6 @@ export default function Home() {
                   refs.current.facts.subtitle = e;
                 }}
               />
->>>>>>> origin/main:project_uts_next/app/page.tsx
             </div>
             <div className="container-fluid facts-fill">
               <div className="row gy-4">
@@ -152,18 +120,6 @@ export default function Home() {
             </div>
           </div>
 
-<<<<<<< HEAD:UAS_Kuliner_Nusantara/vercel_and_database/app/page.tsx
-            {/* special */}
-            <div className="special">
-                <div className="special-title">
-                    { loading ? <p> Loading... </p> : null }
-                    <h1 ref={(e) => {
-                        refs.current.special.title = e;
-                    }} />
-                    <p ref={(e) => {
-                        refs.current.special.subtitle = e;
-                    }} />
-=======
           {/* special */}
           <div className="special">
             <div className="special-title">
@@ -238,7 +194,6 @@ export default function Home() {
               >
                 <div className="carousel-inner" id="popular-list">
                   {/* Slide & card di-generate dari /api/resto lewat script.js */}
->>>>>>> origin/main:project_uts_next/app/page.tsx
                 </div>
               </div>
 
@@ -283,63 +238,6 @@ export default function Home() {
                   </div>
                 </div>
 
-<<<<<<< HEAD:UAS_Kuliner_Nusantara/vercel_and_database/app/page.tsx
-            {/* popular foods */}
-            <div className="popular-food">
-                <h2 ref={(e) => {
-                    refs.current.popular.title = e;
-                }} />
-                <p ref={(e) => {
-                    refs.current.popular.subtitle = e;
-                }} />
-
-                <div className="popular-wrapper">
-                    <div id="popular-carousel" className="carousel slide" data-bs-ride="false" data-bs-interval="false">
-                        <div className="carousel-inner" id="popular-list">
-                            {/* Slide & card di-generate dari /api/resto lewat script.js */}
-                        </div>
-                    </div>
-
-                    <button id="popular-prev" className="popular-btn popular-btn-prev d-none"
-                            type="button" data-bs-target="#popular-carousel" data-bs-slide="prev" aria-label="Sebelumnya">
-                        <i className="bi bi-chevron-left"></i>
-                    </button>
-                    <button id="popular-next" className="popular-btn popular-btn-next d-none"
-                            type="button" data-bs-target="#popular-carousel" data-bs-slide="next" aria-label="Berikutnya">
-                        <i className="bi bi-chevron-right"></i>
-                    </button>
-                </div>
-            </div>
-
-            {/* start explore */}
-            <div className="start-explore">
-                <div className="container-fluid exploring p-0">
-                    <div className="row g-0">
-                        <div className="col-12 col-lg-6 explore-images">
-                            <div id="explore-carousel" className="carousel slide" data-bs-ride="carousel" data-bs-interval="3000" data-bs-pause="false">
-                                <div className="carousel-inner">
-                                    {/* Slide gambar di-generate dari /api/resto lewat script.js */}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="col-12 col-lg-6 explore-text">
-                            { loading ? <p> Loading... </p> : null }
-                            <h1 ref={(e) => {
-                                refs.current.explore.title = e;
-                            }} />
-                            <p ref={(e) => {
-                                refs.current.explore.subtitle = e;
-                            }} />
-                            <Link href="/explore">
-                                <button id="explore-food-button" ref={(e) => {
-                                    refs.current.explore.button = e;
-                                }}                                 
-                                />
-                            </Link>
-                        </div>
-                    </div>
-=======
                 <div className="col-12 col-lg-6 explore-text">
                   {loading ? <p> Memuat... </p> : null}
                   <h1
@@ -360,7 +258,6 @@ export default function Home() {
                       }}
                     />
                   </Link>
->>>>>>> origin/main:project_uts_next/app/page.tsx
                 </div>
               </div>
             </div>
