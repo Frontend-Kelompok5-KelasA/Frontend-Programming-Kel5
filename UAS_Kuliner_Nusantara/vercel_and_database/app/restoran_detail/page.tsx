@@ -38,7 +38,7 @@ export default function RestoDetail() {
                         </thead>
                         <tbody id="tabel-resto-body">
                             <tr>
-                                <td colSpan= {8} className="text-center">Memuat data...</td>
+                                <td colSpan= {8} className="text-center">Loading data...</td>
                             </tr>
                         </tbody>
                     </table>

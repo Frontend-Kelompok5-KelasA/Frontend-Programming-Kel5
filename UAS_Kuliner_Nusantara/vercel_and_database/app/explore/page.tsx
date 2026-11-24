@@ -66,7 +66,7 @@ export default function Home() {
                     {/* MODAL FILTER */}
                     <div id="modal">
                         <div className="modal-inner">
-                            { loading ? <p> Memuat... </p> : null }
+                            { loading ? <p> Loading... </p> : null }
                             <button id="cancel-filter" aria-label="Tutup">&times;</button>
                             <h1 ref={(e) => {
                                 refs.current.filter.menu.title = e;
@@ -97,6 +97,7 @@ export default function Home() {
                     refs.current.filter.cancel = e;
                 }} />
 
+
                 <div className="list-resto" id="halal-section">
                     <div className="header-halal">
                         <h2 ref={(e) => {
@@ -110,7 +111,7 @@ export default function Home() {
                 <hr />
 
                 <div className="list-resto">
-                    { loading ? <p> Memuat... </p> : null }
+                    { loading ? <p> Loading... </p> : null }
                     <h2 ref={(e) => {
                         refs.current.title = e;
                     }} />
@@ -124,7 +125,7 @@ export default function Home() {
                 <div className="modal-inner detail-inner">
                     <button id="close-detail" aria-label="Tutup">&times;</button>
                     <div id="detail-content">
-                        { loading ? <p> Memuat... </p> : null }
+                        { loading ? <p> Loading... </p> : null }
                         {/* Modal detail restoran diisi di script.js) */}
                     </div>
                     </div>

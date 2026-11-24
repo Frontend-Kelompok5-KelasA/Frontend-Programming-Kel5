@@ -26,7 +26,7 @@ export default function UserDetail() {
                         </thead>
                         <tbody id="tabel-user-body">
                             <tr>
-                                <td colSpan={4} className="text-center">Memuat data...</td>
+                                <td colSpan={4} className="text-center">Loading data...</td>
                             </tr>
                         </tbody>
                     </table>
