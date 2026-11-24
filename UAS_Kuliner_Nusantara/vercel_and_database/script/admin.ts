@@ -20,7 +20,7 @@ export async function onLoad(){
             });
 
         } catch (err) {
-            console.error('Gagal memuat statistik:', err);
+            console.error('Gagal loading statistik:', err);
         }
 
         fetch("/api/resto")

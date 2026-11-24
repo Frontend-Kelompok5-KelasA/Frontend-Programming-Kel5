@@ -33,7 +33,7 @@ export default function ReviewDetail() {
                         <tbody id="tabel-review-body">
                             <tr>
                                 {/* Menampilkan tulisan memuat data yang menempati seluruh lebar tabel*/}
-                                <td colSpan={6} className="text-center">Memuat data...</td>
+                                <td colSpan={6} className="text-center">Loading data...</td>
                             </tr>
                         </tbody>
                     </table>
