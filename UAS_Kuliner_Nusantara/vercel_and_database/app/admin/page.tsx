@@ -7,6 +7,8 @@ import { onLoad } from "@/script/admin";
 import MonthlyChart from "@/components/MonthlyChart";
 
 export default function Admin() {
+    const [userData, setUserData] = useState<number[]>(Array(12).fill(0));
+    const [restoData, setRestoData] = useState<number[]>(Array(12).fill(0));
     const [reviewData, setReviewData] = useState<number[]>(Array(12).fill(0));
 
     useEffect(() => {
@@ -15,10 +17,13 @@ export default function Admin() {
 
         fetch("/api/stats/monthly")
             .then((r) => r.json())
-            .then((res) => setReviewData(res.reviews ?? Array(12).fill(0)))
+            .then((res) => {
+                setUserData(res.user ?? Array(12).fill(0));
+                setRestoData(res.restoran ?? Array(12).fill(0));
+                setReviewData(res.review ?? Array(12).fill(0));
+            })
             .catch((err) => console.error("Gagal memuat grafik:", err));
     }, []);
-
 
     return (
         <main>
@@ -27,12 +32,12 @@ export default function Admin() {
 
                 {/* GRAFIK */}
                 <div className="row g-4 mb-4">
-                    {/* <div className="col-12 col-md-4">
-                        <MonthlyChart title="User per Bulan" data={userData} />
+                    <div className="col-12 col-md-4">
+                        <MonthlyChart title="Jumlah User/Bulan" data={userData} />
                     </div>
                     <div className="col-12 col-md-4">
-                        <MonthlyChart title="Restoran per Bulan" data={restoData} />
-                    </div> */}
+                        <MonthlyChart title="Jumlah Restoran/Bulan" data={restoData} />
+                    </div>
                     <div className="col-12 col-md-4">
                         <MonthlyChart title="Jumlah Review/Bulan" data={reviewData} />
                     </div>

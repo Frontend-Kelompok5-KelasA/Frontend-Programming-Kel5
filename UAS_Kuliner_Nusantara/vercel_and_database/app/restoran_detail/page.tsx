@@ -5,45 +5,48 @@ import { loadSession } from "@/script/utils";
 import { onLoad } from "@/script/resto-detail";
 
 export default function RestoDetail() {
-    useEffect(() => {
-        loadSession();
-        onLoad();
-    });
+  useEffect(() => {
+    loadSession();
+    onLoad();
+  });
 
-    return (
-        <main>
-            <section className="halaman-tabel">
-                <div className="d-flex justify-content-between align-items-center mb-3">
-                    <h1 className="mb-0">Tabel Informasi Restoran</h1>
+  return (
+    <main>
+      <section className="halaman-tabel">
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <h1 className="mb-0">Tabel Informasi Restoran</h1>
 
-                    <a href="tambah_resto" className="btn-tambah">
-                        <i className="bi bi-plus-lg"></i> Tambah Restoran
-                    </a>
-                </div>
+          <a href="tambah_resto" className="btn-tambah">
+            <i className="bi bi-plus-lg"></i> Tambah Restoran
+          </a>
+        </div>
 
-                <div className="table-wrap">
-                    <table className="table table-bordered table-striped table-hover align-middle mb-0">
-                        <thead>
-                            <tr>
-                                <th scope="col">No</th>
-                                <th scope="col">Nama Restoran</th>
-                                <th scope="col">Kota</th>
-                                <th scope="col">Tempat</th>
-                                <th scope="col">Kategori</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Harga</th>
-                                <th scope="col">Rating</th>
-                                <th scope="col">Edit</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tabel-resto-body">
-                            <tr>
-                                <td colSpan= {8} className="text-center">Loading data...</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-        </main>
-    )
+        <div className="table-wrap">
+          <table className="table table-bordered table-striped table-hover align-middle mb-0">
+            <thead>
+              <tr>
+                <th scope="col">No</th>
+                <th scope="col">Nama Restoran</th>
+                <th scope="col">Kota</th>
+                <th scope="col">Tempat</th>
+                <th scope="col">Kategori</th>
+                <th scope="col">Status</th>
+                <th scope="col">Harga</th>
+                <th scope="col">Rating</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Hapus</th>
+              </tr>
+            </thead>
+            <tbody id="tabel-resto-body">
+              <tr>
+                <td colSpan={10} className="text-center">
+                  Loading data...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  );
 }
