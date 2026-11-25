@@ -6,23 +6,32 @@ export async function GET() {
         const db = getRawPrisma();
 
         const plan = db.raw.sql`
-            SELECT COUNT(v."created_at") AS total
+            SELECT
+                (SELECT COUNT(*) FROM public."User" u
+                    WHERE EXTRACT(MONTH FROM u."created_at"::timestamp) = m
+                      AND EXTRACT(YEAR FROM u."created_at"::timestamp) = EXTRACT(YEAR FROM CURRENT_DATE)) AS user,
+                (SELECT COUNT(*) FROM public."Restaurant" r
+                    WHERE EXTRACT(MONTH FROM r."created_at"::timestamp) = m
+                      AND EXTRACT(YEAR FROM r."created_at"::timestamp) = EXTRACT(YEAR FROM CURRENT_DATE)) AS restoran,
+                (SELECT COUNT(*) FROM public."Review" v
+                    WHERE EXTRACT(MONTH FROM v."created_at"::timestamp) = m
+                      AND EXTRACT(YEAR FROM v."created_at"::timestamp) = EXTRACT(YEAR FROM CURRENT_DATE)) AS review
             FROM generate_series(1, 12) AS m
-            LEFT JOIN public."Review" v
-                ON EXTRACT(MONTH FROM v."created_at"::timestamp) = m
-            AND EXTRACT(YEAR FROM v."created_at"::timestamp) = EXTRACT(YEAR FROM CURRENT_DATE)
-            GROUP BY m
             ORDER BY m
         `
             .returnsRow({
-                total: 'pg/numeric@1',
+                user: 'pg/numeric@1',
+                restoran: 'pg/numeric@1',
+                review: 'pg/numeric@1',
             })
             .build();
 
         const rows = await db.query(plan);
 
         return NextResponse.json({
-            reviews: rows.map((r: any) => Number(r.total)),
+            user: rows.map((r: any) => Number(r.user)),
+            restoran: rows.map((r: any) => Number(r.restoran)),
+            review: rows.map((r: any) => Number(r.review)),
         });
     } catch (err: any) {
         return NextResponse.json({ error: err.message }, { status: 500 });
