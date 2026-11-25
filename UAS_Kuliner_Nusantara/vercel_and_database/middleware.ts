@@ -10,7 +10,8 @@ const ADMIN_PAGES = [
   "/restoran_detail",
   "/review_detail",
   "/user_settings",
-  "/edit_resto"
+  "/edit_resto",
+  "/manage-content"
 ];
 
 const USER_PAGES = ["/favorites", "/profile", "/user_settings"];

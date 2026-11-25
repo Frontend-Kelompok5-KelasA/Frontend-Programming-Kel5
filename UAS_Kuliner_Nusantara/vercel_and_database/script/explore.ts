@@ -23,22 +23,22 @@ async function loadPageConfig(
 
     applyConf(refs.filter.input, config.filter.input);
 
-    states.filterText(config.filter.button.text.textContent);
+    states.filterText(config.filter["button-text"].textContent);
 
-    applyConf(refs.filter.button.image, config.filter.button.image);
+    applyConf(refs.filter["button-image"], config.filter["button-image"]);
 
-    applyConf(refs.filter.menu.title, config.filter.menu.title);
-    applyConf(refs.filter.menu.regions, config.filter.menu.regions);
-    applyConf(refs.filter.menu.types, config.filter.menu.types);
-    applyConf(refs.filter.menu.prices, config.filter.menu.prices);
-    applyConf(refs.filter.menu.done, config.filter.menu.done);
+    applyConf(refs.filter["menu-title"], config.filter["menu-title"]);
+    applyConf(refs.filter["menu-regions"], config.filter["menu-regions"]);
+    applyConf(refs.filter["menu-types"], config.filter["menu-types"]);
+    applyConf(refs.filter["menu-prices"], config.filter["menu-prices"]);
+    applyConf(refs.filter["menu-done"], config.filter["menu-done"]);
 
     applyConf(refs.filter.cancel, config.filter.cancel);
 
-    applyConf(refs.title, config.title);
+    applyConf(refs.explore.title, config.explore.title);
 
-    if (config.halal?.title && refs.halalTitle) {
-        applyConf(refs.halalTitle, config.halal.title);
+    if (config.halal && refs.halal) {
+        applyConf(refs.halal, config.halal);
     }
 }
 
