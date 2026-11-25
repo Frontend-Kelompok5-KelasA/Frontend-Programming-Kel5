@@ -101,7 +101,7 @@ export default function Home() {
                 <div className="list-resto" id="halal-section">
                     <div className="header-halal">
                         <h2 ref={(e) => {
-                            refs.current.halal = e;
+                            refs.current.explore.halal = e;
                         }} />
                         <Image src="/images/websiteEssentials/logo_halal.jpg" alt="logo halal" width={100} height={100} />
                     </div>
