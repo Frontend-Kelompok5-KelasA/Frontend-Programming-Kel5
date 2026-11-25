@@ -69,6 +69,19 @@ export default function Admin() {
                         </a>
                     </div>
                 </div>
+
+                <div className="col-12 d-flex flex-column justify-content-center align-items-center">
+                    <br />
+                    <div className="card-dashboard col-12 col-md-7 col-lg-5 col-xl-4">
+                        <a href="/manage-content" className="card stat-card" data-key="cms">
+                            <Image src="/images/websiteEssentials/cms.png" alt="" width={200} height={200}/>
+                            <div className="stat-teks">
+                                <span className="stat-label">Pengaturan Konten</span>
+                                <span className="stat-number">(Klik Disini)</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
             </section>
         </main>
     )
