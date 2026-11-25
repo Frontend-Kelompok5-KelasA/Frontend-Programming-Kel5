@@ -36,10 +36,7 @@ async function loadPageConfig(
     applyConf(refs.filter.cancel, config.filter.cancel);
 
     applyConf(refs.explore.title, config.explore.title);
-
-    if (config.halal && refs.halal) {
-        applyConf(refs.halal, config.halal);
-    }
+    applyConf(refs.explore.halal, config.explore.halal);
 }
 
 export async function onLoad(refs: any, states: {filterText: any}){
