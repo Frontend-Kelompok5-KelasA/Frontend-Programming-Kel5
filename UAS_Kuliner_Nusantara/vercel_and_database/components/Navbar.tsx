@@ -1,12 +1,27 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Image from "next/image";
 import Link from "next/link";
+import {onLoad} from "@/script/navbar";
 
 export const Navbar = () => {
   const [elements, setElements] = useState<string[]>();
   const [role, setRole] = useState<string | null>(null);
+  const [loaded, setLoaded] = useState(false);
+
+  const refs = useRef<any>({
+    desc: {
+      title: null
+    },
+    tabs: {
+      home: null,
+      explore: null,
+      favorite: null,
+      "about-us": null,
+      contact: null
+    }
+  });
 
   useEffect(() => {
     const check: any = async () => {
@@ -60,6 +75,14 @@ export const Navbar = () => {
     };
 
     checkSession();
+
+    const load = async () => {
+      await onLoad(refs.current);
+
+      setLoaded(true);
+    };
+
+    load();
   }, []);
 
   return (
@@ -84,9 +107,9 @@ export const Navbar = () => {
             width={100}
             height={100}
           />
-          <span className="nav-title d-none d-md-inline">
-            Kuliner Nusantara di Jakarta
-          </span>
+          <span className="nav-title d-none d-md-inline"
+                ref={(e: any) => refs.current.desc.title = e}
+          />
         </Link>
         <span className="nav-divider d-none d-md-block"></span>
         <div
@@ -173,26 +196,32 @@ export const Navbar = () => {
         </div>
         <div className="collapse navbar-collapse" id="nav-hamburger">
           <div className="navbar-nav">
+            {!loaded ? <span className="text-white"> Memuat... </span> : null}
             {role !== "admin" && (
               <>
-                <Link className="nav-link" href="/">
-                  Home
-                </Link>
-                <Link className="nav-link" href="/explore">
-                  Explore
-                </Link>
+                <Link className="nav-link"
+                      href="/"
+                      ref={(e: any) => refs.current.tabs.home = e}
+                />
+                <Link className="nav-link"
+                      href="/explore"
+                      ref={(e: any) => refs.current.tabs.explore = e}
+                />
                 {/* pengecekan, kalau role nya user, tampilkan Favorite di navbar */}
                 {role === "user" ? (
-                  <Link href="/favorites" className="nav-link">
-                    Favorite
-                  </Link>
+                  <Link href="/favorites"
+                        className="nav-link"
+                        ref={(e: any) => refs.current.tabs.favorite = e}
+                  />
                 ) : null}
-                <Link className="nav-link" href="/about_us">
-                  About Us
-                </Link>
-                <Link className="nav-link" href="/customer-service">
-                  Contact
-                </Link>
+                <Link className="nav-link"
+                      href="/about_us"
+                      ref={(e: any) => refs.current.tabs["about-us"] = e}
+                />
+                <Link className="nav-link"
+                      href="/customer-service"
+                      ref={(e: any) => refs.current.tabs.contact = e}
+                />
               </>
             )}
 

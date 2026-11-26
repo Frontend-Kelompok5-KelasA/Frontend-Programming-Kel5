@@ -3,6 +3,7 @@
 import {useEffect, useRef, useState} from "react";
 import {redirect} from "next/navigation";
 import {Button} from "react-bootstrap";
+import {loadSession} from "@/script/utils";
 
 export default function ManageContent(){
   const table = useRef(null);
@@ -20,6 +21,8 @@ export default function ManageContent(){
       setLoaded(true);
       setPages(pages);
     }
+
+    loadSession();
 
     load();
   }, []);
