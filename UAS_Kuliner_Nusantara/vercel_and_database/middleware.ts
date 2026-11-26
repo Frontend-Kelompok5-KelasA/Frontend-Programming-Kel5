@@ -9,11 +9,12 @@ const ADMIN_PAGES = [
   "/user_detail",
   "/restoran_detail",
   "/review_detail",
-  "/user_settings",
   "/edit_resto",
   "/edit_user",
   "/manage-content",
 ];
+
+const SHARED_PAGES = ["/user_settings"];
 
 const USER_PAGES = [
   "/favorites",
@@ -39,7 +40,8 @@ export async function middleware(request: NextRequest) {
   if (match(pathname, "/logout")) return NextResponse.next();
 
   if (role === "admin") {
-    if (inList(pathname, ADMIN_PAGES)) return NextResponse.next();
+    if (inList(pathname, ADMIN_PAGES) || inList(pathname, SHARED_PAGES))
+      return NextResponse.next();
     return NextResponse.redirect(new URL("/admin", request.url));
   }
 
