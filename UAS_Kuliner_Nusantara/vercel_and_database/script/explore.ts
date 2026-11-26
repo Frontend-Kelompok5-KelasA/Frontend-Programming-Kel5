@@ -23,23 +23,20 @@ async function loadPageConfig(
 
     applyConf(refs.filter.input, config.filter.input);
 
-    states.filterText(config.filter.button.text.textContent);
+    states.filterText(config.filter["button-text"].textContent);
 
-    applyConf(refs.filter.button.image, config.filter.button.image);
+    applyConf(refs.filter["button-image"], config.filter["button-image"]);
 
-    applyConf(refs.filter.menu.title, config.filter.menu.title);
-    applyConf(refs.filter.menu.regions, config.filter.menu.regions);
-    applyConf(refs.filter.menu.types, config.filter.menu.types);
-    applyConf(refs.filter.menu.prices, config.filter.menu.prices);
-    applyConf(refs.filter.menu.done, config.filter.menu.done);
+    applyConf(refs.filter["menu-title"], config.filter["menu-title"]);
+    applyConf(refs.filter["menu-regions"], config.filter["menu-regions"]);
+    applyConf(refs.filter["menu-types"], config.filter["menu-types"]);
+    applyConf(refs.filter["menu-prices"], config.filter["menu-prices"]);
+    applyConf(refs.filter["menu-done"], config.filter["menu-done"]);
 
     applyConf(refs.filter.cancel, config.filter.cancel);
 
-    applyConf(refs.title, config.title);
-
-    if (config.halal?.title && refs.halalTitle) {
-        applyConf(refs.halalTitle, config.halal.title);
-    }
+    applyConf(refs.explore.title, config.explore.title);
+    applyConf(refs.explore.halal, config.explore.halal);
 }
 
 export async function onLoad(refs: any, states: {filterText: any}){
@@ -242,7 +239,7 @@ export async function onLoad(refs: any, states: {filterText: any}){
             .then((response) => response.json())
             .then((restos) => {
                 gabunganResto = gabungCabangResto(restos);
-                
+
                 if (halalList) renderHalal();
 
                 renderExploreCarousel(restos);
@@ -321,7 +318,7 @@ export async function onLoad(refs: any, states: {filterText: any}){
 
         if(popularList && popularCards.length === 0){
             popularList.innerHTML = temp.innerHTML;
-            return; 
+            return;
         }
 
         perSlide = 0;
@@ -355,18 +352,29 @@ export async function onLoad(refs: any, states: {filterText: any}){
 
         const dipilih = gambarUnik.slice(0, 12);
 
-        if(inner){
-            inner.innerHTML = dipilih.map((g, i) => `
-                <div class="carousel-item ${i === 0 ? "active" : ""}">
-                    <img src="/images/restaurantImages/${g}" alt="Kuliner Nusantara" loading="lazy">
-                </div>
-            `).join("");
+        if(inner) {
+            inner.innerHTML = dipilih.map((g, i) => {
+                let imgPath = `/images/restaurantImages/${g}`;
+                if(g.startsWith('http'))imgPath = g;
 
-            inner.innerHTML = gambarUnik.map((g, i) => `
-                <div class="carousel-item ${i === 0 ? "active" : ""}">
-                    <img src="/images/restaurantImages/${g}" alt="Kuliner Nusantara" loading="lazy">
-                </div>
-            `).join("");
+                return `
+                    <div class="carousel-item ${i === 0 ? "active" : ""}">
+                        <img src=${imgPath} alt="Kuliner Nusantara" loading="lazy">
+                    </div>
+                `;
+            }).join("");
+
+            inner.innerHTML = gambarUnik.map((g, i) => {
+                let imgPath = `/images/restaurantImages/${g}`;
+                if(g.startsWith('http'))imgPath = g;
+
+                return `
+                    <div class="carousel-item ${i === 0 ? "active" : ""}">
+                        <img src="${imgPath}" alt="Kuliner Nusantara" loading="lazy">
+                    </div>
+                `;
+            }).join("");
+
         }
 
         bootstrap.Carousel.getOrCreateInstance(carousel);
@@ -424,9 +432,12 @@ export async function onLoad(refs: any, states: {filterText: any}){
             card.className = "card";
             card.style.width = CARD_WIDTH + "px";
 
+            let imgPath = `/images/restaurantImages/${imageFile}`;
+            if(imageFile.startsWith('http'))imgPath = imageFile;
+
             card.innerHTML = `
             ${disukai ? `<img src="/images/websiteEssentials/like.png" class="like-badge" alt="rating tinggi">` : ""}
-            <img src="/images/restaurantImages/${imageFile}" class="card-img-top" alt="${resto.name}">
+            <img src="${imgPath}" class="card-img-top" alt="${resto.name}">
             <div class="card-body">
                 <h5 class="card-title">${resto.name}</h5>
                 <p class="card-text">${resto.desc}</p>
@@ -520,8 +531,11 @@ export async function onLoad(refs: any, states: {filterText: any}){
             </form>`
             : `<p><a href="/login">Login</a> untuk menulis review.</p>`;
 
+        let imgPath = `/images/restaurantImages/${imageFile}`;
+        if(imageFile.startsWith('http'))imgPath = imageFile;
+
         if(detailContent)detailContent.innerHTML = `
-            <img src="/images/restaurantImages/${imageFile}" alt="${resto.name}" class="detail-img">
+            <img src="${imgPath}" alt="${resto.name}" class="detail-img">
             <h2>${resto.name}</h2>
             <p>${resto.tag} · ${resto.cat} · ${resto.status}</p>
             ${resto.desc ? `<p>${resto.desc}</p>` : ""}

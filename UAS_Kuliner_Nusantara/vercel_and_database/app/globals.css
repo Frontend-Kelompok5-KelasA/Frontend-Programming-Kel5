@@ -59,7 +59,7 @@
   /* FONT */
   --font-heading: var(--font-gabarito), sans-serif;
   --font-body: var(--font-dm-sans), sans-serif;
-  --font-title: var(--font-lobster), cursive;
+  --font-title: var(--font-poetsen), cursive;
 }
 
 html {
@@ -1259,6 +1259,11 @@ h5 {
   font-size: 15px;
   line-height: 1.6;
   margin: 0;
+  text-align: justify;
+}
+
+.team-section {
+  padding-bottom: 20px;
 }
 
 .team-section h2 {
@@ -1284,17 +1289,13 @@ h5 {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
-.member-img {
+.member-avatar img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-.member-avatar i {
-  font-size: 34px;
-  color: var(--highlight-text);
 }
 
 .member-card h3 {

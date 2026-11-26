@@ -10,6 +10,8 @@ const ADMIN_PAGES = [
   "/restoran_detail",
   "/review_detail",
   "/user_settings",
+  "/edit_resto",
+  "/manage-content"
 ];
 
 const USER_PAGES = ["/favorites", "/profile", "/user_settings"];
@@ -20,7 +22,7 @@ const match = (pathname: string, base: string) =>
   pathname === base || pathname.startsWith(base + "/");
 
 const inList = (pathname: string, list: string[]) =>
-  list.some((p) => match(pathname, p));
+  list.some((p) => pathname.startsWith(p));
 
 // mengambil sesi pengguna yang akses
 export async function middleware(request: NextRequest) {
