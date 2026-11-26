@@ -24,6 +24,7 @@ model Restaurant {
     officialWebsite     String      @map("official_website")
     instagram           String
     image               String
+    userId              Int?        @map("user_id")
 }
 
 model Category {

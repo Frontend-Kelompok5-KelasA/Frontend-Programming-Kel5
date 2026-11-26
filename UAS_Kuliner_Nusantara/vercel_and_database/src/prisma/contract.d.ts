@@ -23,7 +23,7 @@ import type {
 } from '@prisma/orm-postgres/contract/types';
 
 export type StorageHash =
-  StorageHashBase<'c2d114d6cfcc13abca42f2fef1aca37f07f2693812736afbad691e8fdea48d74'>;
+  StorageHashBase<'46a1ed89bf9e5a028506e886963efd48c0bb0a9d342fb547776db5c05da19175'>;
 export type ExecutionHash = ExecutionHashBase<string>;
 export type ProfileHash =
   ProfileHashBase<'3916f444a8a17ad749191acf9e08dad97d1a327b88c2f1d45d12f240296aa8b2'>;
@@ -301,6 +301,7 @@ export namespace Models {
     rating: FieldOutputTypes['public']['Restaurant']['rating'];
     status: FieldOutputTypes['public']['Restaurant']['status'];
     tag: FieldOutputTypes['public']['Restaurant']['tag'];
+    userId: FieldOutputTypes['public']['Restaurant']['userId'];
     readonly [RelationKeys]?: never;
   };
   export type public_RestaurantPhoto = {
@@ -522,6 +523,12 @@ type ContractBase = Omit<
                   readonly dataType: 'pg/text';
                   readonly codecId: 'pg/text@1';
                   readonly nullable: false;
+                  readonly many: false;
+                };
+                readonly user_id: {
+                  readonly dataType: 'pg/int4';
+                  readonly codecId: 'pg/int4@1';
+                  readonly nullable: true;
                   readonly many: false;
                 };
               };
@@ -815,6 +822,10 @@ type ContractBase = Omit<
                 readonly nullable: false;
                 readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
               };
+              readonly userId: {
+                readonly nullable: true;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/int4@1' };
+              };
             };
             readonly relations: Record<string, never>;
             readonly storage: {
@@ -835,6 +846,7 @@ type ContractBase = Omit<
                 readonly rating: { readonly column: 'rating' };
                 readonly status: { readonly column: 'status' };
                 readonly tag: { readonly column: 'tag' };
+                readonly userId: { readonly column: 'user_id' };
               };
             };
           };

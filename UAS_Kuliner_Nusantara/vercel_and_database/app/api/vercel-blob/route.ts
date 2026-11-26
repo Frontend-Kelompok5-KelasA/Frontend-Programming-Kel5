@@ -10,9 +10,9 @@ export async function POST(request: Request) {
       body,
       request,
       onBeforeGenerateToken: async () => {
-        const auth = await requireRole(["admin"]);
+        const auth = await requireRole(["admin", "restaurant"]);
         if (auth.error)
-          throw new Error("Hanya admin yang boleh upload gambar.");
+          throw new Error("Hanya admin atau akun restoran yang boleh upload gambar.");
 
         return {
           allowedContentTypes: ["image/jpeg", "image/png", "image/webp"],

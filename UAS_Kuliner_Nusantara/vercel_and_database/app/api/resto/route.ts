@@ -3,9 +3,26 @@ import { NextResponse } from "next/server";
 import { requireRole } from "@/backend-scripts/auth-guard";
 import { randomUUID } from "crypto";
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
     const db = getPrisma();
+
+    const { searchParams } = new URL(req.url);
+    if (searchParams.get("mine") === "true") {
+      const auth = await requireRole(["restaurant"]);
+      if (auth.error) return auth.error;
+
+      const milikSaya = await db.Restaurant.where({
+        userId: Number(auth.user.user_id),
+      }).all();
+
+      return NextResponse.json(
+        milikSaya.map((restaurant) => ({
+          ...restaurant,
+          desc: restaurant.description,
+        })),
+      );
+    }
 
     const result = (await db.Restaurant.all()).map((restaurant) => {
       return {
@@ -86,6 +103,7 @@ export async function POST(req: Request) {
       officialWebsite: str(b.official_website),
       instagram: str(b.instagram),
       image,
+      userId: b.user_id ? Number(b.user_id) : null,
     });
 
     return NextResponse.json({ ok: true, id }, { status: 201 });

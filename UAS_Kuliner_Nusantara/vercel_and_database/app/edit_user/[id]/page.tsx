@@ -132,6 +132,7 @@ export default function EditUserById() {
               <select id="role" className="form-select" {...register("role")}>
                 <option value="user">user</option>
                 <option value="admin">admin</option>
+                <option value="restaurant">restaurant</option>
               </select>
             </div>
 

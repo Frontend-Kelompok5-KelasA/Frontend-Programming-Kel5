@@ -174,12 +174,17 @@ export const Navbar = () => {
               Account
               <hr className="dropdown-hr" />
             </span>
-            {role !== "admin" ? (
+            {role === "user" ? (
               <>
                 <Link className="dropdown-item" href="/profile">
                   View Profile
                 </Link>
               </>
+            ) : null}
+            {role === "restaurant" ? (
+              <Link className="dropdown-item" href="/restaurant">
+                Dashboard Toko
+              </Link>
             ) : null}
             <Link className="dropdown-item" href="/user_settings">
               Settings
@@ -197,7 +202,7 @@ export const Navbar = () => {
         <div className="collapse navbar-collapse" id="nav-hamburger">
           <div className="navbar-nav">
             {!loaded ? <span className="text-white"> Memuat... </span> : null}
-            {role !== "admin" && (
+            {role !== "admin" && role !== "restaurant" && (
               <>
                 <Link className="nav-link"
                       href="/"
@@ -207,7 +212,7 @@ export const Navbar = () => {
                       href="/explore"
                       ref={(e: any) => refs.current.tabs.explore = e}
                 />
-                {/* pengecekan, kalau role nya user, tampilkan Favorite di navbar */}
+
                 {role === "user" ? (
                   <Link href="/favorites"
                         className="nav-link"
@@ -228,6 +233,12 @@ export const Navbar = () => {
             {role === "admin" ? (
               <Link className="nav-link" href="/admin">
                 Admin
+              </Link>
+            ) : null}
+
+            {role === "restaurant" ? (
+              <Link className="nav-link" href="/restaurant">
+                Kelola Toko
               </Link>
             ) : null}
           </div>

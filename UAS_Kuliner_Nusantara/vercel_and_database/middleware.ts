@@ -15,6 +15,8 @@ const ADMIN_PAGES = [
   "/manage-content"
 ];
 
+const RESTAURANT_PAGES = ["/restaurant", "/edit_resto", "/user_settings"];
+
 const USER_PAGES = ["/favorites", "/profile", "/user_settings"];
 
 const GUEST_ONLY = ["/login", "/sign-up"];
@@ -38,7 +40,12 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/admin", request.url));
   }
 
-  if (inList(pathname, ADMIN_PAGES)) {
+  if (role === "restaurant") {
+    if (inList(pathname, RESTAURANT_PAGES)) return NextResponse.next();
+    return NextResponse.redirect(new URL("/restaurant", request.url));
+  }  
+
+  if (inList(pathname, ADMIN_PAGES) || match(pathname, "/restaurant")) {
     return NextResponse.redirect(new URL(role ? "/" : "/login", request.url));
   }
 
