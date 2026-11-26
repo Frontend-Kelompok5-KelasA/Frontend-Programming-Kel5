@@ -77,9 +77,9 @@ export async function POST(
         { status: 400 },
       );
     }
-    if (!["user", "admin"].includes(role)) {
+    if (!["user", "admin", "restaurant"].includes(role)) {
       return NextResponse.json(
-        { error: "Role harus user atau admin." },
+        { error: "Role harus user, admin, atau restaurant." },
         { status: 400 },
       );
     }
@@ -215,6 +215,16 @@ export async function DELETE(
       .returnsRow({ favorite_id: "pg/numeric@1" })
       .build();
     await db.query(hapusFavorite);
+
+    const lepasResto = db.raw.sql`
+      UPDATE public."Restaurant"
+      SET user_id = NULL
+      WHERE user_id = ${userId}
+      RETURNING id
+    `
+      .returnsRow({ id: "pg/text@1" })
+      .build();
+    await db.query(lepasResto);
 
     return NextResponse.json({ success: true });
   } catch (err: any) {
