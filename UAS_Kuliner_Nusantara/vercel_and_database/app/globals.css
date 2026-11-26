@@ -795,6 +795,10 @@ h5 {
   transition: 0.3s ease;
 }
 
+.filter-option:nth-child(even):not(.selected) {
+  background-color: var(--footer-text);
+}
+
 .filter-option.selected {
   background-color: var(--nav);
   color: var(--footer-hover);
