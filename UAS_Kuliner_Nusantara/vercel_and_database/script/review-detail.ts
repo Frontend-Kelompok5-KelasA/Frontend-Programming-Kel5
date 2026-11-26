@@ -1,58 +1,78 @@
-export async function onLoad(){
-    const loadReviewTable = async () => {
-        const tbody = document.getElementById('tabel-review-body');
-        if (!tbody) return;
+import { hapusData } from "./utils";
 
-        try {
-            const res = await fetch('/api/reviews/all');
-            if (!res.ok) throw new Error('Gagal mengambil data review');
+export async function onLoad() {
+  const loadReviewTable = async () => {
+    const tbody = document.getElementById("tabel-review-body");
+    if (!tbody) return;
 
-            const data = await res.json();
-            const reviews = Array.isArray(data) ? data : data.reviews;
+    try {
+      const res = await fetch("/api/reviews/all");
+      if (!res.ok) throw new Error("Gagal mengambil data review");
 
-            if (reviews.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" class="text-center">Belum ada review.</td></tr>';
-                return;
-            }
+      const data = await res.json();
+      const reviews = Array.isArray(data) ? data : data.reviews;
 
-            tbody.innerHTML = '';
+      if (reviews.length === 0) {
+        tbody.innerHTML =
+          '<tr><td colspan="6" class="text-center">Belum ada review.</td></tr>';
+        return;
+      }
 
-            const formatTanggal = (nilai: string) => {
-                if (!nilai) return '-';
-                const d = new Date(String(nilai).replace(' ', 'T'));
-                if (!d) return nilai;
-                return d.toLocaleDateString('id-ID', {
-                    day: '2-digit', month: 'short', year: 'numeric'
-                });
-            };
+      tbody.innerHTML = "";
 
-            const potong = (teks: string, maks = 60) =>
-                teks && teks.length > maks ? teks.slice(0, maks) + '…' : teks;
+      const formatTanggal = (nilai: string) => {
+        if (!nilai) return "-";
+        const d = new Date(String(nilai).replace(" ", "T"));
+        if (!d) return nilai;
+        return d.toLocaleDateString("id-ID", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        });
+      };
 
-            reviews.forEach((r: Record<string, string>, i: number) => {
-                const baris = document.createElement('tr');
+      const potong = (teks: string, maks = 60) =>
+        teks && teks.length > maks ? teks.slice(0, maks) + "…" : teks;
 
-                const makeCell = (isi: string) => {
-                    const td = document.createElement('td');
-                    td.textContent = isi ?? '-';
-                    return td;
-                };
+      reviews.forEach((r: Record<string, string>, i: number) => {
+        const baris = document.createElement("tr");
 
-                baris.appendChild(makeCell(String(i + 1)));
-                baris.appendChild(makeCell(r.username));
-                baris.appendChild(makeCell(formatTanggal(r.created_at)));
-                baris.appendChild(makeCell(r.restaurant_name));
-                baris.appendChild(makeCell(r.rating));
-                baris.appendChild(makeCell(potong(r.comment)));
+        const makeCell = (isi: string) => {
+          const td = document.createElement("td");
+          td.textContent = isi ?? "-";
+          return td;
+        };
 
-                tbody.appendChild(baris);
-            });
+        baris.appendChild(makeCell(String(i + 1)));
+        baris.appendChild(makeCell(r.username));
+        baris.appendChild(makeCell(formatTanggal(r.created_at)));
+        baris.appendChild(makeCell(r.restaurant_name));
+        baris.appendChild(makeCell(r.rating));
+        baris.appendChild(makeCell(potong(r.comment)));
 
-        } catch (err) {
-            console.error('Gagal memuat tabel review:', err);
-            tbody.innerHTML = '<tr><td colspan="6" class="text-center">Gagal memuat data.</td></tr>';
-        }
-    };
+        const tombolHapus = document.createElement("button");
+        tombolHapus.type = "button";
+        tombolHapus.textContent = "Hapus";
+        tombolHapus.addEventListener("click", async () => {
+          const berhasil = await hapusData(
+            `/api/reviews/${encodeURIComponent(String(r.review_id))}`,
+            `Hapus review dari ${r.username ?? "user ini"}? Tindakan ini tidak bisa dibatalkan.`,
+          );
+          if (berhasil) await loadReviewTable();
+        });
 
-    await loadReviewTable();
+        const tdHapus = document.createElement("td");
+        tdHapus.appendChild(tombolHapus);
+        baris.appendChild(tdHapus);
+
+        tbody.appendChild(baris);
+      });
+    } catch (err) {
+      console.error("Gagal memuat tabel review:", err);
+      tbody.innerHTML =
+        '<tr><td colspan="6" class="text-center">Gagal memuat data.</td></tr>';
+    }
+  };
+
+  await loadReviewTable();
 }
