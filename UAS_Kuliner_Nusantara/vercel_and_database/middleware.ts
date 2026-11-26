@@ -12,6 +12,7 @@ const ADMIN_PAGES = [
   "/user_settings",
   "/edit_resto",
   "/edit_user",
+  "/manage-content"
 ];
 
 const USER_PAGES = ["/favorites", "/profile", "/user_settings"];
