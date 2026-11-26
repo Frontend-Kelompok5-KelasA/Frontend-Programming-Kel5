@@ -5,6 +5,7 @@ import {Button, Card} from "react-bootstrap";
 import {useForm} from "react-hook-form";
 import {useParams} from "next/navigation";
 import {upload} from "@vercel/blob/client";
+import {loadSession} from "@/script/utils";
 
 export default function ManageContentById(){
   const params: {id: string} = useParams();
@@ -155,13 +156,16 @@ export default function ManageContentById(){
 
   useEffect(() => {
     const retrieveData = async() => {
-      const res = await fetch(`/api/config/${params.id}`);
+      const res = await fetch(`/api/config/${params.id}`, {method: 'GET'});
 
       const { config } = await res.json();
+
       if(!config)return;
 
       setData(config);
     }
+
+    loadSession();
 
     retrieveData();
   }, [params.id, reset]);
