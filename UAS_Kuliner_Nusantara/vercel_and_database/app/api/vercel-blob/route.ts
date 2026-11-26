@@ -1,16 +1,29 @@
 import { handleUpload, HandleUploadBody } from "@vercel/blob/client";
-import {NextResponse} from "next/server";
+import { NextResponse } from "next/server";
+import { requireRole } from "@/backend-scripts/auth-guard";
 
-export async function POST(request: Request){
+export async function POST(request: Request) {
   const body = (await request.json()) as HandleUploadBody;
 
-  const jsonResponse = await handleUpload({
-    body,
-    request,
-    onBeforeGenerateToken: async () => ({
-      allowedContentTypes: ["image/jpeg", "image/png", "image/webp"],
-    })
-  });
+  try {
+    const jsonResponse = await handleUpload({
+      body,
+      request,
+      onBeforeGenerateToken: async () => {
+        const auth = await requireRole(["admin"]);
+        if (auth.error)
+          throw new Error("Hanya admin yang boleh upload gambar.");
 
-  return NextResponse.json(jsonResponse);
+        return {
+          allowedContentTypes: ["image/jpeg", "image/png", "image/webp"],
+          maximumSizeInBytes: 5 * 1024 * 1024,
+          addRandomSuffix: true,
+        };
+      },
+    });
+
+    return NextResponse.json(jsonResponse);
+  } catch (err: any) {
+    return NextResponse.json({ error: err.message }, { status: 400 });
+  }
 }

@@ -13,7 +13,14 @@ export async function GET() {
       fields.userId.desc(),
     ).all();
 
-    return NextResponse.json(result);
+    return NextResponse.json(
+      result.map(({ userId, username, email, role }) => ({
+        userId,
+        username,
+        email,
+        role,
+      })),
+    );
   } catch (err: any) {
     return NextResponse.json({ error: err.message });
   }

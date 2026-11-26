@@ -11,6 +11,7 @@ const ADMIN_PAGES = [
   "/review_detail",
   "/user_settings",
   "/edit_resto",
+  "/edit_user",
   "/manage-content"
 ];
 
