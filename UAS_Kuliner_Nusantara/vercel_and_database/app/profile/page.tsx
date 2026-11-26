@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useEffect } from "react";
 import Image from "next/image";
@@ -6,37 +6,47 @@ import { checkProfile } from "../../script/profile";
 import { loadSession } from "@/script/utils";
 
 export default function Profile() {
-    useEffect(() => {
-        checkProfile();
-        loadSession();
-    }, []);
-    
-    return (
-        <main>
-            <div className="main-container">
-                {/* <!-- bagian biodata --> */}
-                <Image className="gambar-logo" src="/images/websiteEssentials/profile.png" alt="logo" width={360} height={360}/>
+  useEffect(() => {
+    checkProfile();
+    loadSession();
+  }, []);
 
-                <div className="biodata">
-                    <h3 id="profile-name">User&apos;s Name</h3>
-                    <p id="profile-fav">User&apos;s Fav Food/Restaurant</p>
-                </div>
+  return (
+    <main>
+      <div className="main-container">
+        {/* <!-- bagian biodata --> */}
+        <Image
+          className="gambar-logo"
+          src="/images/websiteEssentials/profile.png"
+          alt="logo"
+          width={360}
+          height={360}
+        />
 
-                {/* <!-- tabel isi --> */}
-                <section className="list-review container" id="review-section">
-                    <h3 id="review-title">My Reviews</h3>
-                    <p id="review-summary">Loading reviews...</p>
+        <div className="biodata">
+          <h3 id="profile-username">User&apos;s Name</h3>
+          <p id="profile-fav">Favorite Food/Restaurant</p>
+        </div>
 
-                    <input type="search" id="review-search" placeholder="Search reviews..."/>
+        {/* <!-- tabel isi --> */}
+        <section className="list-review container" id="review-section">
+          <h3 id="review-title">My Reviews</h3>
+          <p id="review-summary">Loading reviews...</p>
 
-                    <div className="review-table-wrap">
-                        <table className="review-table">
-                            <thead id="review-head"></thead>
-                            <tbody id="review-body"></tbody>
-                        </table>
-                    </div>
-                </section>
-            </div>
-        </main>
-    );
+          <input
+            type="search"
+            id="review-search"
+            placeholder="Search reviews..."
+          />
+
+          <div className="review-table-wrap">
+            <table className="review-table">
+              <thead id="review-head"></thead>
+              <tbody id="review-body"></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+  );
 }
