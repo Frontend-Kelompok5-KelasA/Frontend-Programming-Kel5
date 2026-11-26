@@ -757,7 +757,7 @@ h5 {
 
 .modal-inner h1 {
   background-color: var(--nav);
-  color: var(--footer-text);
+  color: var(--dishes-background);
   display: inline;
   padding: 3px 20px;
   border-radius: 10px;
@@ -772,10 +772,10 @@ h5 {
   z-index: 10;
   display: block;
   margin: 0 -15px 0 auto;
-  padding: 0;
-  background: var(--highlight-text);
-  border: solid;
-  border-color: var(--text);
+  padding: 2;
+  background: var(--nav);
+  border: none;
+  color: var(--dishes-background);
   border-radius: 4px 4px 4px 4px;
   font-size: 32px;
   line-height: 0.75;
@@ -796,7 +796,7 @@ h5 {
 }
 
 .filter-option:nth-child(even):not(.selected) {
-  background-color: var(--footer-text);
+  background-color: var(--dishes-background);
 }
 
 .filter-option.selected {
@@ -816,7 +816,7 @@ h5 {
 #close-filter {
   padding: 2px 15px;
   background-color: var(--nav);
-  color: var(--footer-text);
+  color: var(--dishes-background);
   border: none;
 }
 
