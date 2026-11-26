@@ -12,10 +12,15 @@ const ADMIN_PAGES = [
   "/user_settings",
   "/edit_resto",
   "/edit_user",
-  "/manage-content"
+  "/manage-content",
 ];
 
-const USER_PAGES = ["/favorites", "/profile", "/user_settings"];
+const USER_PAGES = [
+  "/favorites",
+  "/profile",
+  "/user_settings",
+  "/user_edit_review",
+];
 
 const GUEST_ONLY = ["/login", "/sign-up"];
 
