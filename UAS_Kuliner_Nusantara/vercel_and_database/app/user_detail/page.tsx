@@ -22,12 +22,13 @@ export default function UserDetail() {
                 <th scope="col">Username</th>
                 <th scope="col">Email</th>
                 <th scope="col">Role</th>
+                <th scope="col">Edit</th>
                 <th scope="col">Hapus</th>
               </tr>
             </thead>
             <tbody id="tabel-user-body">
               <tr>
-                <td colSpan={5} className="text-center">
+                <td colSpan={6} className="text-center">
                   Loading data...
                 </td>
               </tr>

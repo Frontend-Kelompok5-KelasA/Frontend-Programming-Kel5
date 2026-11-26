@@ -1,26 +1,28 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import React, {useEffect, useState} from "react";
-import {useForm} from "react-hook-form";
-import {Button, Card} from "react-bootstrap";
-import {upload} from "@vercel/blob/client";
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { Button, Card } from "react-bootstrap";
+import { upload } from "@vercel/blob/client";
 
 export default function EditRestoById() {
   const { id } = useParams();
 
-  const [data, setData] = useState({})
+  const [data, setData] = useState({});
 
   const [process, setProcess] = useState<boolean>(false);
 
-  const { register, handleSubmit, reset } = useForm({defaultValues: structuredClone(data)});
+  const { register, handleSubmit, reset } = useForm({
+    defaultValues: structuredClone(data),
+  });
 
   const [success, setSuccess] = useState(false);
 
   const onSubmit = async (result: any) => {
     setProcess(true);
 
-    if(!result.image[0])return;
+    if (!result.image[0]) return;
 
     const file = result.image[0];
 
@@ -33,30 +35,34 @@ export default function EditRestoById() {
     // @ts-ignore
     cloned.image = blob.url;
 
-    await fetch(`/api/resto/${id}`, { method: "POST", body: JSON.stringify({ restoData: cloned }) });
+    await fetch(`/api/resto/${id}`, {
+      method: "POST",
+      body: JSON.stringify({ restoData: cloned }),
+    });
 
     setSuccess(true);
     setProcess(false);
   };
 
   const formatName = (name: string) => {
-    const formatted = name.replace("cat", "category")
+    const formatted = name
+      .replace("cat", "category")
       .replace("officialWebsite", "official Website")
-      .replace("openHour", "open Hour")
+      .replace("openHour", "open Hour");
     return formatted.slice(0, 1).toUpperCase() + formatted.slice(1);
-  }
+  };
 
   useEffect(() => {
-    const retrieveData = async() => {
-      const response = await fetch("/api/resto", {method: "GET"});
+    const retrieveData = async () => {
+      const response = await fetch("/api/resto", { method: "GET" });
       const data = await response.json();
 
       let result = null;
       data.forEach((e: any) => {
-        if(e.id === id){
+        if (e.id === id) {
           result = e;
         }
-      })
+      });
 
       setData(result ?? {});
     };
@@ -76,47 +82,49 @@ export default function EditRestoById() {
           </Card.Subtitle>
         </Card.Header>
         <Card.Body>
-          { success && (
+          {success && (
             <div className="alert alert-success text-center py-2" role="alert">
               Berhasil Memperbaharui Data
             </div>
-          ) }
-          <form onSubmit={
-            handleSubmit((result) => onSubmit(result))
-          }>
-            { Object.entries(data).map(([name, val]: [string, any]) => {
-              if(name === "desc" || name === "id")return null;
+          )}
+          <form onSubmit={handleSubmit((result) => onSubmit(result))}>
+            {Object.entries(data).map(([name, val]: [string, any]) => {
+              if (name === "desc" || name === "id") return null;
 
-              return (<div key={name} className="mb-3">
-                <span className="form-label"> { formatName(name) } </span>
-                { name === "image" ? <input type="file"
-                                            accept="image/*"
-                                            required
-                                            className="form-control"
-                                            // @ts-ignore
-                                            {...register((name) as any)}
-                /> : <input type="text"
-                            required
-                            defaultValue={val}
-                            className="form-control"
-                            // @ts-ignore
-                            {...register((name) as any)}
-                />  }
-
-              </div>)
-            }) }
+              return (
+                <div key={name} className="mb-3">
+                  <span className="form-label"> {formatName(name)} </span>
+                  {name === "image" ? (
+                    <input
+                      type="file"
+                      accept="image/*"
+                      required
+                      className="form-control"
+                      // @ts-ignore
+                      {...register(name as any)}
+                    />
+                  ) : (
+                    <input
+                      type="text"
+                      required
+                      defaultValue={val}
+                      className="form-control"
+                      // @ts-ignore
+                      {...register(name as any)}
+                    />
+                  )}
+                </div>
+              );
+            })}
 
             <div className="d-grid mt-4">
-
-              <Button type="submit" disabled={process} className={`btn btn-primary fw-semibold py-2`}>
+              <Button type="submit" disabled={process} className="btn-tambah">
                 Apply Changes
               </Button>
             </div>
-
           </form>
         </Card.Body>
       </Card>
-
     </main>
   );
 }
