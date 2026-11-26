@@ -450,11 +450,12 @@ hr {
   text-decoration: none;
   border-radius: 10px;
   padding: 5px 15px;
+  transition: 0.3s ease;
 }
 
 .but-card:hover {
-  background: white;
-  border: 2px solid var(--nav-hover);
+  background: var(--nav);
+  color: var(--footer-hover)
 }
 
 /* explore restaurants */
@@ -484,10 +485,12 @@ hr {
   border: none;
   background: var(--nav-hover);
   padding: 5px 15px;
+  transition: 0.3s ease;
 }
 
 #explore-food-button:hover {
-  background: white;
+  background: var(--nav);
+  color: var(--footer-hover);
   border: 2px solid var(--nav-hover);
 }
 
@@ -618,7 +621,7 @@ main {
   background-color: var(--explore-background);
 }
 
-/*EXPLORE*/
+/*HALAMAN EXPLORE*/
 .search-filter-section {
   display: flex;
   gap: 10px;
@@ -835,6 +838,28 @@ h5 {
     height: auto;
     flex-shrink: 0;
 }
+
+.button-kirim-review {
+  border: none;
+  background-color: var(--footer-hover);
+  padding: 4px 0px;
+  transition: 0.3s ease;
+  border-radius: 10px;
+}
+
+.button-kirim-review:hover {
+  background-color: var(--nav);
+  color: var(--footer-hover);
+  padding: 4px 0px;
+}
+
+.section-review {
+  border: 1.7px solid var(--footer-hover);
+  border-radius: 10px;
+  padding: 3px;
+}
+
+/* ============= */
 
 /* MODAL DETAIL RESTORAN */
 .gambar-logo {

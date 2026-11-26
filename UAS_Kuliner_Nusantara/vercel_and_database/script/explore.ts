@@ -512,12 +512,12 @@ export async function onLoad(refs: any, states: {filterText: any}){
         const reviewHTML = currentUser ? `
             <h3>Tulis Review</h3>
             <form id="review-form" class="review-form d-flex flex-column gap-2">
-                <select name="restaurant_id" required>
+                <select name="restaurant_id" class="section-review" required>
                     ${resto.locations.map((l) =>
                 `<option value="${esc(l.id)}">${esc(l.city)} - ${esc(l.place?.slice(0, 50))}</option>`
             ).join("")}
                 </select>
-                <select name="rating" required>
+                <select name="rating" class="section-review" required>
                     <option value="">Pilih rating</option>
                     <option value="5">⭐⭐⭐⭐⭐ (5)</option>
                     <option value="4">⭐⭐⭐⭐ (4)</option>
@@ -525,8 +525,8 @@ export async function onLoad(refs: any, states: {filterText: any}){
                     <option value="2">⭐⭐ (2)</option>
                     <option value="1">⭐ (1)</option>
                 </select>
-                <textarea name="comment" rows="3" maxlength="1000" placeholder="Ceritakan pengalamanmu..." required></textarea>
-                <button type="submit">Kirim Review</button>
+                <textarea name="comment" rows="3" maxlength="1000" class="section-review" placeholder="Ceritakan pengalamanmu..." required></textarea>
+                <button type="submit" class="button-kirim-review">Kirim Review</button>
                 <p id="review-msg"></p>
             </form>`
             : `<p><a href="/login">Login</a> untuk menulis review.</p>`;

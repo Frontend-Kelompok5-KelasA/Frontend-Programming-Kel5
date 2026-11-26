@@ -14,7 +14,7 @@ export default function AboutUs() {
     { name: "Reyhan Janstephen", nim: "535250034", image: "/images/member/pfp2.jpeg" },
     { name: "Monica Irene", nim: "535250041", image: "/images/member/monica.jpeg" },
     { name: "Natanael Gunawan", nim: "535250046", image: "/images/member/pfp4.jpeg" },
-    { name: "Moses Marvian Arsata", nim: "535250050", image: "/images/member/pfp5.jpeg" },
+    { name: "Moses Marvian Arsata", nim: "535250050", image: "/images/member/moses.jpg" },
   ];
 
   return (
