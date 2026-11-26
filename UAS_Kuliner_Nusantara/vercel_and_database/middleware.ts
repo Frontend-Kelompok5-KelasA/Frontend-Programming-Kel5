@@ -16,8 +16,6 @@ const ADMIN_PAGES = [
 
 const RESTAURANT_PAGES = ["/restaurant", "/edit_resto", "/user_settings"];
 
-const USER_PAGES = ["/favorites", "/profile", "/user_settings"];
-
 const SHARED_PAGES = ["/user_settings"];
 
 const USER_PAGES = [
