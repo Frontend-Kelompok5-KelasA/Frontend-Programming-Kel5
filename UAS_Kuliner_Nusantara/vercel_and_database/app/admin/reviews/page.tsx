@@ -3,9 +3,9 @@
 // import React Hook untuk jalanin proses setelah React selesai melakukan render komponen.
 import { useEffect } from "react";
 // mengambil fungsi loadSession dari file utils
-import { loadSession } from "../../script/utils";
+import { loadSession } from "@/script/utils";
 // mengambil fungsi onSession dari file review-detail
-import { onLoad } from "../../script/review-detail";
+import { onLoad } from "@/script/review-detail";
 
 export default function ReviewDetail() {
   // untuk menjalankan proses tambahan setelah komponen ditampilkan

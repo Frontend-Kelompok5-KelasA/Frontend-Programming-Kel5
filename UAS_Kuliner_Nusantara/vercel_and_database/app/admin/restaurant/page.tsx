@@ -16,7 +16,7 @@ export default function RestoDetail() {
         <div className="d-flex justify-content-between align-items-center mb-3">
           <h1 className="mb-0">Tabel Informasi Restoran</h1>
 
-          <a href="tambah_resto" className="btn-tambah">
+          <a href="/admin/restaurant/add" className="btn-tambah">
             <i className="bi bi-plus-lg"></i> Tambah Restoran
           </a>
         </div>

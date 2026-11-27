@@ -25,10 +25,10 @@ export default function LoginFirst({ isOpen, onClose }: LoginFirstProps) {
                     <p>Buat akun untuk dapat akses keseluruhan fitur dari website kami.</p>
 
                     <div className="login-actions">
-                        <Link href="/login" onClick={onClose}>
+                        <Link href="/auth/login" onClick={onClose}>
                             <button id="login-button">Login</button>
                         </Link>
-                        <Link href="/sign-up" onClick={onClose}>
+                        <Link href="/auth/sign-up" onClick={onClose}>
                             <button id="register-button">Register</button>
                         </Link>
                     </div>

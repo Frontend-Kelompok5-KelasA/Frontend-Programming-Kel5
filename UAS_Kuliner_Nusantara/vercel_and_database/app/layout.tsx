@@ -3,10 +3,10 @@ import { Geist, Geist_Mono, DM_Sans, Gabarito, Lora, Lobster, Poetsen_One } from
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./globals.css";
-import { Navbar } from "../components/Navbar";
-import { Footer } from "../components/Footer";
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 import Script from "next/script";
-import AuthPromptProvider from "../components/AuthPromptProvider";
+import AuthPromptProvider from "@/components/AuthPromptProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

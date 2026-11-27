@@ -11,9 +11,9 @@ export default function AboutUs() {
 
   const teamMembers = [
     { name: "Gabriella Geraldine", nim: "535250023", image: "/images/member/gaby.jpeg" },
-    { name: "Reyhan Janstephen", nim: "535250034", image: "/images/member/pfp2.jpeg" },
+    { name: "Reyhan Janstephen", nim: "535250034", image: "/images/member/reyhan.jpg" },
     { name: "Monica Irene", nim: "535250041", image: "/images/member/monica.jpeg" },
-    { name: "Natanael Gunawan", nim: "535250046", image: "/images/member/pfp4.jpeg" },
+    { name: "Natanael Gunawan", nim: "535250046", image: "/images/member/natan.jpeg" },
     { name: "Moses Marvian Arsata", nim: "535250050", image: "/images/member/moses.jpg" },
   ];
 

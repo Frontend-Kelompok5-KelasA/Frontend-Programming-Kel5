@@ -12,7 +12,7 @@ export async function POST(req: Request) {
 
   const session = await getSession();
   if (!session.userData) {
-    redirect("/login");
+    redirect("/auth/login");
   }
 
   const { restaurant_id, rating, comment } = await req.json();
@@ -54,10 +54,11 @@ export async function GET() {
 
   const user = session.userData;
   if (!user) {
-    redirect("/login");
+    redirect("/auth/login");
   }
 
   const isAdmin = user.role === "admin";
+  const isRestaurant = user.role === "restaurant";
 
   try {
     const db = getRawPrisma();
@@ -65,7 +66,8 @@ export async function GET() {
     const plan = db.raw.sql`
             SELECT rv.review_id, rv.rating, rv.comment, rv.created_at,
                 u.username, u.email, u.user_id,
-                rs.id AS restaurant_id, rs.name AS restaurant_name, rs.city
+                rs.id AS restaurant_id, rs.name AS restaurant_name, rs.city,
+                COALESCE(rs.user_id, 0) AS owner_id
             FROM public."Review" rv
             LEFT JOIN public."User" u ON u.user_id = rv.user_id
             LEFT JOIN public."Restaurant" rs ON rs.id = rv.restaurant_id
@@ -82,18 +84,25 @@ export async function GET() {
         restaurant_id: "pg/text@1",
         restaurant_name: "pg/text@1",
         city: "pg/text@1",
+        owner_id: "pg/numeric@1",
       })
       .build();
 
     const rows = await db.query(plan);
 
     let result = rows;
-    if (!isAdmin) {
-      result = rows.filter((u) => user.user_id === u.user_id);
+    let scope = "mine";
+    if (isAdmin) {
+      scope = "all";
+    } else if (isRestaurant) {
+      scope = "restaurant";
+      result = rows.filter((r) => String(r.owner_id) === String(user.user_id));
+    } else {
+      result = rows.filter((u) => String(user.user_id) === String(u.user_id));
     }
 
     return NextResponse.json({
-      scope: isAdmin ? "all" : "mine",
+      scope,
       reviews: result,
     });
   } catch (err: any) {
