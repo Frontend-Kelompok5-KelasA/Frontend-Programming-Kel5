@@ -27,6 +27,7 @@ export default function RestoDetail() {
               <tr>
                 <th scope="col">No</th>
                 <th scope="col">Nama Restoran</th>
+                <th scope="col">Email</th>
                 <th scope="col">Kota</th>
                 <th scope="col">Tempat</th>
                 <th scope="col">Kategori</th>
@@ -39,7 +40,7 @@ export default function RestoDetail() {
             </thead>
             <tbody id="tabel-resto-body">
               <tr>
-                <td colSpan={10} className="text-center">
+                <td colSpan={11} className="text-center">
                   Loading data...
                 </td>
               </tr>

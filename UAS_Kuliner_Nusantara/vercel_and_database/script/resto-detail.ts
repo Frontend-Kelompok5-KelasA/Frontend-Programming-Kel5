@@ -35,6 +35,7 @@ export async function onLoad() {
 
         baris.appendChild(makeCell(String(i + 1)));
         baris.appendChild(makeCell(resto.name));
+        baris.appendChild(makeCell(resto.email));
         baris.appendChild(makeCell(resto.city));
         baris.appendChild(makeCell(potong(resto.place)));
         baris.appendChild(makeCell(resto.cat));

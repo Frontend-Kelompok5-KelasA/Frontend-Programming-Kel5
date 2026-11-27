@@ -24,14 +24,25 @@ export async function GET(req: Request) {
       );
     }
 
-    const result = (await db.Restaurant.all()).map((restaurant) => {
-      return {
-        ...restaurant,
-        desc: restaurant.description,
-      };
-    });
+    const result = await db.Restaurant.all();
 
-    return NextResponse.json(result);
+    const dataDenganEmail = await Promise.all(
+      result.map(async (restaurant) => {
+        const owner = restaurant.userId
+          ? await db.User.where({
+              userId: restaurant.userId,
+            }).first()
+          : null;
+
+        return {
+          ...restaurant,
+          desc: restaurant.description,
+          email: owner?.email ?? "-",
+        };
+      }),
+    );
+
+return NextResponse.json(dataDenganEmail);
   } catch (err: any) {
     return NextResponse.json({ error: err.message });
   }

@@ -24,6 +24,7 @@ interface RestaurantData {
   rating: number;
   price: string;
   image: string;
+  email: string;
 }
 
 interface ReviewItem {
@@ -156,6 +157,9 @@ export default function RestaurantDashboard() {
                         <h5 className="fw-bold mb-1">{resto.name}</h5>
                         <p className="text-muted small mb-1">
                           {resto.city} &bull; {resto.cat} &bull; {resto.status}
+                        </p>
+                        <p className="small mb-1">
+                          <strong>Email Owner:</strong> {resto.email || "-"}
                         </p>
                         <span className="small">⭐ {resto.rating} &bull; {resto.price}</span>
                       </div>
