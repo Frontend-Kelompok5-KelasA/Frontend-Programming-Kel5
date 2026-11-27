@@ -35,12 +35,12 @@ export async function middleware(request: NextRequest) {
 
   switch(role){
     case "admin":
-      if(inList(pathname, ADMIN_PAGES))return NextResponse.next();
+      if(inList(pathname, ADMIN_PAGES) || inList(pathname, USER_PAGES))return NextResponse.next();
 
       return NextResponse.redirect(new URL("/admin", request.url));
 
     case "restaurant":
-      if(inList(pathname, RESTAURANT_PAGES))return NextResponse.next();
+      if(inList(pathname, RESTAURANT_PAGES) || inList(pathname, USER_PAGES))return NextResponse.next();
 
       return NextResponse.redirect(new URL("/restaurant", request.url));
 
