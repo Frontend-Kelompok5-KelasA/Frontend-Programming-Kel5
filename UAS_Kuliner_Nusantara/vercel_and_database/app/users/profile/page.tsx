@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import Image from "next/image";
-import { checkProfile } from "../../script/profile";
+import { checkProfile } from "@/script/profile";
 import { loadSession } from "@/script/utils";
 
 export default function Profile() {

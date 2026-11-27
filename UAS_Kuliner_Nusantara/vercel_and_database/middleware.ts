@@ -3,32 +3,20 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/backend-scripts/session-handler";
 
 // aturan page
-const ADMIN_PAGES = [
-  "/admin",
-  "/tambah_resto",
-  "/user_detail",
-  "/restoran_detail",
-  "/review_detail",
-  "/edit_resto",
-  "/edit_user",
-  "/manage-content",
+const ADMIN_PAGES = ["/admin", "/restaurant/edit"];
+
+const RESTAURANT_PAGES = ["/restaurant"];
+
+const SHARED_PAGES = [
+  "/about-us", "/explore", "/favorites", "/customer-service"
 ];
 
-const RESTAURANT_PAGES = ["/restaurant", "/edit_resto", "/user_settings"];
+const USER_PAGES = ["/users"];
 
-const SHARED_PAGES = ["/user_settings"];
-
-const USER_PAGES = [
-  "/favorites",
-  "/profile",
-  "/user_settings",
-  "/user_edit_review",
-];
-
-const GUEST_ONLY = ["/login", "/sign-up"];
+const GUEST_ONLY = ["/auth/login", "/auth/sign-up"];
 
 const match = (pathname: string, base: string) =>
-  pathname === base || pathname.startsWith(base + "/");
+  pathname.startsWith(base);
 
 const inList = (pathname: string, list: string[]) =>
   list.some((p) => pathname.startsWith(p));
@@ -39,33 +27,37 @@ export async function middleware(request: NextRequest) {
   const session = await getSession();
   const role = session.userData?.role;
 
-  if (match(pathname, "/logout")) return NextResponse.next();
+  if(pathname === "/" || match(pathname, "/auth/logout"))return NextResponse.next();
 
-  if (role === "admin") {
-    if (inList(pathname, ADMIN_PAGES) || inList(pathname, SHARED_PAGES))
-      return NextResponse.next();
-    return NextResponse.redirect(new URL("/admin", request.url));
-  }
-
-  if (role === "restaurant") {
-    if (inList(pathname, RESTAURANT_PAGES)) return NextResponse.next();
-    return NextResponse.redirect(new URL("/restaurant", request.url));
-  }  
-
-  if (inList(pathname, ADMIN_PAGES) || match(pathname, "/restaurant")) {
-    return NextResponse.redirect(new URL(role ? "/" : "/login", request.url));
-  }
-
-  if (inList(pathname, GUEST_ONLY)) {
-    if (role) return NextResponse.redirect(new URL("/", request.url));
+  if(inList(pathname, SHARED_PAGES)){
     return NextResponse.next();
   }
-  if (inList(pathname, USER_PAGES) && !role) {
-    return NextResponse.redirect(new URL("/login", request.url));
-  }
 
-  return NextResponse.next();
+  switch(role){
+    case "admin":
+      if(inList(pathname, ADMIN_PAGES))return NextResponse.next();
+
+      return NextResponse.redirect(new URL("/admin", request.url));
+
+    case "restaurant":
+      if(inList(pathname, RESTAURANT_PAGES))return NextResponse.next();
+
+      return NextResponse.redirect(new URL("/restaurant", request.url));
+
+    case "user":
+      if(inList(pathname, USER_PAGES))return NextResponse.next();
+
+      return NextResponse.redirect("/");
+
+    default:
+      if(inList(pathname, GUEST_ONLY) && !role){
+        return NextResponse.next();
+      }
+
+      return NextResponse.redirect(new URL("/auth/login", request.url));
+  }
 }
+
 export const config = {
   matcher: ["/((?!api|_next/static|_next/image|.*\\..*).*)"],
 };

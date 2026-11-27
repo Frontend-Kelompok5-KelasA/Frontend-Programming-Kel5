@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { loadSession } from "../../script/utils";
-import { onLoad } from "../../script/explore";
+import { loadSession } from "@/script/utils";
+import { onLoad } from "@/script/explore";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);

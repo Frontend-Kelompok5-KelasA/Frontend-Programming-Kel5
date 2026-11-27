@@ -68,7 +68,7 @@ export default function Login() {
                             <Link href="/customer-service" className="login-btn">I forgot my password</Link>
                         </p>
                         <p className="sign-up">Don&apos;t have an account?
-                            <Link href="/sign-up" className="login-btn">Sign Up</Link>
+                            <Link href="/auth/sign-up" className="login-btn">Sign Up</Link>
                         </p>
                     </div>
                 </div>

@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import FavoriteButton from "../../components/FavoriteButton";
+import FavoriteButton from "@/components/FavoriteButton";
 
 interface Restaurant {
   id: number;

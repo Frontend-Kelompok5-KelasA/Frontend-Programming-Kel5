@@ -89,7 +89,7 @@ export const Footer = () => {
                       ref={(e: any) => {refs.current.tabs.favorite = e}}
                 > Memuat... </Link>
               )}
-              <Link href="/about_us"
+              <Link href="/about-us"
                     className="footer-a"
                     ref={(e: any) => {refs.current.tabs["about-us"] = e}}
               > Memuat... </Link>

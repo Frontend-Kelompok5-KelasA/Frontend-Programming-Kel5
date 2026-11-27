@@ -131,7 +131,7 @@ export default function EditRestoById() {
         <Card.Header>
           <div className="mb-2">
             <Link
-              href={role === "restaurant" ? "/restaurant" : "/restoran_detail"}
+              href={role === "restaurant" ? "/restaurant" : "/admin/restaurant"}
               className="btn btn-outline-secondary btn-sm"
             >
               &larr; Kembali

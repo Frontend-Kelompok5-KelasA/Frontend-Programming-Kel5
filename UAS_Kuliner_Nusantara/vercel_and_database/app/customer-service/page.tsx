@@ -58,7 +58,7 @@ export default function CustomerService() {
                         </section>
                     </div>
                     <div className="cs-back-wrap">
-                        <Link href="/login" className="cs-back-btn">
+                        <Link href="/auth/login" className="cs-back-btn">
                             <i className="bi bi-arrow-left"></i> Back to Login
                         </Link>
                     </div>
