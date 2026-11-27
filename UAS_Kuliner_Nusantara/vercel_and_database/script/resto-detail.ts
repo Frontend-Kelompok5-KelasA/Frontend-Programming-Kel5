@@ -44,6 +44,7 @@ export async function onLoad() {
 
         const button = document.createElement("button");
         button.textContent = "Edit";
+        button.className = "btn-hapus-dan-edit";
         button.addEventListener("click", () => {
           redirect(`/restaurant/edit/${resto.id}`);
         });
@@ -56,6 +57,7 @@ export async function onLoad() {
         const tombolHapus = document.createElement("button");
         tombolHapus.type = "button";
         tombolHapus.textContent = "Hapus";
+        tombolHapus.className = "btn-hapus-dan-edit";
         tombolHapus.addEventListener("click", async () => {
           const berhasil = await hapusData(
             `/api/resto/${encodeURIComponent(resto.id)}`,
