@@ -59,7 +59,7 @@ export default function ManageContent(){
                     <td>
                       <Button onClick={() => {
                         setProcess(true);
-                        redirect(`/manage-content/${pageId}`);
+                        redirect(`/admin/manage-content/${pageId}`);
                       }} disabled={process}>
                         Edit Page
                       </Button>
