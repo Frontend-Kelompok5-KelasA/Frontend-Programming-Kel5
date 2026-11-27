@@ -16,21 +16,6 @@ export async function GET(req: Request) {
         userId: Number(auth.user.user_id),
       }).all();
 
-      const dataDenganEmail = await Promise.all(
-        milikSaya.map(async (restaurant) => {
-          const owner = restaurant.userId
-            ? await db.User.where({
-                userId: restaurant.userId,
-              }).first()
-            : null;
-          return {
-            ...restaurant,
-            desc: restaurant.description,
-            email: owner?.email ?? "",
-          };
-        }),
-      );
-
       return NextResponse.json(
         milikSaya.map((restaurant) => ({
           ...restaurant,
@@ -41,21 +26,21 @@ export async function GET(req: Request) {
 
     const result = await db.Restaurant.all();
 
-const dataDenganEmail = await Promise.all(
-  result.map(async (restaurant) => {
-    const owner = restaurant.userId
-      ? await db.User.where({
-          userId: restaurant.userId,
-        }).first()
-      : null;
+    const dataDenganEmail = await Promise.all(
+      result.map(async (restaurant) => {
+        const owner = restaurant.userId
+          ? await db.User.where({
+              userId: restaurant.userId,
+            }).first()
+          : null;
 
-    return {
-      ...restaurant,
-      desc: restaurant.description,
-      email: owner?.email ?? "-",
-    };
-  }),
-);
+        return {
+          ...restaurant,
+          desc: restaurant.description,
+          email: owner?.email ?? "-",
+        };
+      }),
+    );
 
 return NextResponse.json(dataDenganEmail);
   } catch (err: any) {
