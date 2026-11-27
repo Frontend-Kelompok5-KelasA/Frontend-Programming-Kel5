@@ -159,7 +159,7 @@ export async function onLoad(refs: any, states: {filterText: any}){
                     cat: r.cat,
                     tag: r.tag,
                     status: r.status,
-                    official_website: r.official_website,
+                    official_website: r.officialWebsite,
                     instagram: r.instagram,
                     locations: []
                 });
@@ -175,7 +175,7 @@ export async function onLoad(refs: any, states: {filterText: any}){
                 id: r.id,
                 city: r.city,
                 place: r.place,
-                open_hour: r.open_hour,
+                open_hour: r.openHour,
                 rating: r.rating,
                 price: r.price,
                 harga: parseHarga(r.price)
