@@ -45,7 +45,7 @@ export async function onLoad() {
         const button = document.createElement("button");
         button.textContent = "Edit";
         button.addEventListener("click", () => {
-          redirect(`/edit_resto/${resto.id}`);
+          redirect(`/restaurant/edit/${resto.id}`);
         });
 
         const td = document.createElement("td");

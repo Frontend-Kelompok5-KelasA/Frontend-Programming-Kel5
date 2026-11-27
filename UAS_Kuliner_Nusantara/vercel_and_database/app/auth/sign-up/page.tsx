@@ -64,7 +64,7 @@ export default function SignUp() {
                             {error && <p className="login-error" role="alert">{error}</p>}
                             <button type="submit" id="submit" disabled={loading}>Register</button>
                         </form>
-                        <p className="sign-up">Already have an account? <Link href="/login" className="login-btn">Log In</Link></p>
+                        <p className="sign-up">Already have an account? <Link href="/auth/login" className="login-btn">Log In</Link></p>
                     </div>
                 </div>
             </div>

@@ -509,27 +509,39 @@ export async function onLoad(refs: any, states: {filterText: any}){
             <img class="ig" src="/images/websiteEssentials/instagram.webp" alt="instagram">Instagram</a>` : ""
         ].join(" ");
 
-        const reviewHTML = currentUser ? `
-            <h3>Tulis Review</h3>
-            <form id="review-form" class="review-form d-flex flex-column gap-2">
-                <select name="restaurant_id" class="section-review" required>
-                    ${resto.locations.map((l) =>
-                `<option value="${esc(l.id)}">${esc(l.city)} - ${esc(l.place?.slice(0, 50))}</option>`
-            ).join("")}
-                </select>
-                <select name="rating" class="section-review" required>
-                    <option value="">Pilih rating</option>
-                    <option value="5">⭐⭐⭐⭐⭐ (5)</option>
-                    <option value="4">⭐⭐⭐⭐ (4)</option>
-                    <option value="3">⭐⭐⭐ (3)</option>
-                    <option value="2">⭐⭐ (2)</option>
-                    <option value="1">⭐ (1)</option>
-                </select>
-                <textarea name="comment" rows="3" maxlength="1000" class="section-review" placeholder="Ceritakan pengalamanmu..." required></textarea>
-                <button type="submit" class="button-kirim-review">Kirim Review</button>
-                <p id="review-msg"></p>
-            </form>`
-            : `<p><a href="/login">Login</a> untuk menulis review.</p>`;
+        let reviewHTML = `<p><a href="/auth/login">Login</a> untuk menulis review.</p>`;
+
+        if(currentUser){
+            switch(currentUser.role){
+                case "user":
+                    reviewHTML = `
+                        <h3>Tulis Review</h3>
+                        <form id="review-form" class="review-form d-flex flex-column gap-2">
+                            <select name="restaurant_id" class="section-review" required>
+                                ${resto.locations.map((l) =>
+                                  `<option value="${esc(l.id)}">${esc(l.city)} - ${esc(l.place?.slice(0, 50))}</option>`
+                                ).join("")}
+                            </select>
+                            <select name="rating" class="section-review" required>
+                                <option value="">Pilih rating</option>
+                                <option value="5">⭐⭐⭐⭐⭐ (5)</option>
+                                <option value="4">⭐⭐⭐⭐ (4)</option>
+                                <option value="3">⭐⭐⭐ (3)</option>
+                                <option value="2">⭐⭐ (2)</option>
+                                <option value="1">⭐ (1)</option>
+                            </select>
+                            <textarea name="comment" rows="3" maxlength="1000" class="section-review" placeholder="Ceritakan pengalamanmu..." required></textarea>
+                            <button type="submit" class="button-kirim-review">Kirim Review</button>
+                            <p id="review-msg"></p>
+                        </form>`;
+                    break;
+
+                case "admin":
+                case "restaurant":
+                    reviewHTML = `<span class="text-danger"> Tidak dapat menulis review pada akun saat ini </span>`;
+                    break;
+            }
+        }
 
         let imgPath = `/images/restaurantImages/${imageFile}`;
         if(imageFile.startsWith('http'))imgPath = imageFile;
@@ -628,7 +640,7 @@ export async function onLoad(refs: any, states: {filterText: any}){
     if (popularList) {
         popularList.addEventListener("click", (e) => {
             // @ts-expect-error - Third-party library type mismatch
-            if (e.target?.closest(".but-card")) window.location.href = "explore.html";
+            if (e.target?.closest(".but-card")) window.location.href = "/explore";
         });
     }
 

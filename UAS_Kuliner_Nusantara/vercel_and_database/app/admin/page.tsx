@@ -45,7 +45,7 @@ export default function Admin() {
 
                 <div id="dashboard-content" className="dashboard-content row g-4">
                     <div id="card-dashboard" className="col-12 col-md-4">
-                        <a href="/user_detail" className="card stat-card" data-key="user">
+                        <a href="/admin/user" className="card stat-card" data-key="user">
                             <Image src="/images/websiteEssentials/profile_icon.jpg" alt="" width={200} height={200} />
                             <div className="stat-teks">
                                 <span className="stat-label">Jumlah User</span>
@@ -55,7 +55,7 @@ export default function Admin() {
                     </div>
 
                     <div className="card-dashboard col-12 col-md-4">
-                        <a href="/restoran_detail" className="card stat-card" data-key="restoran">
+                        <a href="/admin/restaurant" className="card stat-card" data-key="restoran">
                             <Image src="/images/websiteEssentials/shop.png" alt="" width={200} height={200}/>
                             <div className="stat-teks">
                                 <span className="stat-label">Jumlah Restoran</span>
@@ -65,7 +65,7 @@ export default function Admin() {
                     </div>
 
                     <div className="card-dashboard col-12 col-md-4">
-                        <a href="/review_detail" className="card stat-card" data-key="review">
+                        <a href="/admin/reviews" className="card stat-card" data-key="review">
                             <Image src="/images/websiteEssentials/review.png" alt="" width={200} height={200}/>
                             <div className="stat-teks">
                                 <span className="stat-label">Jumlah Review</span>
@@ -78,7 +78,7 @@ export default function Admin() {
                 <div className="col-12 d-flex flex-column justify-content-center align-items-center">
                     <br />
                     <div className="card-dashboard col-12 col-md-7 col-lg-5 col-xl-4">
-                        <a href="/manage-content" className="card stat-card" data-key="cms">
+                        <a href="/admin/manage-content" className="card stat-card" data-key="cms">
                             <Image src="/images/websiteEssentials/cms.png" alt="" width={200} height={200}/>
                             <div className="stat-teks">
                                 <span className="stat-label">Pengaturan Konten</span>

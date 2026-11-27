@@ -138,10 +138,10 @@ export const Navbar = () => {
             </span>
             {role !== "admin" && (
               <>
-                <Link className="dropdown-item" href="/login">
+                <Link className="dropdown-item" href="/auth/login">
                   Log In
                 </Link>
-                <Link className="dropdown-item" href="/sign-up">
+                <Link className="dropdown-item" href="/auth/sign-up">
                   Sign Up
                 </Link>
               </>
@@ -176,7 +176,7 @@ export const Navbar = () => {
             </span>
             {role === "user" ? (
               <>
-                <Link className="dropdown-item" href="/profile">
+                <Link className="dropdown-item" href="/users/profile">
                   View Profile
                 </Link>
               </>
@@ -186,7 +186,7 @@ export const Navbar = () => {
                 Dashboard Toko
               </Link>
             ) : null}
-            <Link className="dropdown-item" href="/user_settings">
+            <Link className="dropdown-item" href="/users/settings">
               Settings
             </Link>
             {role === "admin" ? (
@@ -194,7 +194,7 @@ export const Navbar = () => {
                 Admin
               </Link>
             ) : null}
-            <Link className="dropdown-item" href="/logout" prefetch={false}>
+            <Link className="dropdown-item" href="/auth/logout" prefetch={false}>
               Sign Out
             </Link>
           </div>
@@ -202,34 +202,28 @@ export const Navbar = () => {
         <div className="collapse navbar-collapse" id="nav-hamburger">
           <div className="navbar-nav">
             {!loaded ? <span className="text-white"> Memuat... </span> : null}
-            {role !== "admin" && role !== "restaurant" && (
-              <>
-                <Link className="nav-link"
-                      href="/"
-                      ref={(e: any) => refs.current.tabs.home = e}
-                />
-                <Link className="nav-link"
-                      href="/explore"
-                      ref={(e: any) => refs.current.tabs.explore = e}
-                />
-
-                {role === "user" ? (
-                  <Link href="/favorites"
-                        className="nav-link"
-                        ref={(e: any) => refs.current.tabs.favorite = e}
-                  />
-                ) : null}
-                <Link className="nav-link"
-                      href="/about_us"
-                      ref={(e: any) => refs.current.tabs["about-us"] = e}
-                />
-                <Link className="nav-link"
-                      href="/customer-service"
-                      ref={(e: any) => refs.current.tabs.contact = e}
-                />
-              </>
-            )}
-
+            <Link className="nav-link"
+                  href="/"
+                  ref={(e: any) => refs.current.tabs.home = e}
+            />
+            <Link className="nav-link"
+                  href="/explore"
+                  ref={(e: any) => refs.current.tabs.explore = e}
+            />
+            {role === "user" ? (
+              <Link href="/favorites"
+                    className="nav-link"
+                    ref={(e: any) => refs.current.tabs.favorite = e}
+              />
+            ) : null}
+            <Link className="nav-link"
+                  href="/about-us"
+                  ref={(e: any) => refs.current.tabs["about-us"] = e}
+            />
+            <Link className="nav-link"
+                  href="/customer-service"
+                  ref={(e: any) => refs.current.tabs.contact = e}
+            />
             {role === "admin" ? (
               <Link className="nav-link" href="/admin">
                 Admin

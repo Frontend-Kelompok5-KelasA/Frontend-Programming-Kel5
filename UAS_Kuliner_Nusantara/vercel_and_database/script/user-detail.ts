@@ -38,7 +38,7 @@ export async function onLoad() {
         tombolEdit.type = "button";
         tombolEdit.textContent = "Edit";
         tombolEdit.addEventListener("click", () => {
-          window.location.href = `/edit_user/${encodeURIComponent(String(user.userId))}`;
+          window.location.href = `/admin/user/edit/${encodeURIComponent(String(user.userId))}`;
         });
 
         const tdEdit = document.createElement("td");

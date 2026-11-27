@@ -3,8 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { loadSession } from "../script/utils";
-import { onLoad } from "../script/home";
+import { loadSession } from "@/script/utils";
+import { onLoad } from "@/script/home";
 import parse from "html-react-parser";
 import LoadingScreen from "@/components/LoadingScreen";
 

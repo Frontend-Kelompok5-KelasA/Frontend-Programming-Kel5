@@ -1,4 +1,4 @@
-import { getPrisma, getRawPrisma } from "../../../../backend-scripts/database";
+import { getPrisma, getRawPrisma } from "@/backend-scripts/database";
 import { NextResponse } from "next/server";
 import { requireRole } from "@/backend-scripts/auth-guard";
 

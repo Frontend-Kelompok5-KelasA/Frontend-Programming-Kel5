@@ -170,7 +170,7 @@ export default function RestaurantDashboard() {
 
                     <div className="mt-auto">
                       <Link
-                        href={`/edit_resto/${resto.id}`}
+                        href={`/restaurant/edit/${resto.id}`}
                         className="btn-tambah d-inline-block text-center text-decoration-none w-100"
                       >
                         Edit Toko Ini

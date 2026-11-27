@@ -159,7 +159,7 @@ export default function EditReviewById() {
               <button
                 type="button"
                 className="btn-tambah"
-                onClick={() => router.push("/profile")}
+                onClick={() => router.push("/users/profile")}
               >
                 Kembali ke Profile
               </button>

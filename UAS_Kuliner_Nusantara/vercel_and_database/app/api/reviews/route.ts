@@ -12,7 +12,7 @@ export async function POST(req: Request) {
 
   const session = await getSession();
   if (!session.userData) {
-    redirect("/login");
+    redirect("/auth/login");
   }
 
   const { restaurant_id, rating, comment } = await req.json();
@@ -54,7 +54,7 @@ export async function GET() {
 
   const user = session.userData;
   if (!user) {
-    redirect("/login");
+    redirect("/auth/login");
   }
 
   const isAdmin = user.role === "admin";

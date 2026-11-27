@@ -1,6 +1,6 @@
-import { getPrisma, getRawPrisma } from "../../../backend-scripts/database";
+import { getPrisma, getRawPrisma } from "@/backend-scripts/database";
 import { NextResponse } from "next/server";
-import { getSession } from "../../../backend-scripts/session-handler";
+import { getSession } from "@/backend-scripts/session-handler";
 
 export const dynamic = "force-dynamic";
 

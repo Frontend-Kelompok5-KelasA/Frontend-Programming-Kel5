@@ -89,7 +89,7 @@ export async function checkProfile() {
                       canEdit
                         ? `
                     <td class="text-nowrap">
-                        <a class="btn-tambah" href="/user_edit_review/${encodeURIComponent(String(r.review_id))}">Edit</a>
+                        <a class="btn-tambah" href="/users/review/${encodeURIComponent(String(r.review_id))}">Edit</a>
                         <button type="button" class="btn-tambah" data-delete-id="${esc(r.review_id)}" data-delete-name="${esc(r.restaurant_name ?? r.restaurant_id)}">Delete</button>
                     </td>`
                         : ""
