@@ -1691,17 +1691,17 @@ body::before {
   }
 
   .navbar-nav .nav-link {
-    padding-left: 0.4rem;
-    padding-right: 0.4rem;
-    font-size: 0.9rem;
+    padding-left: 6px;
+    padding-right: 6px;
+    font-size: 14px;
   }
 }
 
 @media (min-width: 992px) and (max-width: 1199px) {
   .navbar-nav .nav-link {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    font-size: 0.95rem;
+    padding-left: 6px;
+    padding-right: 8px;
+    font-size: 15px;
   }
 
   .nav-title {
