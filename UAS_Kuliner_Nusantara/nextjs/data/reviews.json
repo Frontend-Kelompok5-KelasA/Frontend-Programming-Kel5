@@ -1,0 +1,10 @@
+[
+  {
+    "reviewId": 1,
+    "userId": 36,
+    "restaurantId": "ar-01",
+    "rating": 5,
+    "comment": "enakk",
+    "createdAt": "2026-11-28 17:30:43"
+  }
+]
