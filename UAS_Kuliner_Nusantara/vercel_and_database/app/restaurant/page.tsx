@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { loadSession } from "@/script/utils";
+import { loadSession, resolveImage, DEFAULT_RESTO_IMAGE } from "@/script/utils";
 
 interface SessionUser {
   user_id: string;
@@ -145,14 +145,15 @@ export default function RestaurantDashboard() {
                 <div className="card h-100">
                   <div className="card-body d-flex flex-column">
                     <div className="d-flex gap-3 mb-3 align-items-start">
-                      {resto.image && (
-                        <img
-                          src={resto.image}
-                          alt={resto.name}
-                          className="rounded"
-                          style={{ width: 100, height: 100, objectFit: "cover" }}
-                        />
-                      )}
+                      <img
+                        src={resolveImage(resto.image)}
+                        alt={resto.name}
+                        className="rounded"
+                        style={{ width: 100, height: 100, objectFit: "cover" }}
+                        onError={(e) => {
+                          e.currentTarget.src = DEFAULT_RESTO_IMAGE;
+                        }}
+                      />
                       <div className="flex-grow-1">
                         <h5 className="fw-bold mb-1">{resto.name}</h5>
                         <p className="text-muted small mb-1">
