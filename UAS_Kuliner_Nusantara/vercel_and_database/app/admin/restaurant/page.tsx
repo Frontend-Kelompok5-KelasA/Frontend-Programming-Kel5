@@ -13,7 +13,7 @@ export default function RestoDetail() {
   return (
     <main>
       <section className="halaman-tabel">
-        <div className="d-flex justify-content-between align-items-center mb-3">
+        <div className="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
           <h1 className="mb-0">Tabel Informasi Restoran</h1>
 
           <a href="/admin/restaurant/add" className="btn-tambah">
@@ -26,6 +26,8 @@ export default function RestoDetail() {
             <thead>
               <tr>
                 <th scope="col">No</th>
+
+                <th scope="col">Gambar</th>
                 <th scope="col">Nama Restoran</th>
                 <th scope="col">Email</th>
                 <th scope="col">Kota</th>
@@ -40,7 +42,7 @@ export default function RestoDetail() {
             </thead>
             <tbody id="tabel-resto-body">
               <tr>
-                <td colSpan={11} className="text-center">
+                <td colSpan={12} className="text-center">
                   Loading data...
                 </td>
               </tr>

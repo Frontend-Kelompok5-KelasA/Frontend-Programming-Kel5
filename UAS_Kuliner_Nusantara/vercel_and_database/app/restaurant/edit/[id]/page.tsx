@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button, Card } from "react-bootstrap";
 import { upload } from "@vercel/blob/client";
+import { resolveImage, DEFAULT_RESTO_IMAGE } from "@/script/utils";
 
 type OwnerOption = {
   userId: number;
@@ -17,7 +18,7 @@ type OwnerOption = {
 export default function EditRestoById() {
   const { id } = useParams();
 
-  const [data, setData] = useState<Record<string, any>>({})
+  const [data, setData] = useState<Record<string, any>>({});
 
   const [role, setRole] = useState<string | null>(null);
 
@@ -29,9 +30,22 @@ export default function EditRestoById() {
 
   const [process, setProcess] = useState<boolean>(false);
 
-  const { register, handleSubmit, reset } = useForm({
+  const { register, handleSubmit, reset, watch } = useForm({
     defaultValues: structuredClone(data),
   });
+
+  const [preview, setPreview] = useState<string | null>(null);
+  const pickedFiles = watch("image" as any) as unknown as FileList | undefined;
+
+  useEffect(() => {
+    const file = pickedFiles?.[0];
+    if (file instanceof File) {
+      const url = URL.createObjectURL(file);
+      setPreview(url);
+      return () => URL.revokeObjectURL(url);
+    }
+    setPreview(null);
+  }, [pickedFiles]);
 
   const [success, setSuccess] = useState(false);
 
@@ -159,7 +173,10 @@ export default function EditRestoById() {
             <form onSubmit={handleSubmit((result) => onSubmit(result))}>
               {Object.entries(data).map(([name, val]: [string, any]) => {
                 if (name === "desc" || name === "id") return null;
-                if ((name === "rating" || name === "userId") && role === "restaurant") {
+                if (
+                  (name === "rating" || name === "userId") &&
+                  role === "restaurant"
+                ) {
                   return null;
                 }
 
@@ -174,7 +191,10 @@ export default function EditRestoById() {
                       >
                         <option value="">-- Belum ada pemilik --</option>
                         {owners.map((owner) => (
-                          <option key={owner.userId} value={String(owner.userId)}>
+                          <option
+                            key={owner.userId}
+                            value={String(owner.userId)}
+                          >
                             {owner.username} ({owner.email})
                           </option>
                         ))}
@@ -188,6 +208,21 @@ export default function EditRestoById() {
                     <span className="form-label"> {formatName(name)} </span>
                     {name === "image" ? (
                       <>
+                        <div className="mb-2">
+                          <img
+                            src={preview ?? resolveImage(data.image)}
+                            alt={data.name ?? "Gambar restoran"}
+                            className="rounded border"
+                            style={{
+                              maxWidth: 240,
+                              maxHeight: 180,
+                              objectFit: "cover",
+                            }}
+                            onError={(e) => {
+                              e.currentTarget.src = DEFAULT_RESTO_IMAGE;
+                            }}
+                          />
+                        </div>
                         <input
                           type="file"
                           accept="image/*"

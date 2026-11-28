@@ -116,6 +116,10 @@ hr {
   border-color: var(--nav-hover);
 }
 
+.nav-link {
+  white-space: nowrap;
+}
+
 .nav-link,
 .nav-link:focus,
 .nav-link:active,
@@ -226,8 +230,16 @@ hr {
 
 .username {
   color: var(--nav-element);
-  padding: 5px 15px;
-  font-weight: 500;
+  padding: 6px 15px 0;
+  font-weight: 700;
+}
+
+.username-text {
+  display: block;
+  max-width: 210px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .dropdown-item:hover {
@@ -243,6 +255,7 @@ hr {
   background-color: var(--nav-hover);
   border: none;
   opacity: 100%;
+  margin: 8px 0 6px;
 }
 
 /* ---- MAIN PAGE ---- */
@@ -455,7 +468,7 @@ hr {
 
 .but-card:hover {
   background: var(--nav);
-  color: var(--footer-hover)
+  color: var(--footer-hover);
 }
 
 /* explore restaurants */
@@ -506,16 +519,16 @@ main {
 }
 
 .kotak-register-login {
-    box-shadow: 0px 5px 5px #afaeae;
-    border-radius: 20px;
-    padding: 0;
-    margin: 120px auto 40px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    gap: 0; 
-    width: 80%;
+  box-shadow: 0px 5px 5px #afaeae;
+  border-radius: 20px;
+  padding: 0;
+  margin: 120px auto 40px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 0;
+  width: 80%;
 }
 
 .kotak-register-login p {
@@ -523,9 +536,9 @@ main {
 }
 
 .login-signup-image {
-    flex: 1 1 50%; 
-    overflow: hidden;
-    position: relative;
+  flex: 1 1 50%;
+  overflow: hidden;
+  position: relative;
 }
 
 .login-signup-image > * {
@@ -550,11 +563,11 @@ main {
 }
 
 .login-image {
-    position: absolute;
-    display: block;
-    width: 500px;
-    height: 500px;
-    object-fit: cover;
+  position: absolute;
+  display: block;
+  width: 500px;
+  height: 500px;
+  object-fit: cover;
 }
 
 .halaman-regist-login {
@@ -630,27 +643,26 @@ main {
 }
 
 .card {
-    border: 9px solid white;
-    box-shadow: 3px 3px 10px var(--nav-hover);
-    transition: transform 0.2s;
-    border-radius: 20px;
-    margin-bottom: 15px;
-    position: relative;
+  border: 9px solid white;
+  box-shadow: 3px 3px 10px var(--nav-hover);
+  transition: transform 0.2s;
+  border-radius: 20px;
+  margin-bottom: 15px;
+  position: relative;
 }
 
-
 .card .like-badge {
-    position: absolute;
-    top: -20px;
-    right: -20px;
-    width: 45px;       
-    height: auto;
-    z-index: 10;       
-    border-radius: 0;  
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 45px;
+  height: auto;
+  z-index: 10;
+  border-radius: 0;
 }
 
 .hide-like .like-badge {
-    display: none;
+  display: none;
 }
 
 .card img {
@@ -830,21 +842,21 @@ h5 {
 }
 
 .header-halal {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 25px; 
-    gap: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 25px;
+  gap: 7px;
 }
 
 .list-resto .header-halal h2 {
-    margin: 0;
+  margin: 0;
 }
 
 .header-halal img {
-    width: clamp(32px, 7vw, 55px);
-    height: auto;
-    flex-shrink: 0;
+  width: clamp(32px, 7vw, 55px);
+  height: auto;
+  flex-shrink: 0;
 }
 
 .button-kirim-review {
@@ -1469,19 +1481,19 @@ footer .footer-fill .row {
 }
 
 @media (max-width: 768px) {
-    .kotak-register-login {
-        flex-direction: column;
-        width: 90%;
-        margin: 100px auto 30px;
-    }
+  .kotak-register-login {
+    flex-direction: column;
+    width: 90%;
+    margin: 100px auto 30px;
+  }
 
-    .login-signup-image {
-        display: none;   
-    }
+  .login-signup-image {
+    display: none;
+  }
 
-    .login-signup-box {
-        padding: 20px;
-    }
+  .login-signup-box {
+    padding: 20px;
+  }
 }
 
 /* ANIMATION */
@@ -1671,4 +1683,44 @@ body::before {
   border: none;
   padding: 2px 12px;
   border-radius: 8px;
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .navbar-collapse {
+    padding: 6px 8px;
+  }
+
+  .navbar-nav .nav-link {
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .navbar-nav .nav-link {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    font-size: 0.95rem;
+  }
+
+  .nav-title {
+    font-size: 17px;
+    padding-right: 8px;
+  }
+}
+
+@media (max-width: 992px) {
+  .navbar-profile .dropdown-menu {
+    min-width: 240px;
+    max-width: calc(100vw - 24px);
+    padding: 8px 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .halaman-tabel .btn-tambah {
+    width: 100%;
+    text-align: center;
+  }
 }

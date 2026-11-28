@@ -56,3 +56,11 @@ export async function hapusData(
     return false;
   }
 }
+
+export const DEFAULT_RESTO_IMAGE = "/images/restaurantImages/migor.png";
+
+export function resolveImage(image?: string | null): string {
+  if (!image) return DEFAULT_RESTO_IMAGE;
+  if (image.startsWith("http")) return image;
+  return `/images/restaurantImages/${image}`;
+}

@@ -78,8 +78,11 @@ export default function UserSettings() {
         confirmPassword: "",
       });
 
-      const navName = document.getElementById("profile-name");
-      if (navName) navName.textContent = data.username;
+      document
+        .querySelectorAll<HTMLElement>(".profile-username")
+        .forEach((el) => {
+          el.textContent = data.username;
+        });
     } catch {
       setError("Gagal menyimpan perubahan.");
     } finally {

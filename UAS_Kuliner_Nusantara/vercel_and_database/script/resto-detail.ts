@@ -1,6 +1,6 @@
-import { hapusData } from "./utils";
-
 import { redirect } from "next/navigation";
+
+import { hapusData, resolveImage, DEFAULT_RESTO_IMAGE } from "./utils";
 
 export async function onLoad() {
   const loadRestTable = async () => {
@@ -34,6 +34,20 @@ export async function onLoad() {
           teks && teks.length > maks ? teks.slice(0, maks) + "…" : teks;
 
         baris.appendChild(makeCell(String(i + 1)));
+        const tdGambar = document.createElement("td");
+        const img = document.createElement("img");
+        img.src = resolveImage(resto.image);
+        img.alt = resto.name;
+        img.width = 80;
+        img.height = 60;
+        img.className = "rounded";
+        img.style.objectFit = "cover";
+        img.onerror = () => {
+          img.onerror = null;
+          img.src = DEFAULT_RESTO_IMAGE;
+        };
+        tdGambar.appendChild(img);
+        baris.appendChild(tdGambar);
         baris.appendChild(makeCell(resto.name));
         baris.appendChild(makeCell(resto.email));
         baris.appendChild(makeCell(resto.city));

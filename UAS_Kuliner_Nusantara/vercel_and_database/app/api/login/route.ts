@@ -1,51 +1,51 @@
 import { getPrisma } from "@/backend-scripts/database";
 import { NextResponse } from "next/server";
 import { getSession } from "@/backend-scripts/session-handler";
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
-export async function POST(req: Request){
-    const session = await getSession();
-    if(session.userData){
-        return NextResponse.json({ success: true });
+export async function POST(req: Request) {
+  const session = await getSession();
+  if (session.userData) {
+    return NextResponse.json({ success: true, role: session.userData.role });
+  }
+
+  try {
+    const { email, password } = await req.json();
+
+    const db = getPrisma();
+
+    const user = await db.User.where({
+      email: email,
+    }).first();
+
+    const passwordMatch = user
+      ? await bcrypt.compare(password, user.password)
+      : false;
+
+    if (!user || !passwordMatch) {
+      return NextResponse.json(
+        { success: false, message: "Wrong email or password" },
+        { status: 401 },
+      );
     }
 
-    try {
-        const { email, password } = await req.json();
+    session.userData = {
+      user_id: String(user.userId),
+      email: user.email,
+      username: user.username,
+      role: user.role,
+    };
 
-        const db = getPrisma();
+    await session.save();
 
-        const user = await db.User.where({
-            email: email
-        }).first();
-
-        const passwordMatch = user
-            ? await bcrypt.compare(password, user.password)
-            : false;
-
-        if (!user || !passwordMatch) {
-            return NextResponse.json(
-                { success: false, message: "Wrong email or password" },
-                { status: 401 }
-            );
-        }
-
-        session.userData = {
-            user_id: String(user.userId),
-            email: user.email,
-            username: user.username,
-            role: user.role
-        };
-
-        await session.save();
-
-        return NextResponse.json({ success: true });
-    } catch (err) {
-        console.error(err);
-        return NextResponse.json(
-            { success: false, message: "There's a problem with the server" },
-            { status: 500 }
-        );
-    }
+    return NextResponse.json({ success: true, role: user.role });
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json(
+      { success: false, message: "There's a problem with the server" },
+      { status: 500 },
+    );
+  }
 }

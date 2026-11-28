@@ -4,12 +4,14 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { onLoad } from "@/script/navbar";
+import { useRouter } from "next/navigation";
 
 export const Navbar = () => {
   const [elements, setElements] = useState<string[]>();
   const [role, setRole] = useState<string | null>(null);
   const [loaded, setLoaded] = useState(false);
   const navRef = useRef<HTMLElement>(null);
+  const router = useRouter();
 
   const refs = useRef<any>({
     desc: {
@@ -58,10 +60,11 @@ export const Navbar = () => {
           setElements(() => ["admin"]);
         }
 
-        const profileName = document.getElementById("profile-name");
-        if (profileName) {
-          profileName.textContent = session.username;
-        }
+        document
+          .querySelectorAll<HTMLElement>(".profile-username")
+          .forEach((el) => {
+            el.textContent = session.username;
+          });
 
         const profileOut = document.getElementById("profile-out");
         if (profileOut) {
@@ -108,6 +111,23 @@ export const Navbar = () => {
     load();
   }, []);
 
+  useEffect(() => {
+    const KEY = "redirect-awal-selesai";
+    if (sessionStorage.getItem(KEY)) return;
+    sessionStorage.setItem(KEY, "1");
+
+    // hanya kalau web dibuka lewat halaman utama
+    if (window.location.pathname !== "/") return;
+
+    fetch("/api/session", { cache: "no-store" })
+      .then((res) => res.json())
+      .then((session) => {
+        if (session?.role === "admin") router.replace("/admin");
+        else if (session?.role === "restaurant") router.replace("/restaurant");
+      })
+      .catch(() => {});
+  }, [router]);
+
   return (
     <nav ref={navRef} className="navbar navbar-expand-md sticky-top">
       <div className="container-fluid">
@@ -131,11 +151,11 @@ export const Navbar = () => {
             height={100}
           />
           <span
-            className="nav-title d-none d-md-inline"
+            className="nav-title d-none d-lg-inline"
             ref={(e: any) => (refs.current.desc.title = e)}
           />
         </Link>
-        <span className="nav-divider d-none d-md-block"></span>
+        <span className="nav-divider d-none d-lg-block"></span>
         <div
           className="navbar-profile dropdown ms-auto order-md-last ms-md-0 d-none"
           id="profile-out"
@@ -153,10 +173,10 @@ export const Navbar = () => {
               width={100}
               height={100}
             />
-            <span className="d-none d-md-inline">Account</span>
+            <span className="d-none d-lg-inline">Account</span>
           </div>
           <div className="dropdown-menu dropdown-menu-end">
-            <span className="d-inline d-sm-none username">
+            <span className="d-block d-lg-none username">
               Account
               <hr className="dropdown-hr" />
             </span>
@@ -189,13 +209,16 @@ export const Navbar = () => {
               width={100}
               height={100}
             />
-            <span id="profile-name" className="d-none d-md-inline">
+            <span
+              id="profile-name"
+              className="profile-username d-none d-lg-inline"
+            >
               Account
             </span>
           </div>
           <div className="dropdown-menu dropdown-menu-end">
-            <span className="d-inline d-sm-none username">
-              Account
+            <span className="d-block d-lg-none username">
+              <span className="profile-username username-text">Account</span>
               <hr className="dropdown-hr" />
             </span>
             {role === "user" ? (
