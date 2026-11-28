@@ -1,11 +1,29 @@
 [
   {
     "userId": 1,
-    "email": "admin@mail.com",
+    "email": "admin@gmail.com",
     "username": "admin",
-    "password": "$2b$12$HYHIipz9soUi7YrQ2dnyH.hQNPYoSzVsYNn2x7Htv4G6CGBuj9PKa",
+    "password": "$2b$12$Juv0Sc0lIZqZrsZ3vZDeE.PNpR/6CzgzzCxDZxlZbdx2Qx0/A9gLG",
     "role": "admin",
     "profile": "",
     "createdAt": "2026-11-28 10:00:00"
+  },
+  {
+    "userId": 2,
+    "email": "payakumbuah@resto.com",
+    "username": "resto",
+    "password": "$2b$12$wCLBO1SSj2X/LMlWikNlTeb9dhIo6QkYziMJF340uZI3LVWQKSmvu",
+    "role": "restaurant",
+    "profile": "",
+    "createdAt": "2026-11-28 10:09:00"
+  },
+  {
+    "userId": 3,
+    "email": "pagisore@resto.com",
+    "username": "resto",
+    "password": "$2b$12$wCLBO1SSj2X/LMlWikNlTeb9dhIo6QkYziMJF340uZI3LVWQKSmvu",
+    "role": "restaurant",
+    "profile": "",
+    "createdAt": "2026-11-28 10:10:00"
   }
 ]
