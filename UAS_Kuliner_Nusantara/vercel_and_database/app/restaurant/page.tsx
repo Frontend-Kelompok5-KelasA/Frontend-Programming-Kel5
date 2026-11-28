@@ -64,7 +64,7 @@ export default function RestaurantDashboard() {
 
         const [restoRes, reviewRes] = await Promise.all([
           fetch("/api/resto?mine=true", { cache: "no-store" }),
-          fetch("/api/reviews", { cache: "no-store" }),
+          fetch("/api/reviews?scope=restaurant", { cache: "no-store" }),
         ]);
 
         if (restoRes.ok) {
