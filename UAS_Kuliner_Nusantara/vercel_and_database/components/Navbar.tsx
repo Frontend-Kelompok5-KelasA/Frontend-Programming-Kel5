@@ -221,7 +221,7 @@ export const Navbar = () => {
               <span className="profile-username username-text">Account</span>
               <hr className="dropdown-hr" />
             </span>
-            {role === "user" ? (
+            {role === "user" || role === "restaurant" ? (
               <>
                 <Link className="dropdown-item" href="/users/profile">
                   View Profile

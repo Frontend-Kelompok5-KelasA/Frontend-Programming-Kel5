@@ -49,7 +49,7 @@ export async function POST(req: Request) {
   }
 }
 
-export async function GET() {
+export async function GET(req: Request) {
   const session = await getSession();
 
   const user = session.userData;
@@ -59,6 +59,7 @@ export async function GET() {
 
   const isAdmin = user.role === "admin";
   const isRestaurant = user.role === "restaurant";
+  const reqScope = new URL(req.url).searchParams.get("scope");
 
   try {
     const db = getRawPrisma();
@@ -94,7 +95,7 @@ export async function GET() {
     let scope = "mine";
     if (isAdmin) {
       scope = "all";
-    } else if (isRestaurant) {
+    } else if (isRestaurant && reqScope === "restaurant") {
       scope = "restaurant";
       result = rows.filter((r) => String(r.owner_id) === String(user.user_id));
     } else {
