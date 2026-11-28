@@ -1,27 +1,50 @@
 "use client";
 
-import React, {useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import {onLoad} from "@/script/navbar";
+import { onLoad } from "@/script/navbar";
 
 export const Navbar = () => {
   const [elements, setElements] = useState<string[]>();
   const [role, setRole] = useState<string | null>(null);
   const [loaded, setLoaded] = useState(false);
+  const navRef = useRef<HTMLElement>(null);
 
   const refs = useRef<any>({
     desc: {
-      title: null
+      title: null,
     },
     tabs: {
       home: null,
       explore: null,
       favorite: null,
       "about-us": null,
-      contact: null
-    }
+      contact: null,
+    },
   });
+
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      const nav = navRef.current;
+      if (!nav) return;
+
+      const menu = nav.querySelector<HTMLElement>("#nav-hamburger");
+      const toggler = nav.querySelector<HTMLButtonElement>(".navbar-toggler");
+      if (!menu || !toggler) return;
+
+      const isOpen = menu.classList.contains("show");
+      const isMobileLayout = getComputedStyle(toggler).display !== "none";
+      if (!isOpen || !isMobileLayout) return;
+
+      if (nav.contains(event.target as Node)) return;
+
+      toggler.click();
+    };
+
+    document.addEventListener("click", handleOutsideClick);
+    return () => document.removeEventListener("click", handleOutsideClick);
+  }, []);
 
   useEffect(() => {
     const check: any = async () => {
@@ -86,7 +109,7 @@ export const Navbar = () => {
   }, []);
 
   return (
-    <nav className="navbar navbar-expand-md sticky-top">
+    <nav ref={navRef} className="navbar navbar-expand-md sticky-top">
       <div className="container-fluid">
         <button
           className="navbar-toggler"
@@ -107,8 +130,9 @@ export const Navbar = () => {
             width={100}
             height={100}
           />
-          <span className="nav-title d-none d-md-inline"
-                ref={(e: any) => refs.current.desc.title = e}
+          <span
+            className="nav-title d-none d-md-inline"
+            ref={(e: any) => (refs.current.desc.title = e)}
           />
         </Link>
         <span className="nav-divider d-none d-md-block"></span>
@@ -194,7 +218,11 @@ export const Navbar = () => {
                 Admin
               </Link>
             ) : null}
-            <Link className="dropdown-item" href="/auth/logout" prefetch={false}>
+            <Link
+              className="dropdown-item"
+              href="/auth/logout"
+              prefetch={false}
+            >
               Sign Out
             </Link>
           </div>
@@ -202,27 +230,32 @@ export const Navbar = () => {
         <div className="collapse navbar-collapse" id="nav-hamburger">
           <div className="navbar-nav">
             {!loaded ? <span className="text-white"> Memuat... </span> : null}
-            <Link className="nav-link"
-                  href="/"
-                  ref={(e: any) => refs.current.tabs.home = e}
+            <Link
+              className="nav-link"
+              href="/"
+              ref={(e: any) => (refs.current.tabs.home = e)}
             />
-            <Link className="nav-link"
-                  href="/explore"
-                  ref={(e: any) => refs.current.tabs.explore = e}
+            <Link
+              className="nav-link"
+              href="/explore"
+              ref={(e: any) => (refs.current.tabs.explore = e)}
             />
             {role === "user" ? (
-              <Link href="/favorites"
-                    className="nav-link"
-                    ref={(e: any) => refs.current.tabs.favorite = e}
+              <Link
+                href="/favorites"
+                className="nav-link"
+                ref={(e: any) => (refs.current.tabs.favorite = e)}
               />
             ) : null}
-            <Link className="nav-link"
-                  href="/about-us"
-                  ref={(e: any) => refs.current.tabs["about-us"] = e}
+            <Link
+              className="nav-link"
+              href="/about-us"
+              ref={(e: any) => (refs.current.tabs["about-us"] = e)}
             />
-            <Link className="nav-link"
-                  href="/customer-service"
-                  ref={(e: any) => refs.current.tabs.contact = e}
+            <Link
+              className="nav-link"
+              href="/customer-service"
+              ref={(e: any) => (refs.current.tabs.contact = e)}
             />
             {role === "admin" ? (
               <Link className="nav-link" href="/admin">
