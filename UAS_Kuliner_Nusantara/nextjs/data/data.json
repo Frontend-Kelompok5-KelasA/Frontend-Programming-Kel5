@@ -114,6 +114,7 @@
   {
     "id": "pg-03",
     "name": "Pagi Sore",
+    "user_id": 3,
     "city": "Jakarta Utara",
     "place": "Komplek Rukan Golf Island, Blok E, Jl. Pantai Indah Kapuk, Kecamatan Penjaringan, Kota Jakarta Utara, Daerah Khusus Ibukota Jakarta 14460",
     "desc": "Restoran Padang premium legendaris yang didirikan sejak tahun 1973, terkenal dengan suasana mewah modern dan hidangan otentik juara seperti Ayam Pop dan Rendang empuk.",
@@ -130,6 +131,7 @@
   {
     "id": "payakumbuah-01",
     "name": "RM Padang Payakumbuah",
+    "user_id": 2,
     "city": "Jakarta Pusat",
     "place": "Jl. RP. Soeroso No.3, RT.9/RW.5, Cikini, Kec. Menteng, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10330",
     "desc": "Restoran Padang modern milik influencer Arief Muhammad yang terkenal dengan keautentian menu khas seperti Dendeng Batokok dan pengguna Beras Solok asli.",
