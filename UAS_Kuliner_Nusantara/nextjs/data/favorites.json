@@ -1,0 +1,26 @@
+[
+  {
+    "favoriteId": 1,
+    "userId": 36,
+    "restaurantId": "taliwang bali",
+    "createdAt": "2026-11-28 17:24:16"
+  },
+  {
+    "favoriteId": 2,
+    "userId": 36,
+    "restaurantId": "aruma",
+    "createdAt": "2026-11-28 17:30:17"
+  },
+  {
+    "favoriteId": 3,
+    "userId": 36,
+    "restaurantId": "remboelan",
+    "createdAt": "2026-11-28 17:30:19"
+  },
+  {
+    "favoriteId": 4,
+    "userId": 36,
+    "restaurantId": "sate khas senayan",
+    "createdAt": "2026-11-28 17:30:23"
+  }
+]
